@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Updater.Windows", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Hosts.Service", "Server\Hosts\Mileage.Server.Hosts.Service\Mileage.Server.Hosts.Service.csproj", "{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Tests.Licensing", "Tests\Mileage.Tests.Licensing\Mileage.Tests.Licensing.csproj", "{93642956-AC5F-4FA0-98F5-4D99671580AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93642956-AC5F-4FA0-98F5-4D99671580AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93642956-AC5F-4FA0-98F5-4D99671580AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93642956-AC5F-4FA0-98F5-4D99671580AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93642956-AC5F-4FA0-98F5-4D99671580AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +103,6 @@ Global
 		{232C7211-BE92-4AC3-B75E-96C2909E4FF6} = {B109422F-235F-4232-9B44-DE550F727F3F}
 		{6DCBCD57-B3B8-4981-851D-3134A184DC8B} = {B109422F-235F-4232-9B44-DE550F727F3F}
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08} = {7D283DD3-8560-4D7F-8647-C4AC236CB7A0}
+		{93642956-AC5F-4FA0-98F5-4D99671580AD} = {3C05C4AF-5FA3-4CB7-904B-512EE04BFF90}
 	EndGlobalSection
 EndGlobal

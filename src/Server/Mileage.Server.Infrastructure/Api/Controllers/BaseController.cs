@@ -99,6 +99,10 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         #endregion
 
         #region Methods
+        public virtual HttpResponseMessage GetMessageWithError(HttpStatusCode statusCode, string message)
+        {
+            return this.Request.CreateErrorResponse(statusCode, new HttpError(message));
+        }
         public virtual HttpResponseMessage GetMessageWithObject<T>(HttpStatusCode statusCode, T obj)
         {
             return this.Request.CreateResponse(statusCode, obj);

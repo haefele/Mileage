@@ -7,6 +7,7 @@ using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
 using Microsoft.Owin.Cors;
 using Mileage.Server.Infrastructure.Api.ContentNegotiation;
+using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Api.MessageHandlers;
 using Mileage.Server.Infrastructure.Windsor;
 using Newtonsoft.Json;
@@ -70,7 +71,7 @@ namespace Mileage.Server.Infrastructure
         /// <param name="config">The configuration.</param>
         private void ConfigureFilters(HttpConfiguration config)
         {
-            //config.Filters.Add(new HandleBusinessExceptionFilterAttribute());
+            config.Filters.Add(new HandleBusinessExceptionFilterAttribute());
         }
         /// <summary>
         /// Configures the message handlers.
@@ -81,6 +82,10 @@ namespace Mileage.Server.Infrastructure
             if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/CompressResponses").Value))
             {
                 config.MessageHandlers.Add(new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
+            }
+            if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/EnableDebugRequestResponseLogging").Value))
+            {
+                config.MessageHandlers.Add(new LoggingMessageHandler());
             }
             config.MessageHandlers.Add(new LocalizationMessageHandler());
             config.MessageHandlers.Add(new ConcurrentRequestCountMessageHandler());

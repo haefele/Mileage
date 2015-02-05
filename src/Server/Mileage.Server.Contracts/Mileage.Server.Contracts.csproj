@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Encryption\ISaltCombiner.cs" />
+    <Compile Include="Encryption\ISecretGenerator.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Licensing\ILicensingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

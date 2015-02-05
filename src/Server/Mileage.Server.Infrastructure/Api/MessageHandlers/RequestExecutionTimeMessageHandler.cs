@@ -18,11 +18,11 @@ namespace Mileage.Server.Infrastructure.Api.MessageHandlers
         /// </summary>
         /// <param name="request">The HTTP request message to send to the server.</param>
         /// <param name="cancellationToken">A cancellation token to cancel operation.</param>
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             using (this._timer.NewContext())
             {
-                return await base.SendAsync(request, cancellationToken);
+                return base.SendAsync(request, cancellationToken);
             }
         }
         #endregion

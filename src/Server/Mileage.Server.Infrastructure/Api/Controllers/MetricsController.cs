@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Metrics;
 using Metrics.Json;
@@ -41,12 +42,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// <summary>
         /// Gets the metrics.
         /// </summary>
-        [Route("Metrics")]
         [HttpGet]
-        public HttpResponseMessage AllMetrics()
+        [Route("Metrics")]
+        public async Task<HttpResponseMessage> GetMetricsAsync()
         {
             string json = JsonBuilderV2.BuildJson(_dataProvider.CurrentMetricsData);
-            var obj = JsonConvert.DeserializeObject(json);
+            var obj = await Task.Run(() => JsonConvert.DeserializeObject(json));
 
             return this.GetMessageWithObject(HttpStatusCode.Found, obj);
         }

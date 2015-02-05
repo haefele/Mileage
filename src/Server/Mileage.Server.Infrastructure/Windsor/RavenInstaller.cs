@@ -1,8 +1,13 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Mileage.Shared.Entities;
 using Raven.Client;
+using Raven.Client.Connection;
+using Raven.Client.Document;
 using Raven.Client.Extensions;
 using Raven.Client.FileSystem;
 using Raven.Client.Indexes;
@@ -41,8 +46,10 @@ namespace Mileage.Server.Infrastructure.Windsor
             {
                 Port = int.Parse(Dependency.OnAppSettingsValue("Mileage/RavenHttpServerPort").Value),
 
+                AssembliesDirectory = Path.Combine(".", "Database", "Assemblies"),
+                EmbeddedFilesDirectory = Path.Combine(".", "Database", "Files"),
                 DataDirectory = Path.Combine(".", "Database", "Data"),
-                CompiledIndexCacheDirectory = Path.Combine(".", "Database", "Raven"),
+                CompiledIndexCacheDirectory = Path.Combine(".", "Database", "Raven", "CompiledIndexCache"),
                 PluginsDirectory = Path.Combine(".", "Database", "Plugins"),
             };
             config.Settings.Add("Raven/CompiledIndexCacheDirectory", config.CompiledIndexCacheDirectory);
@@ -64,7 +71,20 @@ namespace Mileage.Server.Infrastructure.Windsor
                 ravenDbServer.EnableHttpServer();
             }
 
+            this.CustomizeRavenDocumentStore(ravenDbServer.DocumentStore);
+
             return ravenDbServer;
+        }
+        /// <summary>
+        /// Customizes the raven database.
+        /// </summary>
+        /// <param name="documentStore">The document store.</param>
+        private void CustomizeRavenDocumentStore(IDocumentStore documentStore)
+        {
+            documentStore.Conventions.RegisterAsyncIdConvention<AuthenticationData>((databaseName, commands, entity) =>
+            {
+                return Task.FromResult(AuthenticationData.CreateId(entity.UserId));
+            });
         }
         #endregion
     }

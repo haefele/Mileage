@@ -16,9 +16,8 @@ namespace Mileage.Shared.Common
         { 
             if (task == null) 
                 throw new ArgumentNullException("task");
-
-
-            _awaiter = task.GetAwaiter(); 
+            
+            this._awaiter = task.GetAwaiter(); 
         }
 
         public CultureAwaiter GetAwaiter()
@@ -28,23 +27,26 @@ namespace Mileage.Shared.Common
 
         public bool IsCompleted 
         {
-            get { return _awaiter.IsCompleted; } 
+            get { return this._awaiter.IsCompleted; } 
         }
 
         public void OnCompleted(Action continuation) 
         { 
-            _culture = Thread.CurrentThread.CurrentCulture;
-            _uiCulture = Thread.CurrentThread.CurrentUICulture;
+            this._culture = Thread.CurrentThread.CurrentCulture;
+            this._uiCulture = Thread.CurrentThread.CurrentUICulture;
 
-            _awaiter.OnCompleted(continuation); 
+            this._awaiter.OnCompleted(continuation); 
         }
 
         public void GetResult() 
         { 
-            Thread.CurrentThread.CurrentCulture = _culture;
-            Thread.CurrentThread.CurrentUICulture = _uiCulture;
+            if (this._culture != null)
+                Thread.CurrentThread.CurrentCulture = this._culture;
 
-            _awaiter.GetResult(); 
+            if (this._uiCulture != null)
+                Thread.CurrentThread.CurrentUICulture = this._uiCulture;
+
+            this._awaiter.GetResult(); 
         } 
     }
 
@@ -60,7 +62,7 @@ namespace Mileage.Shared.Common
                 throw new ArgumentNullException("task");
 
 
-            _awaiter = task.GetAwaiter();
+            this._awaiter = task.GetAwaiter();
         }
 
         public CultureAwaiter<T> GetAwaiter()
@@ -70,23 +72,26 @@ namespace Mileage.Shared.Common
 
         public bool IsCompleted
         {
-            get { return _awaiter.IsCompleted; }
+            get { return this._awaiter.IsCompleted; }
         }
 
         public void OnCompleted(Action continuation)
         {
-            _culture = Thread.CurrentThread.CurrentCulture;
-            _uiCulture = Thread.CurrentThread.CurrentUICulture;
+            this._culture = Thread.CurrentThread.CurrentCulture;
+            this._uiCulture = Thread.CurrentThread.CurrentUICulture;
 
-            _awaiter.OnCompleted(continuation);
+            this._awaiter.OnCompleted(continuation);
         }
 
         public T GetResult()
         {
-            Thread.CurrentThread.CurrentCulture = _culture;
-            Thread.CurrentThread.CurrentUICulture = _uiCulture;
+            if (this._culture != null)
+                Thread.CurrentThread.CurrentCulture = this._culture;
 
-            return _awaiter.GetResult();
+            if (this._uiCulture != null)
+                Thread.CurrentThread.CurrentUICulture = this._uiCulture;
+
+            return this._awaiter.GetResult();
         }
     }
 }

@@ -117,14 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmailIsNotAvailable" xml:space="preserve">
+    <value>Diese E-Mail-Adresse wird bereits verwendet.</value>
+  </data>
   <data name="LoginDataMissing" xml:space="preserve">
     <value>Bitte tragen Sie Ihren Benutzernamen und Passwort ein.</value>
   </data>
   <data name="PasswordIncorrect" xml:space="preserve">
     <value>Das Passwort ist falsch.</value>
   </data>
+  <data name="RegisterDataMissing" xml:space="preserve">
+    <value>Bitte tragen Sie einen Benutzernamen, ein Passwort und eine E-Mail-Adresse ein.</value>
+  </data>
   <data name="UnknownClient" xml:space="preserve">
     <value>Die Anwendung konnte nicht verifiziert werden.</value>
+  </data>
+  <data name="UserIsDeactivated" xml:space="preserve">
+    <value>Dieser Benutzer ist deaktiviert.</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>Es wurde kein Benutzer mit ihrem Benutzernamen gefunden.</value>

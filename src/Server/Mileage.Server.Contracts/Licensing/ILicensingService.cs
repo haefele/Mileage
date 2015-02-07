@@ -2,7 +2,7 @@
 
 namespace Mileage.Server.Contracts.Licensing
 {
-    public interface ILicensingService
+    public interface ILicensingService : IService
     {
         /// <summary>
         /// Loads the license from the specified <paramref name="licensePath"/>.

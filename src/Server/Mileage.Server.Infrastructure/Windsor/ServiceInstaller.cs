@@ -18,6 +18,7 @@ namespace Mileage.Server.Infrastructure.Windsor
                 Classes
                     .FromThisAssembly()
                     .BasedOn<IService>()
+                    .WithServiceFromInterface()
                     .LifestyleSingleton());
         }
     }

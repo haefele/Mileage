@@ -2,7 +2,7 @@
 
 namespace Mileage.Server.Contracts.Versioning
 {
-    public interface IVersionService
+    public interface IVersionService : IService
     {
         /// <summary>
         /// Gets the current version.

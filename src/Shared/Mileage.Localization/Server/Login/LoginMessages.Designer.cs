@@ -61,6 +61,15 @@ namespace Mileage.Localization.Server.Login {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email address is already in use..
+        /// </summary>
+        public static string EmailIsNotAvailable {
+            get {
+                return ResourceManager.GetString("EmailIsNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You need to enter your username and password..
         /// </summary>
         public static string LoginDataMissing {
@@ -79,11 +88,29 @@ namespace Mileage.Localization.Server.Login {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You need to enter a username, password and email address..
+        /// </summary>
+        public static string RegisterDataMissing {
+            get {
+                return ResourceManager.GetString("RegisterDataMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The application could not be verified..
         /// </summary>
         public static string UnknownClient {
             get {
                 return ResourceManager.GetString("UnknownClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user is deactivated..
+        /// </summary>
+        public static string UserIsDeactivated {
+            get {
+                return ResourceManager.GetString("UserIsDeactivated", resourceCulture);
             }
         }
         

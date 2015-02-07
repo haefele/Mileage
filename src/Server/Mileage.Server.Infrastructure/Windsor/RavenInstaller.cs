@@ -85,6 +85,10 @@ namespace Mileage.Server.Infrastructure.Windsor
             {
                 return Task.FromResult(AuthenticationData.CreateId(entity.UserId));
             });
+            documentStore.Conventions.RegisterAsyncIdConvention<AuthenticationToken>((databaseName, commands, entity) =>
+            {
+                return Task.FromResult(AuthenticationToken.CreateId(entity.Token));
+            });
         }
         #endregion
     }

@@ -43,10 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CultureAwaiter.cs" />
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\AggregateRoot.cs" />
     <Compile Include="Entities\AuthenticationData.cs" />
     <Compile Include="Entities\AuthenticationToken.cs" />
     <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\Driver.cs" />
+    <Compile Include="Entities\DriversLicense.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Models\Login.cs" />

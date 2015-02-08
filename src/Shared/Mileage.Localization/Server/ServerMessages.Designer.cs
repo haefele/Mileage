@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mileage.Localization.Server.Login {
+namespace Mileage.Localization.Server {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Mileage.Localization.Server.Login {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class LoginMessages {
+    public class ServerMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal LoginMessages() {
+        internal ServerMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Mileage.Localization.Server.Login {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Server.Login.LoginMessages", typeof(LoginMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Server.ServerMessages", typeof(ServerMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,11 @@ namespace Mileage.Localization.Server.Login {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The email address is already in use..
+        ///   Looks up a localized string similar to The application could not be verified..
         /// </summary>
-        public static string EmailIsNotAvailable {
+        public static string UnknownClient {
             get {
-                return ResourceManager.GetString("EmailIsNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need to enter your username and password..
-        /// </summary>
-        public static string LoginDataMissing {
-            get {
-                return ResourceManager.GetString("LoginDataMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The password is incorrect..
-        /// </summary>
-        public static string PasswordIncorrect {
-            get {
-                return ResourceManager.GetString("PasswordIncorrect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need to enter a username, password and email address..
-        /// </summary>
-        public static string RegisterDataMissing {
-            get {
-                return ResourceManager.GetString("RegisterDataMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This user is deactivated..
-        /// </summary>
-        public static string UserIsDeactivated {
-            get {
-                return ResourceManager.GetString("UserIsDeactivated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No user was found with your username..
-        /// </summary>
-        public static string UserNotFound {
-            get {
-                return ResourceManager.GetString("UserNotFound", resourceCulture);
+                return ResourceManager.GetString("UnknownClient", resourceCulture);
             }
         }
     }

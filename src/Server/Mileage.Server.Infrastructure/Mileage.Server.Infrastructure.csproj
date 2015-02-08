@@ -140,7 +140,9 @@
     <Compile Include="Api\Controllers\TestsController.cs" />
     <Compile Include="Api\Filters\HandleBusinessExceptionFilterAttribute.cs" />
     <Compile Include="Api\MessageHandlers\ConcurrentRequestCountMessageHandler.cs" />
+    <Compile Include="Api\MessageHandlers\LicenseValidationMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\LocalizationMessageHandler.cs" />
+    <Compile Include="Api\MessageHandlers\LoggedDelegatingHandler.cs" />
     <Compile Include="Api\MessageHandlers\LoggingMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\RequestExecutionTimeMessageHandler.cs" />
     <Compile Include="Bootstrapper\LoadLicenseStartable.cs" />

@@ -87,6 +87,7 @@ namespace Mileage.Server.Infrastructure
             {
                 config.MessageHandlers.Add(new LoggingMessageHandler());
             }
+            config.MessageHandlers.Add(new LicenseValidationMessageHandler());
             config.MessageHandlers.Add(new LocalizationMessageHandler());
             config.MessageHandlers.Add(new ConcurrentRequestCountMessageHandler());
             config.MessageHandlers.Add(new RequestExecutionTimeMessageHandler());

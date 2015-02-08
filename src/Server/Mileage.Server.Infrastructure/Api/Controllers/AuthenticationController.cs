@@ -12,6 +12,7 @@ using Mileage.Server.Contracts.Encryption;
 using Mileage.Server.Contracts.Licensing;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Server.Infrastructure.Raven.Indexes;
+using Mileage.Shared.Common;
 using Mileage.Shared.Entities;
 using Mileage.Shared.Extensions;
 using Mileage.Shared.Models;
@@ -67,7 +68,6 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// <returns>
         /// 200 - OK: Login is successfull.
         /// 400 - BadRequest: Required data are missing.
-        /// 403 - Forbidden: No license for the application.
         /// 404 - NotFound: Username and password are not correct.
         /// 406 - NotAcceptable: User is deactivated.
         /// </returns>
@@ -77,21 +77,8 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         {
             if (loginData == null || loginData.Username == null || loginData.PasswordMD5Hash == null)
                 return this.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.LoginDataMissing);
-
-            var client = this.Request.Headers.UserAgent.Select(f => f.Product).Select(f => new { Id = f.Name, f.Version }).FirstOrDefault();
-
-            if (client == null || string.IsNullOrEmpty(client.Id))
-                return this.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.UnknownClient);
-
-            Result licenseResult = this._licensingService.AssertValidLicense(client.Id);
-
-            if (licenseResult.IsError)
-                return this.GetMessageWithResult(HttpStatusCode.Forbidden, licenseResult);
-
-            User user = await this.DocumentSession.Query<User, UsersForQuery>()
-                .Where(f => f.Username == loginData.Username)
-                .FirstOrDefaultAsync()
-                .WithCurrentCulture();
+            
+            User user = await this.GetUserWithUsername(loginData.Username).WithCurrentCulture();
 
             if (user == null)
                 return this.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.UserNotFound);
@@ -104,9 +91,11 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 .WithCurrentCulture();
 
             byte[] passedHash = this._saltCombiner.Combine(authenticationData.Salt, loginData.PasswordMD5Hash);
-
+            
             if (authenticationData.Hash.SequenceEqual(passedHash) == false)
                 return this.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.PasswordIncorrect);
+
+            var client = this.Request.Headers.UserAgent.Select(f => f.Product).First();
 
             var token = new AuthenticationToken
             {
@@ -116,7 +105,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 ValidUntil = DateTimeOffset.Now.AddHours(ValidTokenDurationInHours),
                 Client = new Client
                 {
-                    ClientId = client.Id,
+                    ClientId = client.Name,
                     Version = client.Version,
                     IP = this.OwinContext.Request.RemoteIpAddress
                 }
@@ -169,6 +158,16 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Returns the user with the specified <paramref name="username"/>.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        private Task<User> GetUserWithUsername(string username)
+        {
+            return this.DocumentSession.Query<User, UsersForQuery>()
+                .Where(f => f.Username == username)
+                .FirstOrDefaultAsync();
+        }
         /// <summary>
         /// Returns whether the specified <paramref name="emailAddress"/> is already in use.
         /// </summary>

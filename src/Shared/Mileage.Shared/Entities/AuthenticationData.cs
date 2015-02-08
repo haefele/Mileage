@@ -1,4 +1,6 @@
-﻿namespace Mileage.Shared.Entities
+﻿using System.Linq;
+
+namespace Mileage.Shared.Entities
 {
     public class AuthenticationData : AggregateRoot
     {

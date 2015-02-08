@@ -129,9 +129,6 @@
   <data name="RegisterDataMissing" xml:space="preserve">
     <value>Bitte tragen Sie einen Benutzernamen, ein Passwort und eine E-Mail-Adresse ein.</value>
   </data>
-  <data name="UnknownClient" xml:space="preserve">
-    <value>Die Anwendung konnte nicht verifiziert werden.</value>
-  </data>
   <data name="UserIsDeactivated" xml:space="preserve">
     <value>Dieser Benutzer ist deaktiviert.</value>
   </data>

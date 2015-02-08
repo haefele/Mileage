@@ -45,6 +45,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Server\ServerMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServerMessages.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -52,6 +57,11 @@
     <EmbeddedResource Include="Server\Login\LoginMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Server\ServerMessages.de.resx" />
+    <EmbeddedResource Include="Server\ServerMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ServerMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

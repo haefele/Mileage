@@ -2,22 +2,16 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using System.Web.Http;
 using LiteGuard;
-using Metrics.Core;
 using Mileage.Localization.Server.Login;
 using Mileage.Server.Contracts.Encryption;
-using Mileage.Server.Contracts.Licensing;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Server.Infrastructure.Raven.Indexes;
-using Mileage.Shared.Common;
 using Mileage.Shared.Entities;
 using Mileage.Shared.Extensions;
 using Mileage.Shared.Models;
-using Mileage.Shared.Results;
-using NLog.Targets.Wrappers;
 using Raven.Client;
 using Raven.Client.FileSystem;
 
@@ -33,7 +27,6 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         #endregion
 
         #region Fields
-        private readonly ILicensingService _licensingService;
         private readonly ISaltCombiner _saltCombiner;
         private readonly ISecretGenerator _secretGenerator;
         #endregion
@@ -44,17 +37,14 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </summary>
         /// <param name="documentSession">The document session.</param>
         /// <param name="filesSession">The files session.</param>
-        /// <param name="licensingService">The licensing service.</param>
         /// <param name="saltCombiner">The salt combiner.</param>
         /// <param name="secretGenerator">The secret generator.</param>
-        public AuthenticationController(IAsyncDocumentSession documentSession, IAsyncFilesSession filesSession, ILicensingService licensingService, ISaltCombiner saltCombiner, ISecretGenerator secretGenerator)
+        public AuthenticationController(IAsyncDocumentSession documentSession, IAsyncFilesSession filesSession, ISaltCombiner saltCombiner, ISecretGenerator secretGenerator)
             : base(documentSession, filesSession)
         {
-            Guard.AgainstNullArgument("licensingService", licensingService);
             Guard.AgainstNullArgument("saltCombiner", saltCombiner);
             Guard.AgainstNullArgument("secretGenerator", secretGenerator);
 
-            this._licensingService = licensingService;
             this._saltCombiner = saltCombiner;
             this._secretGenerator = secretGenerator;
         }
@@ -76,16 +66,16 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public async Task<HttpResponseMessage> Login(Login loginData)
         {
             if (loginData == null || loginData.Username == null || loginData.PasswordMD5Hash == null)
-                return this.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.LoginDataMissing);
+                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.LoginDataMissing);
             
             User user = await this.GetUserWithUsername(loginData.Username).WithCurrentCulture();
 
             if (user == null)
-                return this.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.UserNotFound);
+                return this.Request.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.UserNotFound);
 
             if (user.IsDeactivated)
-                return this.GetMessageWithError(HttpStatusCode.NotAcceptable, LoginMessages.UserIsDeactivated);
-
+                return this.Request.GetMessageWithError(HttpStatusCode.NotAcceptable, LoginMessages.UserIsDeactivated);
+            
             AuthenticationData authenticationData = await this.DocumentSession
                 .LoadAsync<AuthenticationData>(AuthenticationData.CreateId(user.Id))
                 .WithCurrentCulture();
@@ -93,7 +83,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
             byte[] passedHash = this._saltCombiner.Combine(authenticationData.Salt, loginData.PasswordMD5Hash);
             
             if (authenticationData.Hash.SequenceEqual(passedHash) == false)
-                return this.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.PasswordIncorrect);
+                return this.Request.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.PasswordIncorrect);
 
             var client = this.Request.Headers.UserAgent.Select(f => f.Product).First();
 
@@ -113,7 +103,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
             await this.DocumentSession.StoreAsync(token).WithCurrentCulture();
 
-            return this.GetMessageWithObject(HttpStatusCode.OK, token);
+            return this.Request.GetMessageWithObject(HttpStatusCode.OK, token);
         }
         /// <summary>
         /// Registers a new user.
@@ -129,10 +119,10 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public async Task<HttpResponseMessage> Register(Register registerData)
         {
             if (registerData == null || registerData.EmailAddress == null || registerData.Username == null || registerData.PasswordMD5Hash == null || registerData.Language == null)
-                return this.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.RegisterDataMissing);
+                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.RegisterDataMissing);
 
             if (await this.IsEmailAddressInUse(registerData.EmailAddress).WithCurrentCulture())
-                return this.GetMessageWithError(HttpStatusCode.Forbidden, LoginMessages.EmailIsNotAvailable);
+                return this.Request.GetMessageWithError(HttpStatusCode.Forbidden, LoginMessages.EmailIsNotAvailable);
 
             var user = new User
             {
@@ -153,7 +143,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
             await this.DocumentSession.StoreAsync(authenticationData).WithCurrentCulture();
 
-            return this.GetMessageWithObject(HttpStatusCode.Created, user);
+            return this.Request.GetMessageWithObject(HttpStatusCode.Created, user);
         }
         #endregion
 

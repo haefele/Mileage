@@ -1,16 +1,17 @@
 ﻿using System;   
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
+using System.Text;
 using Castle.Core.Logging;
 using LiteGuard;
+using Mileage.Localization.Server.Licensing;
 using Mileage.Server.Contracts.Licensing;
 using Mileage.Server.Contracts.Versioning;
-using Mileage.Server.Infrastructure.Exceptions;
 using Mileage.Shared.Results;
 using Portable.Licensing;
 using Portable.Licensing.Validation;
-using Simulated;
 
 namespace Mileage.Server.Infrastructure.Licensing
 {
@@ -25,7 +26,7 @@ namespace Mileage.Server.Infrastructure.Licensing
 
         #region Fields
         private readonly IVersionService _versionService;
-        private readonly FileSystem _fileSystem;
+        private readonly IFileSystem _fileSystem;
 
         private License _license;
         #endregion
@@ -43,7 +44,7 @@ namespace Mileage.Server.Infrastructure.Licensing
         /// </summary>
         /// <param name="versionService">The version service.</param>
         /// <param name="fileSystem">The file system.</param>
-        public LicensingService(IVersionService versionService, FileSystem fileSystem)
+        public LicensingService(IVersionService versionService, IFileSystem fileSystem)
         {
             Guard.AgainstNullArgument("versionService", versionService);
             Guard.AgainstNullArgument("fileSystem", fileSystem);
@@ -64,10 +65,16 @@ namespace Mileage.Server.Infrastructure.Licensing
         {
             Guard.AgainstNullArgument("licensePath", licensePath);
 
-            if (this._fileSystem.File(licensePath).Exists == false)
+            if (string.IsNullOrWhiteSpace(licensePath))
+            {
+                this.Logger.WarnFormat("License path is empty.");
+                return Result.AsError(LicensingMessages.LicenseNotFound);
+            }
+
+            if (this._fileSystem.FileInfo.FromFileName(licensePath).Exists == false)
             {
                 this.Logger.WarnFormat("License not found. Path is: {0}", licensePath);
-                return Result.AsError("License not found.");
+                return Result.AsError(LicensingMessages.LicenseNotFound);
             }
 
             Result<License> licenseResult = this.LoadLicenseFromFile(licensePath);
@@ -93,7 +100,7 @@ namespace Mileage.Server.Infrastructure.Licensing
 #else
 
             if (this._license == null)
-                return Result.AsError("No license has been loaded.");
+                return Result.AsError(LicensingMessages.LicenseNotFound);
             
             List<IValidationFailure> errors = this._license
                 .Validate().ExpirationDate()
@@ -105,8 +112,10 @@ namespace Mileage.Server.Infrastructure.Licensing
 
             if (errors.Any())
             {
-                this.Logger.ErrorFormat("The license is invalid. {0}", string.Join(", ", errors.Select(f => f.Message)));
-                return Result.AsError("There are some errors with the license file. Take a look at the logs to get more information.");
+                string licenseErrorMessages = this.GetLicenseErrorMessagesForClient(errors);
+
+                this.Logger.ErrorFormat("The license is invalid. {0}", licenseErrorMessages);
+                return Result.AsError(string.Format(LicensingMessages.LicenseIsInvalid, licenseErrorMessages));
             }
 
             return Result.AsSuccess();
@@ -123,18 +132,13 @@ namespace Mileage.Server.Infrastructure.Licensing
         {
             Guard.AgainstNullArgument("licensePath", licensePath);
 
-            try
+            return Result.Create(() =>
             {
-                using (FileStream stream = File.OpenRead(licensePath))
+                using (Stream stream = this._fileSystem.File.OpenRead(licensePath))
                 {
-                    return Result.AsSuccess(License.Load(stream));
+                    return License.Load(stream);
                 }
-            }
-            catch (Exception exception)
-            {
-                this.Logger.Error(string.Format("Exception while loading the license. Path is: {0}", licensePath), exception);
-                return Result.AsError(exception.Message);
-            }
+            });
         }
         /// <summary>
         /// Returns whether the license is valid with the current version of Mileage.
@@ -152,6 +156,33 @@ namespace Mileage.Server.Infrastructure.Licensing
         private bool LicenseHasClientId(License license, string clientId)
         {
             return license.ProductFeatures.Get("Products").Split(';').Contains(clientId);
+        }
+        /// <summary>
+        /// Creates the license error messages for the client.
+        /// </summary>
+        /// <param name="errors">The errors.</param>
+        private string GetLicenseErrorMessagesForClient(IEnumerable<IValidationFailure> errors)
+        {
+            return errors
+                .Select(f =>
+                    {
+                        if (f is LicenseIsInvalidForCurrentVersionValidationFailure)
+                            return LicensingMessages.LicenseIsInvalidForCurrentVersion;
+
+                        if (f is ClientIdMissingValidationFailure)
+                            return LicensingMessages.ClientIdMissing;
+
+                        if (f is InvalidSignatureValidationFailure)
+                            return LicensingMessages.InvalidSignature;
+
+                        if (f is LicenseExpiredValidationFailure)
+                            return LicensingMessages.LicenseExpired;
+
+                        this.Logger.DebugFormat("Creating license error message for the client. Could not identify this validation failure: {0}", f.GetType());
+
+                        return string.Empty;
+                    })
+                .Aggregate(string.Empty, (current, part) => current + " " + part);
         }
         #endregion
     }

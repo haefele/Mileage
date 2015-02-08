@@ -1,7 +1,7 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System.IO.Abstractions;
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Simulated;
 
 namespace Mileage.Server.Infrastructure.Windsor
 {
@@ -10,7 +10,7 @@ namespace Mileage.Server.Infrastructure.Windsor
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
            container.Register(
-               Component.For<FileSystem>().Instance(FileSystem.Real()).LifestyleSingleton());
+               Component.For<IFileSystem>().Instance(new FileSystem()).LifestyleSingleton());
         }
     }
 }

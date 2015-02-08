@@ -41,11 +41,6 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </summary>
         public IAsyncFilesSession FilesSession { get; private set; }
         /// <summary>
-        /// Gets or sets a value indicating whether an exception occured.
-        /// This property gets set by the <see cref="HandleBusinessExceptionFilterAttribute"/>.
-        /// </summary>
-        public bool ExceptionOccured { get; internal set; }
-        /// <summary>
         /// Gets or sets the logger.
         /// </summary>
         public ILogger Logger { get; set; }
@@ -87,29 +82,11 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
             using (this.DocumentSession)
             {
-                if (this.ExceptionOccured == false)
-                {
-                    await this.DocumentSession.SaveChangesAsync(cancellationToken);
-                    await this.FilesSession.SaveChangesAsync();
-                }
+                await this.DocumentSession.SaveChangesAsync(cancellationToken);
+                await this.FilesSession.SaveChangesAsync();
             }
 
             return response;
-        }
-        #endregion
-
-        #region Methods
-        public virtual HttpResponseMessage GetMessageWithError(HttpStatusCode statusCode, string message)
-        {
-            return this.Request.CreateErrorResponse(statusCode, new HttpError(message));
-        }
-        public virtual HttpResponseMessage GetMessageWithObject<T>(HttpStatusCode statusCode, T obj)
-        {
-            return this.Request.CreateResponse(statusCode, obj);
-        }
-        public virtual HttpResponseMessage GetMessageWithResult(HttpStatusCode statusCode, Result result)
-        {
-            return this.Request.CreateErrorResponse(statusCode, new HttpError(result.Message));
         }
         #endregion
     }

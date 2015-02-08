@@ -40,6 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\Licensing\LicensingMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LicensingMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Server\Login\LoginMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -53,6 +58,11 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Server\Licensing\LicensingMessages.de.resx" />
+    <EmbeddedResource Include="Server\Licensing\LicensingMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LicensingMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Server\Login\LoginMessages.de.resx" />
     <EmbeddedResource Include="Server\Login\LoginMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

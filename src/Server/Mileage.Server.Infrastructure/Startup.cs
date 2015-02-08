@@ -71,7 +71,6 @@ namespace Mileage.Server.Infrastructure
         /// <param name="config">The configuration.</param>
         private void ConfigureFilters(HttpConfiguration config)
         {
-            config.Filters.Add(new HandleBusinessExceptionFilterAttribute());
         }
         /// <summary>
         /// Configures the message handlers.
@@ -79,18 +78,22 @@ namespace Mileage.Server.Infrastructure
         /// <param name="config">The configuration.</param>
         private void ConfigureMessageHandlers(HttpConfiguration config)
         {
+            config.MessageHandlers.Add(new RequestExecutionTimeMessageHandler());
+            config.MessageHandlers.Add(new ConcurrentRequestCountMessageHandler());
+
             if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/CompressResponses").Value))
             {
                 config.MessageHandlers.Add(new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
             }
+
+            config.MessageHandlers.Add(new LocalizationMessageHandler());
+
             if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/EnableDebugRequestResponseLogging").Value))
             {
                 config.MessageHandlers.Add(new LoggingMessageHandler());
             }
+
             config.MessageHandlers.Add(new LicenseValidationMessageHandler());
-            config.MessageHandlers.Add(new LocalizationMessageHandler());
-            config.MessageHandlers.Add(new ConcurrentRequestCountMessageHandler());
-            config.MessageHandlers.Add(new RequestExecutionTimeMessageHandler());
         }
         /// <summary>
         /// Configures the routes.

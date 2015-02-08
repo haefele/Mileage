@@ -127,6 +127,20 @@ namespace Mileage.Shared.Results
                 Data = data
             };
         }
+
+        public static Result<T> Create<T>(Func<T> action)
+        {
+            Guard.AgainstNullArgument("action", action);
+
+            try
+            {
+                return Result.AsSuccess(action());
+            }
+            catch (Exception exception)
+            {
+                return Result.FromException(exception);
+            }
+        }
         #endregion
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities;
 using Raven.Client;
 using Raven.Client.FileSystem;
@@ -20,25 +21,11 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         {
         }
 
-        [Route("Tests")]
         [HttpGet]
+        [Route("Tests")]
         public async Task<HttpResponseMessage> GetTests()
         {
-            var user = new User
-            {
-                Username = "haefele",
-                IsDeactivated = false,
-                NotificationEmailAddress = "haefele@xemio.net",
-                PreferredLanguage = "de-DE"
-            };
-            await this.DocumentSession.StoreAsync(user);
-            var authenticationData = new AuthenticationData
-            {
-                UserId = user.Id,
-            };
-            await this.DocumentSession.StoreAsync(authenticationData);
-
-            return this.GetMessageWithObject(HttpStatusCode.OK, user);
+            return this.Request.GetMessageWithObject(HttpStatusCode.OK, new {Message = "asdf"});
         }
     }
 }

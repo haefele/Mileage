@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Mileage.Client.Windows.Views.Login.LoginView" 
+             
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             
+             Width="100"
+             >
+    <Grid>
+
+        <dxlc:LayoutControl Header="Header" Orientation="Vertical" UseLayoutRounding="True">
+            <dxlc:LayoutGroup Header="LayoutGroup" View="GroupBox">
+                <dxlc:LayoutItem>
+
+                    <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top">
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                    
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+
+    </Grid>
+</UserControl>

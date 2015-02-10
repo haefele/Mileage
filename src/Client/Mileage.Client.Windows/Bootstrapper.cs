@@ -11,6 +11,9 @@ using Castle.Core.Logging;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using DevExpress.Xpf.Core;
+using Mileage.Client.Windows.Views.Login;
+using Mileage.Client.Windows.Windows;
 
 namespace Mileage.Client.Windows
 {
@@ -38,6 +41,8 @@ namespace Mileage.Client.Windows
         {
             this._container = new WindsorContainer();
             this._container.Install(FromAssembly.This());
+
+            this.ConfigureDevExpressTheme();
         }
         /// <summary>
         /// Override this to provide an IoC specific implementation.
@@ -123,11 +128,25 @@ namespace Mileage.Client.Windows
 
         #region Private Methods
         /// <summary>
+        /// Configures the DevExpress theme.
+        /// </summary>
+        private void ConfigureDevExpressTheme()
+        {
+            ThemeManager.ApplicationThemeName = "Office2013LightGray";
+        }
+        /// <summary>
         /// Shows the login view and returns whether the login was successfull.
         /// </summary>
         private bool ShowLoginView()
         {
-            return true;
+            var windowManager = this._container.Resolve<IWindowManager>();
+            var loginViewModel = this._container.Resolve<LoginViewModel>();
+
+            bool? loggedIn = windowManager.ShowDialog(loginViewModel, null, WindowSetting.AutoSizeNoResize());
+
+            this._container.Release(loginViewModel);
+
+            return loggedIn.GetValueOrDefault();
         }
         /// <summary>
         /// Shows the shell view and returns whether the user logged himself out.

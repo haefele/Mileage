@@ -1,12 +1,13 @@
-﻿using Caliburn.Micro;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Mileage.Client.Windows.Windows;
+using LiteDB;
+using Mileage.Client.Contracts.Storage;
+using Mileage.Client.Windows.Storage;
 
 namespace Mileage.Client.Windows.Windsor
 {
-    public class CaliburnInstaller : IWindsorInstaller
+    public class LiteDatabaseInstaller : IWindsorInstaller
     {
         /// <summary>
         /// Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer" />.
@@ -16,8 +17,8 @@ namespace Mileage.Client.Windows.Windsor
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Component.For<IWindowManager>().ImplementedBy<MileageWindowManager>().LifestyleSingleton(),
-                Component.For<IEventAggregator>().ImplementedBy<EventAggregator>().LifestyleSingleton());
+                Component.For<IDataStorage>().ImplementedBy<LiteDatabaseStorage>()
+                    .DependsOn(Dependency.OnAppSettingsValue("filePath", "Mileage/EmbeddedDatabaseName")));
         }
     }
 }

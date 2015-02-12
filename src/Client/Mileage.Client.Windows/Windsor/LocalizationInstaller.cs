@@ -1,12 +1,12 @@
-﻿using Caliburn.Micro;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Mileage.Client.Windows.Windows;
+using Mileage.Client.Contracts.Localization;
+using Mileage.Client.Windows.Localization;
 
 namespace Mileage.Client.Windows.Windsor
 {
-    public class CaliburnInstaller : IWindsorInstaller
+    public class LocalizationInstaller : IWindsorInstaller
     {
         /// <summary>
         /// Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer" />.
@@ -16,8 +16,7 @@ namespace Mileage.Client.Windows.Windsor
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Component.For<IWindowManager>().ImplementedBy<MileageWindowManager>().LifestyleSingleton(),
-                Component.For<IEventAggregator>().ImplementedBy<EventAggregator>().LifestyleSingleton());
+                Component.For<ILocalizationManager>().ImplementedBy<LocalizationManager>().LifestyleSingleton());
         }
     }
 }

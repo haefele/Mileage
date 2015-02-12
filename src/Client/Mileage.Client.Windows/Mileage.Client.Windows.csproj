@@ -67,6 +67,12 @@
     <Reference Include="DevExpress.Xpf.LayoutControl.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpf.Printing.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Themes.Office2013LightGray.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="LiteDB">
+      <HintPath>..\..\packages\LiteDB.0.9.0\lib\net35\LiteDB.dll</HintPath>
+    </Reference>
+    <Reference Include="LiteGuard">
+      <HintPath>..\..\packages\LiteGuard.0.10.0\lib\net35\LiteGuard.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
@@ -109,9 +115,18 @@
     </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
+    <Reference Include="Weakly">
+      <HintPath>..\..\packages\Weakly.2.2.3\lib\portable-net45+win8+wp8+wpa81\Weakly.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFLocalizeExtension">
+      <HintPath>..\..\packages\WpfLocalizeExtension.2.2.1\lib\net35\WPFLocalizeExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="XAMLMarkupExtensions">
+      <HintPath>..\..\packages\XAMLMarkupExtensions.1.1.6.3\lib\net40\XAMLMarkupExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -122,6 +137,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Localization\LanguageChangedEvent.cs" />
+    <Compile Include="Localization\LocalizationManager.cs" />
+    <Compile Include="Storage\LiteDatabaseStorage.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -129,6 +147,9 @@
     <Compile Include="Windows\MileageWindowManager.cs" />
     <Compile Include="Windows\WindowSetting.cs" />
     <Compile Include="Windsor\CaliburnInstaller.cs" />
+    <Compile Include="Windsor\LiteDatabaseInstaller.cs" />
+    <Compile Include="Windsor\LocalizationInstaller.cs" />
+    <Compile Include="Windsor\LoggingInstaller.cs" />
     <Compile Include="Windsor\ViewModelInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +190,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mileage.Client.Contracts\Mileage.Client.Contracts.csproj">
+      <Project>{2BAC79F8-3FCC-4090-B30D-E0D934F93B53}</Project>
+      <Name>Mileage.Client.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

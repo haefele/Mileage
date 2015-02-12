@@ -99,8 +99,8 @@ namespace Mileage.Client.Windows.Localization
         /// </summary>
         public IEnumerable<CultureInfo> GetSupportedLanguages()
         {
-            yield return new CultureInfo("de-DE");
-            yield return new CultureInfo("en-US");
+            yield return new CultureInfo("de");
+            yield return new CultureInfo("en");
         }
         /// <summary>
         /// Adds the language dependent action.

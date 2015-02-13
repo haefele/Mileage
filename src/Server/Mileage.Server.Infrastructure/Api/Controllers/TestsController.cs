@@ -23,7 +23,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
         [HttpGet]
         [Route("Tests")]
-        public async Task<HttpResponseMessage> GetTests()
+        public HttpResponseMessage GetTests()
         {
             return this.Request.GetMessageWithObject(HttpStatusCode.OK, new {Message = "asdf"});
         }

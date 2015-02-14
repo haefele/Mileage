@@ -3,39 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{DEB043B8-21DC-412B-B61E-349AC3797373}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Client", "02 Client", "{DEB043B8-21DC-412B-B61E-349AC3797373}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{E99D1DCE-9797-4974-AC9A-0CDD5B504382}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Server", "03 Server", "{E99D1DCE-9797-4974-AC9A-0CDD5B504382}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3C05C4AF-5FA3-4CB7-904B-512EE04BFF90}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Tests", "05 Tests", "{3C05C4AF-5FA3-4CB7-904B-512EE04BFF90}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{CAD4D317-3751-4B51-9B30-1C6C58C52F94}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Shared", "04 Shared", "{CAD4D317-3751-4B51-9B30-1C6C58C52F94}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Updater", "Updater", "{B109422F-235F-4232-9B44-DE550F727F3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Client.Contracts", "02 Client\Mileage.Client.Contracts\Mileage.Client.Contracts.csproj", "{2BAC79F8-3FCC-4090-B30D-E0D934F93B53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Client.Contracts", "Client\Mileage.Client.Contracts\Mileage.Client.Contracts.csproj", "{2BAC79F8-3FCC-4090-B30D-E0D934F93B53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Client.Windows", "02 Client\Mileage.Client.Windows\Mileage.Client.Windows.csproj", "{4186C3F2-10C9-4BC8-A1E6-D96E8419CBA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Client.Windows", "Client\Mileage.Client.Windows\Mileage.Client.Windows.csproj", "{4186C3F2-10C9-4BC8-A1E6-D96E8419CBA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Contracts", "03 Server\Mileage.Server.Contracts\Mileage.Server.Contracts.csproj", "{75199176-008F-4F8D-AC75-B25357DCEAAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Contracts", "Server\Mileage.Server.Contracts\Mileage.Server.Contracts.csproj", "{75199176-008F-4F8D-AC75-B25357DCEAAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Infrastructure", "03 Server\Mileage.Server.Infrastructure\Mileage.Server.Infrastructure.csproj", "{6C3D7F80-732C-4AC4-8040-027CA560B829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Infrastructure", "Server\Mileage.Server.Infrastructure\Mileage.Server.Infrastructure.csproj", "{6C3D7F80-732C-4AC4-8040-027CA560B829}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Hosts.Console", "03 Server\Hosts\Mileage.Server.Hosts.Console\Mileage.Server.Hosts.Console.csproj", "{05EBB100-C5CB-436E-999E-770BAD35FCD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Hosts.Console", "Server\Hosts\Mileage.Server.Hosts.Console\Mileage.Server.Hosts.Console.csproj", "{05EBB100-C5CB-436E-999E-770BAD35FCD5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Localization", "Shared\Mileage.Localization\Mileage.Localization.csproj", "{D29051A8-49E0-4842-B108-02D049EEE87C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Localization", "04 Shared\Mileage.Localization\Mileage.Localization.csproj", "{D29051A8-49E0-4842-B108-02D049EEE87C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{7D283DD3-8560-4D7F-8647-C4AC236CB7A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Shared", "Shared\Mileage.Shared\Mileage.Shared.csproj", "{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Shared", "04 Shared\Mileage.Shared\Mileage.Shared.csproj", "{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Updater.Contracts", "Updater\Mileage.Updater.Contracts\Mileage.Updater.Contracts.csproj", "{232C7211-BE92-4AC3-B75E-96C2909E4FF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Hosts.Service", "03 Server\Hosts\Mileage.Server.Hosts.Service\Mileage.Server.Hosts.Service.csproj", "{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Updater.Windows", "Updater\Mileage.Updater.Windows\Mileage.Updater.Windows.csproj", "{6DCBCD57-B3B8-4981-851D-3134A184DC8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Tests.Licensing", "05 Tests\Mileage.Tests.Licensing\Mileage.Tests.Licensing.csproj", "{93642956-AC5F-4FA0-98F5-4D99671580AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Server.Hosts.Service", "Server\Hosts\Mileage.Server.Hosts.Service\Mileage.Server.Hosts.Service.csproj", "{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Tests.Licensing", "Tests\Mileage.Tests.Licensing\Mileage.Tests.Licensing.csproj", "{93642956-AC5F-4FA0-98F5-4D99671580AD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Solution Items", "01 Solution Items", "{81945BD8-5E9D-4F34-8392-0BC0CAD60873}"
+	ProjectSection(SolutionItems) = preProject
+		VersionInfo.cs = VersionInfo.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,14 +70,6 @@ Global
 		{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{232C7211-BE92-4AC3-B75E-96C2909E4FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{232C7211-BE92-4AC3-B75E-96C2909E4FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{232C7211-BE92-4AC3-B75E-96C2909E4FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{232C7211-BE92-4AC3-B75E-96C2909E4FF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DCBCD57-B3B8-4981-851D-3134A184DC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DCBCD57-B3B8-4981-851D-3134A184DC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DCBCD57-B3B8-4981-851D-3134A184DC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DCBCD57-B3B8-4981-851D-3134A184DC8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -100,8 +91,6 @@ Global
 		{D29051A8-49E0-4842-B108-02D049EEE87C} = {CAD4D317-3751-4B51-9B30-1C6C58C52F94}
 		{7D283DD3-8560-4D7F-8647-C4AC236CB7A0} = {E99D1DCE-9797-4974-AC9A-0CDD5B504382}
 		{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7} = {CAD4D317-3751-4B51-9B30-1C6C58C52F94}
-		{232C7211-BE92-4AC3-B75E-96C2909E4FF6} = {B109422F-235F-4232-9B44-DE550F727F3F}
-		{6DCBCD57-B3B8-4981-851D-3134A184DC8B} = {B109422F-235F-4232-9B44-DE550F727F3F}
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08} = {7D283DD3-8560-4D7F-8647-C4AC236CB7A0}
 		{93642956-AC5F-4FA0-98F5-4D99671580AD} = {3C05C4AF-5FA3-4CB7-904B-512EE04BFF90}
 	EndGlobalSection

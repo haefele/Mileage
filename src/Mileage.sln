@@ -33,7 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Tests.Licensing", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Solution Items", "01 Solution Items", "{81945BD8-5E9D-4F34-8392-0BC0CAD60873}"
 	ProjectSection(SolutionItems) = preProject
-		VersionInfo.cs = VersionInfo.cs
+		01 Solution Items\SolutionInfo.cs = 01 Solution Items\SolutionInfo.cs
+		01 Solution Items\VersionInfo.cs = 01 Solution Items\VersionInfo.cs
 	EndProjectSection
 EndProject
 Global

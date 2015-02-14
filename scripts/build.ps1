@@ -2,7 +2,8 @@ Param(
     [string]$Script = "build.cake",
     [string]$Target = "Default",
     [string]$Configuration = "Release",
-    [string]$Verbosity = "Verbose"
+    [string]$Verbosity = "Verbose",
+    [string]$IncrementVersionType = "Revision"
 )
 
 $TOOLS_DIR = Join-Path $PSScriptRoot ".\..\tools"
@@ -64,7 +65,7 @@ if (!(Test-Path $CAKE_EXE)) {
 }
 
 # Start Cake
-Invoke-Expression "$CAKE_EXE `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`""
+Invoke-Expression "$CAKE_EXE `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" -incrementVersionType=`"$IncrementVersionType`""
 exit $LASTEXITCODE
 
 

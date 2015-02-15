@@ -67,7 +67,10 @@
     <Reference Include="DevExpress.Xpf.Grid.v14.1.Core, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.LayoutControl.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpf.Printing.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpf.Themes.Office2013LightGray.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Themes.Office2013DarkGray.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\DevExpress 14.1\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2013DarkGray.v14.1.dll</HintPath>
+    </Reference>
     <Reference Include="LiteDB">
       <HintPath>..\..\packages\LiteDB.0.9.0\lib\net35\LiteDB.dll</HintPath>
     </Reference>
@@ -199,6 +202,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\04 Shared\Mileage.Localization\Mileage.Localization.csproj">
+      <Project>{d29051a8-49e0-4842-b108-02d049eee87c}</Project>
+      <Name>Mileage.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mileage.Client.Contracts\Mileage.Client.Contracts.csproj">
       <Project>{2BAC79F8-3FCC-4090-B30D-E0D934F93B53}</Project>
       <Name>Mileage.Client.Contracts</Name>

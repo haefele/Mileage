@@ -12,6 +12,9 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.LayoutControl;
 using Mileage.Client.Windows.Views.Login;
 using Mileage.Client.Windows.Windows;
 
@@ -132,7 +135,7 @@ namespace Mileage.Client.Windows
         /// </summary>
         private void ConfigureDevExpressTheme()
         {
-            ThemeManager.ApplicationThemeName = "Office2013LightGray";
+            ThemeManager.ApplicationThemeName = "Office2013DarkGray";
         }
         /// <summary>
         /// Shows the login view and returns whether the login was successfull.

@@ -46,16 +46,21 @@
     <Compile Include="..\..\01 Solution Items\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Client\Login\LoginMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Licensing\LicensingMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LicensingMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Server\Login\LoginMessages.Designer.cs">
+    <Compile Include="Server\Authentication\AuthenticationMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LoginMessages.resx</DependentUpon>
+      <DependentUpon>AuthenticationMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Server\ServerMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,17 +68,24 @@
       <DependentUpon>ServerMessages.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\Login\LoginMessages.de.resx" />
+    <EmbeddedResource Include="Client\Login\LoginMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Server\Licensing\LicensingMessages.de.resx" />
     <EmbeddedResource Include="Server\Licensing\LicensingMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LicensingMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Server\Login\LoginMessages.de.resx" />
-    <EmbeddedResource Include="Server\Login\LoginMessages.resx">
+    <EmbeddedResource Include="Server\Authentication\AuthenticationMessages.de.resx" />
+    <EmbeddedResource Include="Server\Authentication\AuthenticationMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>LoginMessages.Designer.cs</LastGenOutput>
+      <LastGenOutput>AuthenticationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Server\ServerMessages.de.resx" />
     <EmbeddedResource Include="Server\ServerMessages.resx">

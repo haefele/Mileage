@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using LiteGuard;
-using Mileage.Localization.Server.Login;
+using Mileage.Localization.Server.Authentication;
 using Mileage.Server.Contracts.Encryption;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Server.Infrastructure.Raven.Indexes;
@@ -66,15 +66,15 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public async Task<HttpResponseMessage> Login(Login loginData)
         {
             if (loginData == null || loginData.Username == null || loginData.PasswordMD5Hash == null)
-                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.LoginDataMissing);
+                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, AuthenticationMessages.LoginDataMissing);
             
             User user = await this.GetUserWithUsername(loginData.Username).WithCurrentCulture();
 
             if (user == null)
-                return this.Request.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.UserNotFound);
+                return this.Request.GetMessageWithError(HttpStatusCode.NotFound, AuthenticationMessages.UserNotFound);
 
             if (user.IsDeactivated)
-                return this.Request.GetMessageWithError(HttpStatusCode.NotAcceptable, LoginMessages.UserIsDeactivated);
+                return this.Request.GetMessageWithError(HttpStatusCode.NotAcceptable, AuthenticationMessages.UserIsDeactivated);
             
             AuthenticationData authenticationData = await this.DocumentSession
                 .LoadAsync<AuthenticationData>(AuthenticationData.CreateId(user.Id))
@@ -83,7 +83,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
             byte[] passedHash = this._saltCombiner.Combine(authenticationData.Salt, loginData.PasswordMD5Hash);
             
             if (authenticationData.Hash.SequenceEqual(passedHash) == false)
-                return this.Request.GetMessageWithError(HttpStatusCode.NotFound, LoginMessages.PasswordIncorrect);
+                return this.Request.GetMessageWithError(HttpStatusCode.NotFound, AuthenticationMessages.PasswordIncorrect);
 
             var client = this.Request.Headers.UserAgent.Select(f => f.Product).First();
 
@@ -119,10 +119,10 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public async Task<HttpResponseMessage> Register(Register registerData)
         {
             if (registerData == null || registerData.EmailAddress == null || registerData.Username == null || registerData.PasswordMD5Hash == null || registerData.Language == null)
-                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, LoginMessages.RegisterDataMissing);
+                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, AuthenticationMessages.RegisterDataMissing);
 
             if (await this.IsEmailAddressInUse(registerData.EmailAddress).WithCurrentCulture())
-                return this.Request.GetMessageWithError(HttpStatusCode.Forbidden, LoginMessages.EmailIsNotAvailable);
+                return this.Request.GetMessageWithError(HttpStatusCode.Forbidden, AuthenticationMessages.EmailIsNotAvailable);
 
             var user = new User
             {

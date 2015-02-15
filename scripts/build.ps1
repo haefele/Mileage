@@ -3,7 +3,7 @@ Param(
     [string]$Target = "Default",
     [string]$Configuration = "Release",
     [string]$Verbosity = "Verbose",
-    [string]$IncrementVersionType = "Revision"
+    [string]$IncrementVersionType = "None"
 )
 
 $TOOLS_DIR = Join-Path $PSScriptRoot ".\..\tools"

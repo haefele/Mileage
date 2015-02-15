@@ -10,9 +10,14 @@ var incrementVersionType    = Argument<string>("incrementVersionType", "Revision
 // GLOBAL VARIABLES
 ///////////////////////////////////////////////////////////////////////////////
 
-var rootDir         = "./../";
-var solutions       = GetFiles(rootDir + "**/*.sln");
+var rootDir         = "./..";
+var solutions       = GetFiles(rootDir + "/**/*.sln");
 var solutionDirs    = solutions.Select(solution => solution.GetDirectory());
+var outputDir       = rootDir + "/output";
+var serverOutputDir = outputDir + "/Server";
+var clientOutputDir = outputDir + "/Client";
+var nextVersion     = new Version();
+var buildsDir       = rootDir + "/builds";
 
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
@@ -37,6 +42,8 @@ Teardown(() =>
 Task("Clean")
     .Does(() =>
 {
+    CleanDirectories(outputDir);
+
     // Clean solution directories.
     foreach(var solutionDir in solutionDirs)
     {
@@ -62,7 +69,7 @@ Task("IncrementAssemblyVersion")
 {
     // Read current version.
     
-    var versionInfoPath = GetFiles(rootDir + "**/VersionInfo.cs").First();
+    var versionInfoPath = GetFiles(rootDir + "/**/VersionInfo.cs").First();
     Information("Found the VersionInfo.cs file at: " + versionInfoPath);
 
     var parsedVersionInfo = ParseAssemblyInfo(versionInfoPath);
@@ -98,12 +105,16 @@ Task("IncrementAssemblyVersion")
     {
         revision++;
     }
+    else if (incrementVersionType == "None")
+    {
+        // Don't increment the version if incrementVersionType is "None".
+    }
     else
     {
-        throw new CakeException("The parameter \"incrementVersionType\" has to be \"Major\", \"Minor\", \"Build\" or \"Revision\".");
+        throw new CakeException("The parameter \"incrementVersionType\" has to be \"Major\", \"Minor\", \"Build\", \"Revision\" or \"None\".");
     }
 
-    var nextVersion = new Version(major, minor, build, revision);
+    nextVersion = new Version(major, minor, build, revision);
     Information("The next version is " + nextVersion);
 
     var assemblyInfoSettings = new AssemblyInfoSettings
@@ -134,8 +145,48 @@ Task("Build")
     }
 });
 
+Task("CopyAssembliesToOutputDirectory")
+    .IsDependentOn("Build")
+    .Does(() => 
+{
+    var buildOutputDir = rootDir + "/src/03 Server/Hosts/Mileage.Server.Hosts.Console/bin/" + configuration;
+
+    var allAssemblies = GetFiles(buildOutputDir + "/*.dll");
+    var exe = GetFiles(buildOutputDir + "/*.exe").First();
+    var exeConfig = GetFiles(buildOutputDir + "/*.exe.config").First();
+
+    var assembliesOutputDir = serverOutputDir + "/Assemblies";
+
+    CreateDirectory(outputDir);
+    CreateDirectory(serverOutputDir);
+    CreateDirectory(assembliesOutputDir);
+
+    CopyFiles(allAssemblies, assembliesOutputDir);
+    CopyFile(exe, serverOutputDir + "/MileageServer.exe");
+    CopyFile(exeConfig, serverOutputDir + "/MileageServer.exe.config");
+});
+
+Task("CopyRavenStudioHtml5")
+    .IsDependentOn("CopyAssembliesToOutputDirectory")
+    .Does(() => 
+{
+    var ravenStudioHtml5Path = GetFiles(rootDir + "/**/Raven.Studio.Html5.zip").First();
+    var ravenStudioOutputDir = serverOutputDir + "/Database/Files";
+
+    CreateDirectory(ravenStudioOutputDir);
+    CopyFileToDirectory(ravenStudioHtml5Path, ravenStudioOutputDir);
+});
+
+Task("ZipOutputDir")
+    .IsDependentOn("CopyRavenStudioHtml5")
+    .Does(() => 
+{
+    Zip(outputDir, buildsDir + "/Mileage-" + nextVersion + ".zip");
+    DeleteDirectory(outputDir, true);
+});
+
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("ZipOutputDir");
 
 ///////////////////////////////////////////////////////////////////////////////
 // EXECUTION

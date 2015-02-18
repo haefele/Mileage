@@ -181,6 +181,7 @@ Task("ZipOutputDir")
     .IsDependentOn("CopyRavenStudioHtml5")
     .Does(() => 
 {
+    CreateDirectory(buildsDir);
     Zip(outputDir, buildsDir + "/Mileage-" + nextVersion + ".zip");
     DeleteDirectory(outputDir, true);
 });

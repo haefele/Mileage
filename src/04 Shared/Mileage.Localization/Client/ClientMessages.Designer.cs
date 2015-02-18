@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mileage.Localization.Server {
+namespace Mileage.Localization.Client {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Mileage.Localization.Server {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ServerMessages {
+    public class ClientMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ServerMessages() {
+        internal ClientMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Mileage.Localization.Server {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Server.ServerMessages", typeof(ServerMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Client.ClientMessages", typeof(ClientMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,11 @@ namespace Mileage.Localization.Server {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The application is not up-to-date..
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string OutdatedVersion {
+        public static string NotReachable {
             get {
-                return ResourceManager.GetString("OutdatedVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The application could not be identified..
-        /// </summary>
-        public static string UnknownClient {
-            get {
-                return ResourceManager.GetString("UnknownClient", resourceCulture);
+                return ResourceManager.GetString("NotReachable", resourceCulture);
             }
         }
     }

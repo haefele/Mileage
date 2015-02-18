@@ -153,6 +153,7 @@
     <Compile Include="Api\MessageHandlers\LoggedDelegatingHandler.cs" />
     <Compile Include="Api\MessageHandlers\LoggingMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\RequestExecutionTimeMessageHandler.cs" />
+    <Compile Include="Api\MessageHandlers\VersionValidationMessageHandler.cs" />
     <Compile Include="Bootstrapper\LoadLicenseStartable.cs" />
     <Compile Include="Bootstrapper\MetricsStartable.cs" />
     <Compile Include="Encryption\SaltCombiner.cs" />

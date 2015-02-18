@@ -93,6 +93,7 @@ namespace Mileage.Server.Infrastructure
                 config.MessageHandlers.Add(new LoggingMessageHandler());
             }
 
+            config.MessageHandlers.Add(new VersionValidationMessageHandler());
             config.MessageHandlers.Add(new LicenseValidationMessageHandler());
         }
         /// <summary>

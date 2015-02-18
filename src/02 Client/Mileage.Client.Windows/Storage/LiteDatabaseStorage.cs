@@ -44,7 +44,7 @@ namespace Mileage.Client.Windows.Storage
             DataWrapper<T> existing = collection.FindById(id);
             if (existing != null)
             {
-                collection.Delete(existing);
+                collection.Delete(id);
             }
 
             collection.Insert(new DataWrapper<T> { Id = id, Data = instance});
@@ -104,7 +104,7 @@ namespace Mileage.Client.Windows.Storage
         /// <typeparam name="T">The type of data in the collection.</typeparam>
         private Collection<DataWrapper<T>> GetCollection<T>() where T : new()
         {
-            return this._engine.GetCollection<DataWrapper<T>>(typeof(DataWrapper<T>).FullName);
+            return this._engine.GetCollection<DataWrapper<T>>(typeof(T).Name);
         }
         #endregion
 
@@ -113,7 +113,7 @@ namespace Mileage.Client.Windows.Storage
         /// A wrapper class so I can store the <see cref="Id"/> with the associated <see cref="Data"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        private class DataWrapper<T>
+        public class DataWrapper<T>
             where T : new()
         {
             public string Id { get; set; }

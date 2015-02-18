@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="OutdatedVersion" xml:space="preserve">
-    <value>Die Anwendung ist nicht aktuell.</value>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
   </data>
-  <data name="UnknownClient" xml:space="preserve">
-    <value>Die Anwendung konnte nicht identifiziert werden.</value>
+  <data name="Mileage" xml:space="preserve">
+    <value>Mileage</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>Ein unbehandelter Fehler ist aufgetreten.</value>
   </data>
 </root>

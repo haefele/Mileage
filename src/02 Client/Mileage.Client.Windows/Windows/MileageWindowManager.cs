@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Core.Native;
 
 namespace Mileage.Client.Windows.Windows
 {
@@ -17,7 +19,7 @@ namespace Mileage.Client.Windows.Windows
         /// <param name="isDialog">Whethor or not the window is being shown as a dialog.</param>
         protected override Window EnsureWindow(object model, object view, bool isDialog)
         {
-            var window = view as Window;
+            var window = view as ExtendedDXWindow;
 
             if (window == null)
             {
@@ -59,15 +61,15 @@ namespace Mileage.Client.Windows.Windows
         /// <param name="model">The model.</param>
         /// <param name="view">The view.</param>
         /// <param name="isDialog">if set to <c>true</c> [is dialog].</param>
-        protected virtual Window CreateWindow(object model, object view, bool isDialog)
+        protected virtual ExtendedDXWindow CreateWindow(object model, object view, bool isDialog)
         {
-            return new DXWindow();
+            return new ExtendedDXWindow();
         }
         /// <summary>
         /// Configures the window.
         /// </summary>
         /// <param name="window">The window.</param>
-        protected virtual void ConfigureWindow(Window window)
+        protected virtual void ConfigureWindow(ExtendedDXWindow window)
         {
             window.UseLayoutRounding = true;
         }

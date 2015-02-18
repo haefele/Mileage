@@ -18,7 +18,7 @@
              
              Width="300"
              >
-    <dxlc:LayoutControl Orientation="Vertical">
+    <dxlc:LayoutControl Orientation="Vertical" Padding="0">
         
         <dxlc:LayoutItem>
             <Canvas Width="200" Height="200" />
@@ -30,15 +30,22 @@
                     <dxmvvm:Interaction.Behaviors>
                         <dxmvvm:FocusBehavior />
                     </dxmvvm:Interaction.Behaviors>    
+                    <dxe:TextEdit.InputBindings>
+                        <KeyBinding Command="{Binding Login}" Key="Enter" />
+                    </dxe:TextEdit.InputBindings>
                 </dxe:TextEdit>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem>
-                <dxe:PasswordBoxEdit EditValue="{Binding Password, UpdateSourceTrigger=PropertyChanged}" NullText="Password" />
+                <dxe:PasswordBoxEdit EditValue="{Binding Password, UpdateSourceTrigger=PropertyChanged}" NullText="Password">
+                    <dxe:PasswordBoxEdit.InputBindings>
+                        <KeyBinding Command="{Binding Login}" Key="Enter" />
+                    </dxe:PasswordBoxEdit.InputBindings>
+                </dxe:PasswordBoxEdit>
             </dxlc:LayoutItem>
         </dxlc:LayoutGroup>
         
         <dxlc:LayoutItem>
-            <Button Command="{Binding Login}" Content="{lex:Loc Login}" IsDefault="True" />
+            <Button Command="{Binding Login}" Content="{lex:Loc Login}" />
         </dxlc:LayoutItem>
         
     </dxlc:LayoutControl>

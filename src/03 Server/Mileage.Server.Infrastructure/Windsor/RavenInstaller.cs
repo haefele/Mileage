@@ -51,6 +51,7 @@ namespace Mileage.Server.Infrastructure.Windsor
                 DataDirectory = Path.Combine(".", "Database", "Data"),
                 CompiledIndexCacheDirectory = Path.Combine(".", "Database", "Raven", "CompiledIndexCache"),
                 PluginsDirectory = Path.Combine(".", "Database", "Plugins"),
+                MaxSecondsForTaskToWaitForDatabaseToLoad = 10,
             };
             config.Settings.Add("Raven/CompiledIndexCacheDirectory", config.CompiledIndexCacheDirectory);
 

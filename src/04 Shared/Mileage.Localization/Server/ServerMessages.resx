@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="OutdatedVersion" xml:space="preserve">
+    <value>The application is not up-to-date.</value>
+  </data>
   <data name="UnknownClient" xml:space="preserve">
-    <value>The application could not be verified.</value>
+    <value>The application could not be identified.</value>
   </data>
 </root>

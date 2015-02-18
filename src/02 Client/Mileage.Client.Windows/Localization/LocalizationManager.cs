@@ -174,7 +174,7 @@ namespace Mileage.Client.Windows.Localization
         /// <summary>
         /// Holds the actual language inside the data storage.
         /// </summary>
-        private class LanguageData
+        public class LanguageData
         {
             public string Language { get; set; }
         }

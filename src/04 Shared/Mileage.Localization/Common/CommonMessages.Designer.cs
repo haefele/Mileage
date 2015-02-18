@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mileage.Localization.Server {
+namespace Mileage.Localization.Common {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Mileage.Localization.Server {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ServerMessages {
+    public class CommonMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ServerMessages() {
+        internal CommonMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Mileage.Localization.Server {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Server.ServerMessages", typeof(ServerMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Common.CommonMessages", typeof(CommonMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,38 @@ namespace Mileage.Localization.Server {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The application is not up-to-date..
+        ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string OutdatedVersion {
+        public static string Error {
             get {
-                return ResourceManager.GetString("OutdatedVersion", resourceCulture);
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The application could not be identified..
+        ///   Looks up a localized string similar to Mileage.
         /// </summary>
-        public static string UnknownClient {
+        public static string Mileage {
             get {
-                return ResourceManager.GetString("UnknownClient", resourceCulture);
+                return ResourceManager.GetString("Mileage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unhandled exception occured..
+        /// </summary>
+        public static string UnhandledException {
+            get {
+                return ResourceManager.GetString("UnhandledException", resourceCulture);
             }
         }
     }

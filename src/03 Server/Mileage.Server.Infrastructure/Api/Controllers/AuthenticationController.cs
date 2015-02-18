@@ -54,7 +54,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// <summary>
         /// Login a user.
         /// </summary>
-        /// <param name="loginData">The login data.</param>
+        /// <param name="loginDataData">The login data.</param>
         /// <returns>
         /// 200 - OK: Login is successfull.
         /// 400 - BadRequest: Required data are missing.
@@ -63,12 +63,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </returns>
         [HttpPost]
         [Route("Authentication/Login")]
-        public async Task<HttpResponseMessage> Login(Login loginData)
+        public async Task<HttpResponseMessage> LoginAsync(LoginData loginDataData)
         {
-            if (loginData == null || loginData.Username == null || loginData.PasswordMD5Hash == null)
+            if (loginDataData == null || loginDataData.Username == null || loginDataData.PasswordMD5Hash == null)
                 return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, AuthenticationMessages.LoginDataMissing);
             
-            User user = await this.GetUserWithUsername(loginData.Username).WithCurrentCulture();
+            User user = await this.GetUserWithUsername(loginDataData.Username).WithCurrentCulture();
 
             if (user == null)
                 return this.Request.GetMessageWithError(HttpStatusCode.NotFound, AuthenticationMessages.UserNotFound);
@@ -80,7 +80,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 .LoadAsync<AuthenticationData>(AuthenticationData.CreateId(user.Id))
                 .WithCurrentCulture();
 
-            byte[] passedHash = this._saltCombiner.Combine(authenticationData.Salt, loginData.PasswordMD5Hash);
+            byte[] passedHash = this._saltCombiner.Combine(authenticationData.Salt, loginDataData.PasswordMD5Hash);
             
             if (authenticationData.Hash.SequenceEqual(passedHash) == false)
                 return this.Request.GetMessageWithError(HttpStatusCode.NotFound, AuthenticationMessages.PasswordIncorrect);
@@ -116,7 +116,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </returns>
         [HttpPost]
         [Route("Authentication/Register")]
-        public async Task<HttpResponseMessage> Register(Register registerData)
+        public async Task<HttpResponseMessage> RegisterAsync(Register registerData)
         {
             if (registerData == null || registerData.EmailAddress == null || registerData.Username == null || registerData.PasswordMD5Hash == null || registerData.Language == null)
                 return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, AuthenticationMessages.RegisterDataMissing);

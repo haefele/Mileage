@@ -58,11 +58,22 @@
     </Compile>
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Localization\ILocalizationManager.cs" />
+    <Compile Include="Messages\IMessageService.cs" />
+    <Compile Include="Messages\MessageImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\IDataStorage.cs" />
+    <Compile Include="Versioning\IVersionService.cs" />
+    <Compile Include="WebServices\IAuthenticationClient.cs" />
+    <Compile Include="WebServices\IWebServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\04 Shared\Mileage.Shared\Mileage.Shared.csproj">
+      <Project>{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7}</Project>
+      <Name>Mileage.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

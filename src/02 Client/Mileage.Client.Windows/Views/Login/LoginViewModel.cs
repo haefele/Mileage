@@ -1,12 +1,24 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Reactive;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Caliburn.Micro.ReactiveUI;
+using Castle.Windsor;
+using LiteGuard;
+using Mileage.Client.Contracts.Messages;
+using Mileage.Client.Windows.Messages;
+using Mileage.Localization.Common;
+using Mileage.Shared.Entities;
+using Mileage.Shared.Models;
 using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Login
 {
-    public class LoginViewModel : ReactiveScreen
+    public class LoginViewModel : MileageReactiveScreen
     {
         #region Fields
         private string _username;
@@ -33,36 +45,60 @@ namespace Mileage.Client.Windows.Views.Login
         #endregion
 
         #region Commands
-        public ReactiveCommand<object> Login { get; set; }
+        /// <summary>
+        /// Tries to login the user with the currently entered credentials.
+        /// </summary>
+        public ReactiveCommand<Unit> Login { get; private set; }
         #endregion
 
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginViewModel"/> class.
         /// </summary>
-        public LoginViewModel()
+        public LoginViewModel(IWindsorContainer container)
+            : base(container)
         {
-            this.DisplayName = "Mileage";
-
             this.CreateCommands();
         }
+        #endregion
 
+        #region Private Methods
         private void CreateCommands()
         {
             var canLogin = this.WhenAnyValue(f => f.Username, f => f.Password,
                 (username, password) => string.IsNullOrWhiteSpace(username) == false && string.IsNullOrWhiteSpace(password) == false);
 
             this.Login = ReactiveCommand.CreateAsyncTask(canLogin, _ => this.LoginImpl());
+            this.Login.ThrownExceptions.Subscribe(this.ExceptionHandler.Handle);
         }
-
-
-        private async Task<object> LoginImpl()
+        private async Task LoginImpl()
         {
-            await Task.Delay(TimeSpan.FromSeconds(2));
+            var data = new LoginData
+            {
+                Username = this.Username,
+                PasswordMD5Hash = this.GetPasswordMD5Hash()
+            };
 
-            return Unit.Default;
+            HttpResponseMessage response = await this.WebService.Authentication.LoginAsync(data);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var token = await response.Content.ReadAsAsync<AuthenticationToken>();
+                this.Session.Token = token;
+
+                this.TryClose(true);
+            }
+            else
+            {
+                var error = await response.Content.ReadAsAsync<HttpError>();
+                this.ExceptionHandler.Handle(error);
+            }
         }
-
+        private byte[] GetPasswordMD5Hash()
+        {
+            byte[] passwordInUTF8 = Encoding.UTF8.GetBytes(this.Password);
+            return MD5.Create().ComputeHash(passwordInUTF8);
+        }
         #endregion
     }
 }

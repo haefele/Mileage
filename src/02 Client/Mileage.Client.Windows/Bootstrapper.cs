@@ -135,7 +135,7 @@ namespace Mileage.Client.Windows
         /// </summary>
         private void ConfigureDevExpressTheme()
         {
-            ThemeManager.ApplicationThemeName = "Office2013DarkGray";
+            ThemeManager.ApplicationThemeName = "MetropolisLight";
         }
         /// <summary>
         /// Shows the login view and returns whether the login was successfull.
@@ -145,7 +145,7 @@ namespace Mileage.Client.Windows
             var windowManager = this._container.Resolve<IWindowManager>();
             var loginViewModel = this._container.Resolve<LoginViewModel>();
 
-            bool? loggedIn = windowManager.ShowDialog(loginViewModel, null, WindowSetting.AutoSizeNoResize());
+            bool? loggedIn = windowManager.ShowDialog(loginViewModel, null, WindowSettings.With().AutoSize().NoIcon().NoResize());
 
             this._container.Release(loginViewModel);
 

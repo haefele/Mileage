@@ -186,4 +186,7 @@ FakesAssemblies/
 [Tt]ools/
 
 # Build Output
-Output/
+[Oo]utput/
+
+# Builds Directory
+[Bb]uilds/

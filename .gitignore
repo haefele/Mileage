@@ -182,8 +182,8 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
-# Cake (generated)
-[Tt]ools/[Cc]ake/
+# Tools
+[Tt]ools/
 
 # Build Output
 Output/

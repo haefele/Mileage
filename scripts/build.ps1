@@ -9,7 +9,7 @@ Param(
 $TOOLS_DIR = Join-Path $PSScriptRoot ".\..\tools"
 $NUGET_EXE = Join-Path $TOOLS_DIR "nuget.exe"
 $CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
-$PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
+$PACKAGES_CONFIG = Join-Path $PSScriptRoot "packages.config"
 
 # Make sure tools folder exists
 if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
@@ -46,7 +46,7 @@ Set-Location $TOOLS_DIR
 # Restore packages
 if (Test-Path $PACKAGES_CONFIG)
 {
-    Invoke-Expression "$NUGET_EXE install -ExcludeVersion"
+    Invoke-Expression "$NUGET_EXE install $PACKAGES_CONFIG -ExcludeVersion"
 }
 # Install just Cake if missing config
 else

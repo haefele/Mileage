@@ -8,7 +8,7 @@ using DevExpress.Xpf.Core;
 
 namespace Mileage.Client.Windows.Windows
 {
-    public class WindowSettings : IDictionary<string, object>
+    public class WindowSettings : Dictionary<string, object>
     {
         #region Fields
         private readonly Dictionary<string, object> _settings;
@@ -94,88 +94,6 @@ namespace Mileage.Client.Windows.Windows
             this._settings[DXWindow.ShowIconProperty.Name] = false;
 
             return this;
-        }
-        #endregion
-
-        #region Implementation of IDictionary<string, object>
-        public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
-        {
-            return this._settings.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        public void Add(KeyValuePair<string, object> item)
-        {
-            this._settings.Add(item.Key, item.Value);
-        }
-
-        public void Clear()
-        {
-            this._settings.Clear();
-        }
-
-        public bool Contains(KeyValuePair<string, object> item)
-        {
-            return this._settings.Contains(item);
-        }
-
-        public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
-        {
-            throw new InvalidOperationException();
-        }
-
-        public bool Remove(KeyValuePair<string, object> item)
-        {
-            throw new InvalidOperationException();
-        }
-
-        public int Count
-        {
-            get { return this._settings.Count; }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
-        public bool ContainsKey(string key)
-        {
-            return this._settings.ContainsKey(key);
-        }
-
-        public void Add(string key, object value)
-        {
-            this._settings.Add(key, value);
-        }
-
-        public bool Remove(string key)
-        {
-            return this._settings.Remove(key);
-        }
-
-        public bool TryGetValue(string key, out object value)
-        {
-            return this._settings.TryGetValue(key, out value);
-        }
-
-        public object this[string key]
-        {
-            get { return this._settings[key]; }
-            set { this._settings[key] = value; }
-        }
-
-        public ICollection<string> Keys
-        {
-            get { return this._settings.Keys; }
-        }
-
-        public ICollection<object> Values
-        {
-            get { return this._settings.Values; }
         }
         #endregion
     }

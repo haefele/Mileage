@@ -7,6 +7,7 @@ using Metrics;
 using Metrics.Json;
 using Metrics.MetricData;
 using Metrics.Utils;
+using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Extensions;
 using Newtonsoft.Json;
 using Raven.Client;
@@ -31,10 +32,9 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="MetricsController"/> class.
         /// </summary>
-        /// <param name="documentSession">The document session.</param>
-        /// <param name="filesSession">The files session.</param>
-        public MetricsController(IAsyncDocumentSession documentSession, IAsyncFilesSession filesSession) 
-            : base(documentSession, filesSession)
+        /// <param name="commandExecutor">The command executor.</param>
+        public MetricsController(ICommandExecutor commandExecutor) 
+            : base(commandExecutor)
         {
         }
         #endregion

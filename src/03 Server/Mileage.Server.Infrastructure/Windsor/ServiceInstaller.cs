@@ -2,6 +2,7 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Mileage.Server.Contracts;
+using Mileage.Server.Contracts.Authentication;
 
 namespace Mileage.Server.Infrastructure.Windsor
 {

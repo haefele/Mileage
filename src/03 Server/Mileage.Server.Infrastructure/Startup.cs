@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
+using Castle.Core.Configuration;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
@@ -12,6 +13,7 @@ using Mileage.Server.Infrastructure.Api.MessageHandlers;
 using Mileage.Server.Infrastructure.Windsor;
 using Newtonsoft.Json;
 using Owin;
+using Raven.Client;
 
 namespace Mileage.Server.Infrastructure
 {

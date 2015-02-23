@@ -13,6 +13,7 @@ using Mileage.Client.Contracts.Messages;
 using Mileage.Client.Windows.Messages;
 using Mileage.Localization.Common;
 using Mileage.Shared.Entities;
+using Mileage.Shared.Entities.Authentication;
 using Mileage.Shared.Models;
 using ReactiveUI;
 

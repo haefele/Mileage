@@ -1,6 +1,6 @@
 ﻿namespace Mileage.Shared.Models
 {
-    public class Register
+    public class CreateAdminUserData
     {
         public string Username { get; set; }
         public byte[] PasswordMD5Hash { get; set; }

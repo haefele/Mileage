@@ -1,4 +1,6 @@
 ﻿using Mileage.Shared.Entities;
+using Mileage.Shared.Entities.Authentication;
+using Mileage.Shared.Entities.Users;
 
 namespace Mileage.Client.Windows.WebServices
 {

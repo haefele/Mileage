@@ -1,4 +1,4 @@
-﻿namespace Mileage.Shared.Entities
+﻿namespace Mileage.Shared.Entities.Users
 {
     public class User : AggregateRoot
     {

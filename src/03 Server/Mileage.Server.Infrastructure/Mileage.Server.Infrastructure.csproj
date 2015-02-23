@@ -142,10 +142,13 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Api\ContentNegotiation\JsonContentNegotiator.cs" />
+    <Compile Include="Api\Controllers\AdminController.cs" />
     <Compile Include="Api\Controllers\BaseController.cs" />
     <Compile Include="Api\Controllers\AuthenticationController.cs" />
     <Compile Include="Api\Controllers\MetricsController.cs" />
     <Compile Include="Api\Controllers\TestsController.cs" />
+    <Compile Include="Api\Controllers\UsersController.cs" />
+    <Compile Include="Api\Filters\MileageAuthenticationAttribute.cs" />
     <Compile Include="Api\MessageHandlers\ConcurrentRequestCountMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\LicenseValidationMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\LocalizationMessageHandler.cs" />
@@ -154,10 +157,20 @@
     <Compile Include="Api\MessageHandlers\LoggingMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\RequestExecutionTimeMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\VersionValidationMessageHandler.cs" />
+    <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Bootstrapper\LoadLicenseStartable.cs" />
     <Compile Include="Bootstrapper\MetricsStartable.cs" />
+    <Compile Include="Commands\Authentication\ValidateLoginAndCreateTokenCommand.cs" />
+    <Compile Include="Commands\CommandExecutor.cs" />
+    <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Commands\CommandScope.cs" />
+    <Compile Include="Commands\Mileage\CreateAdminUserCommand.cs" />
+    <Compile Include="Commands\Mileage\GetMileageSettingsCommand.cs" />
+    <Compile Include="Commands\Users\CreateUserCommand.cs" />
+    <Compile Include="Commands\Users\GetCurrentUserCommand.cs" />
     <Compile Include="Encryption\SaltCombiner.cs" />
     <Compile Include="Encryption\SecretGenerator.cs" />
+    <Compile Include="Extensions\CommandExecutorExtensions.cs" />
     <Compile Include="Extensions\DependencyScopeExtensions.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\SaltCombinerExtensions.cs" />
@@ -169,6 +182,8 @@
     <Compile Include="Raven\Indexes\UsersForQuery.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Versioning\VersionService.cs" />
+    <Compile Include="Windsor\CommandInstaller.cs" />
+    <Compile Include="Windsor\ContainerInstaller.cs" />
     <Compile Include="Windsor\ControllerInstaller.cs" />
     <Compile Include="Windsor\FileSystemInstaller.cs" />
     <Compile Include="Windsor\LoggingInstaller.cs" />

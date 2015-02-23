@@ -68,7 +68,7 @@ namespace Mileage.Shared.Results
             };
         }
         /// <summary>
-        /// Creates a new <see cref="Result"/> with the specified <paramref name="message"/> and <see cref="Result.State"/> = <see cref="ResultState.Warning"/>.
+        /// Creates a new <see cref="Result"/> with the specified <paramref name="message"/> and <see cref="Result.State"/> = <see cref="ResultState.Error"/>.
         /// </summary>
         /// <param name="message">The message.</param>
         public static Result AsError(string message)

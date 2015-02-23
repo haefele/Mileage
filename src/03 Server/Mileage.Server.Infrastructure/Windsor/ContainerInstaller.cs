@@ -2,7 +2,7 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace Mileage.Client.Windows.Windsor
+namespace Mileage.Server.Infrastructure.Windsor
 {
     public class ContainerInstaller : IWindsorInstaller
     {

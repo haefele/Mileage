@@ -5,6 +5,8 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Mileage.Shared.Entities;
+using Mileage.Shared.Entities.Authentication;
+using Mileage.Shared.Entities.Mileage;
 using Raven.Client;
 using Raven.Client.Connection;
 using Raven.Client.Document;
@@ -51,7 +53,7 @@ namespace Mileage.Server.Infrastructure.Windsor
                 DataDirectory = Path.Combine(".", "Database", "Data"),
                 CompiledIndexCacheDirectory = Path.Combine(".", "Database", "Raven", "CompiledIndexCache"),
                 PluginsDirectory = Path.Combine(".", "Database", "Plugins"),
-                MaxSecondsForTaskToWaitForDatabaseToLoad = 10,
+                MaxSecondsForTaskToWaitForDatabaseToLoad = 20,
             };
             config.Settings.Add("Raven/CompiledIndexCacheDirectory", config.CompiledIndexCacheDirectory);
 
@@ -89,6 +91,10 @@ namespace Mileage.Server.Infrastructure.Windsor
             documentStore.Conventions.RegisterAsyncIdConvention<AuthenticationToken>((databaseName, commands, entity) =>
             {
                 return Task.FromResult(AuthenticationToken.CreateId(entity.Token));
+            });
+            documentStore.Conventions.RegisterAsyncIdConvention<MileageSettings>((databaseName, commands, entity) =>
+            {
+                return Task.FromResult(MileageSettings.CreateId());
             });
         }
         #endregion

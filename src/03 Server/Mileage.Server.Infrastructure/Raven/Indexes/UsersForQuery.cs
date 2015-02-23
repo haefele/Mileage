@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Mileage.Shared.Entities;
+using Mileage.Shared.Entities.Users;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 

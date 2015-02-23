@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities;
 using Raven.Client;
@@ -16,8 +17,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 {
     public class TestsController : BaseController
     {
-        public TestsController(IAsyncDocumentSession documentSession, IAsyncFilesSession filesSession) 
-            : base(documentSession, filesSession)
+        public TestsController(ICommandExecutor commandExecutor) : base(commandExecutor)
         {
         }
 

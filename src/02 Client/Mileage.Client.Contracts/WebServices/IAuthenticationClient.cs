@@ -7,5 +7,7 @@ namespace Mileage.Client.Contracts.WebServices
     public interface IAuthenticationClient
     {
         Task<HttpResponseMessage> LoginAsync(LoginData loginData);
+
+        Task<HttpResponseMessage> RegisterAsync(CreateAdminUserData registerData);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Mileage.Shared.Entities
+namespace Mileage.Shared.Entities.Authentication
 {
     public class AuthenticationToken : AggregateRoot
     {
@@ -14,5 +14,13 @@ namespace Mileage.Shared.Entities
         public string UserId { get; set; }
         public DateTimeOffset ValidUntil { get; set; }
         public Client Client { get; set; }
+
+        /// <summary>
+        /// Returns whether this token is valid.
+        /// </summary>
+        public bool IsValid()
+        {
+            return this.ValidUntil >= DateTimeOffset.UtcNow;
+        }
     }
 }

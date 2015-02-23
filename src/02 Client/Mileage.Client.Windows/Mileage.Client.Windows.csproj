@@ -178,6 +178,7 @@
     <Compile Include="Views\Login\LoginViewModel.cs" />
     <Compile Include="Views\MileageReactiveScreen.cs" />
     <Compile Include="WebServices\AuthenticationClient.cs" />
+    <Compile Include="WebServices\HttpQueryBuilder.cs" />
     <Compile Include="WebServices\MileageClient.cs" />
     <Compile Include="WebServices\Session.cs" />
     <Compile Include="WebServices\WebServiceClient.cs" />

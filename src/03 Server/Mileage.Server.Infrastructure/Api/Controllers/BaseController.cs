@@ -7,6 +7,7 @@ using System.Web.Http.Controllers;
 using Castle.Core.Logging;
 using LiteGuard;
 using Microsoft.Owin;
+using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Shared.Results;
 using Raven.Client;
@@ -19,27 +20,9 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
     {
         #region Properties
         /// <summary>
-        /// Gets the document store.
+        /// Gets the command executor.
         /// </summary>
-        public IDocumentStore DocumentStore
-        {
-            get { return this.DocumentSession.Advanced.DocumentStore; }
-        }
-        /// <summary>
-        /// Gets the document session.
-        /// </summary>
-        public IAsyncDocumentSession DocumentSession { get; private set; }
-        /// <summary>
-        /// Gets the files store.
-        /// </summary>
-        public IFilesStore FilesStore
-        {
-            get { return this.FilesSession.Advanced.FilesStore; }
-        }
-        /// <summary>
-        /// Gets the files session.
-        /// </summary>
-        public IAsyncFilesSession FilesSession { get; private set; }
+        public ICommandExecutor CommandExecutor { get; private set; }
         /// <summary>
         /// Gets or sets the logger.
         /// </summary>
@@ -57,14 +40,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseController"/> class.
         /// </summary>
-        /// <param name="documentSession">The document session.</param>
-        /// <param name="filesSession">The files session.</param>
-        protected BaseController(IAsyncDocumentSession documentSession, IAsyncFilesSession filesSession)
+        /// <param name="commandExecutor">The command executor.</param>
+        protected BaseController(ICommandExecutor commandExecutor)
         {
-            Guard.AgainstNullArgument("documentSession", documentSession);
+            Guard.AgainstNullArgument("commandExecutor", commandExecutor);
 
-            this.DocumentSession = documentSession;
-            this.FilesSession = filesSession;
+            this.CommandExecutor = commandExecutor;
 
             this.Logger = NullLogger.Instance;
         }
@@ -79,12 +60,6 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public override async Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
             HttpResponseMessage response = await base.ExecuteAsync(controllerContext, cancellationToken);
-
-            using (this.DocumentSession)
-            {
-                await this.DocumentSession.SaveChangesAsync(cancellationToken);
-                await this.FilesSession.SaveChangesAsync();
-            }
 
             return response;
         }

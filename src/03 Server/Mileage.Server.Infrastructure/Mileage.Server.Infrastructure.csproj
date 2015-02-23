@@ -141,7 +141,8 @@
     <Compile Include="..\..\01 Solution Items\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Api\ContentNegotiation\JsonContentNegotiator.cs" />
+    <Compile Include="Api\Configuration\JsonContentNegotiator.cs" />
+    <Compile Include="Api\Configuration\MileageAssembliesResolver.cs" />
     <Compile Include="Api\Controllers\AdminController.cs" />
     <Compile Include="Api\Controllers\BaseController.cs" />
     <Compile Include="Api\Controllers\AuthenticationController.cs" />

@@ -5,7 +5,7 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using LiteGuard;
 
-namespace Mileage.Server.Infrastructure.Api.ContentNegotiation
+namespace Mileage.Server.Infrastructure.Api.Configuration
 {
     public class JsonContentNegotiator : IContentNegotiator
     {

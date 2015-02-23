@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using Castle.Core.Configuration;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -7,7 +8,8 @@ using Castle.Windsor.Installer;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
 using Microsoft.Owin.Cors;
-using Mileage.Server.Infrastructure.Api.ContentNegotiation;
+using Mileage.Server.Infrastructure.Api.Configuration;
+using Mileage.Server.Infrastructure.Api.Controllers;
 using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Api.MessageHandlers;
 using Mileage.Server.Infrastructure.Windsor;
@@ -51,6 +53,7 @@ namespace Mileage.Server.Infrastructure
             this.ConfigureWindsor(config);
             this.ConfigureFilters(config);
             this.ConfigureMessageHandlers(config);
+            this.ConfigureWebApiAssemblies(config);
             this.ConfigureRoutes(config);
             this.ConfigureAllowOnlyJson(config);
 
@@ -97,6 +100,14 @@ namespace Mileage.Server.Infrastructure
 
             config.MessageHandlers.Add(new VersionValidationMessageHandler());
             config.MessageHandlers.Add(new LicenseValidationMessageHandler());
+        }
+        /// <summary>
+        /// Configures the assemblies that contain webapi controllers.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        private void ConfigureWebApiAssemblies(HttpConfiguration config)
+        {
+            config.Services.Replace(typeof(IAssembliesResolver), new MileageAssembliesResolver());
         }
         /// <summary>
         /// Configures the routes.

@@ -28,8 +28,8 @@ namespace Mileage.Server.Infrastructure.Commands
         public async Task<T> Batch<T>(Func<ICommandScope, Task<T>> batchAction)
         {
             using (this._container.BeginScope())
-            using (IAsyncDocumentSession documentSession = this._documentStore.OpenAsyncSession())
-            using (IAsyncFilesSession filesSession = this._filesStore.OpenAsyncSession())
+            using (var documentSession = this._container.Resolve<IAsyncDocumentSession>())
+            using (var filesSession = this._container.Resolve<IAsyncFilesSession>())
             {
                 var scope = this._container.Resolve<ICommandScope>();
 

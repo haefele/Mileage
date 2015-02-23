@@ -10,17 +10,12 @@ namespace Mileage.Client.Windows.Windows
 {
     public class WindowSettings : Dictionary<string, object>
     {
-        #region Fields
-        private readonly Dictionary<string, object> _settings;
-        #endregion
-
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowSettings"/> class.
         /// </summary>
         private WindowSettings()
         {
-            this._settings = new Dictionary<string, object>();
         }
         #endregion
 
@@ -40,7 +35,7 @@ namespace Mileage.Client.Windows.Windows
         /// </summary>
         public WindowSettings AutoSize()
         {
-            this._settings[Window.SizeToContentProperty.Name] = SizeToContent.WidthAndHeight;
+            this[Window.SizeToContentProperty.Name] = SizeToContent.WidthAndHeight;
 
             return this;
         }
@@ -51,10 +46,10 @@ namespace Mileage.Client.Windows.Windows
         /// <param name="height">The height.</param>
         public WindowSettings FixedSize(int width, int height)
         {
-            this._settings[FrameworkElement.WidthProperty.Name] = width;
-            this._settings[FrameworkElement.HeightProperty.Name] = height;
-            this._settings[FrameworkElement.MinWidthProperty.Name] = width;
-            this._settings[FrameworkElement.MinHeightProperty.Name] = height;
+            this[FrameworkElement.WidthProperty.Name] = width;
+            this[FrameworkElement.HeightProperty.Name] = height;
+            this[FrameworkElement.MinWidthProperty.Name] = width;
+            this[FrameworkElement.MinHeightProperty.Name] = height;
 
             return this;
         }
@@ -63,7 +58,7 @@ namespace Mileage.Client.Windows.Windows
         /// </summary>
         public WindowSettings Resize()
         {
-            this._settings[Window.ResizeModeProperty.Name] = ResizeMode.CanResize;
+            this[Window.ResizeModeProperty.Name] = ResizeMode.CanResize;
 
             return this;
         }
@@ -72,7 +67,7 @@ namespace Mileage.Client.Windows.Windows
         /// </summary>
         public WindowSettings NoResize()
         {
-            this._settings[Window.ResizeModeProperty.Name] = ResizeMode.NoResize;
+            this[Window.ResizeModeProperty.Name] = ResizeMode.NoResize;
 
             return this;
         }
@@ -82,7 +77,7 @@ namespace Mileage.Client.Windows.Windows
         /// </summary>
         public WindowSettings NoWindowButtons()
         {
-            this._settings[ExtendedDXWindow.HideWindowButtonsProperty.Name] = true;
+            this[ExtendedDXWindow.HideWindowButtonsProperty.Name] = true;
 
             return this;
         }
@@ -91,7 +86,7 @@ namespace Mileage.Client.Windows.Windows
         /// </summary>
         public WindowSettings NoIcon()
         {
-            this._settings[DXWindow.ShowIconProperty.Name] = false;
+            this[DXWindow.ShowIconProperty.Name] = false;
 
             return this;
         }

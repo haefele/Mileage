@@ -23,11 +23,5 @@ namespace Mileage.Client.Windows.WebServices
             var request = this._client.CreateRequest("Authentication/Login", HttpMethod.Post, loginData);
             return this._client.SendRequestAsync(request);
         }
-
-        public Task<HttpResponseMessage> RegisterAsync(CreateAdminUserData registerData)
-        {
-            var request = this._client.CreateRequest("Admin/CreateAdminUser", HttpMethod.Post, registerData);
-            return this._client.SendRequestAsync(request);
-        }
     }
 }

@@ -46,6 +46,10 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
             if (createUserResult.IsError)
                 return createUserResult;
 
+            //The admin user is not deactivated
+            //This is the first user we create, so someone needs to be able to login
+            createUserResult.Data.IsDeactivated = false;
+
             mileageSettingsResult.Data.IsAdminUserCreated = true;
 
             return createUserResult;

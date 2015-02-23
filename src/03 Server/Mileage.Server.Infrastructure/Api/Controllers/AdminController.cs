@@ -11,7 +11,7 @@ using Mileage.Shared.Results;
 
 namespace Mileage.Server.Infrastructure.Api.Controllers
 {
-    [RoutePrefix("auto")]
+    [RoutePrefix("Admin")]
     public class AdminController : BaseController
     {
         #region Constructors
@@ -28,15 +28,16 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         #region Methods
         /// <summary>
         /// Creates the admin user.
+        /// This works only once.
         /// </summary>
         /// <param name="data">The data.</param>
         /// <returns>
         /// 201 - Created: The admin user was created.
         /// 400 - BadRequest: Required data are missing.
-        /// 409 - Conflict: 
+        /// 409 - Conflict: An error occured.
         /// </returns>
         [HttpPost]
-        [Route("a")]
+        [Route("CreateAdminUser")]
         public async Task<HttpResponseMessage> CreateAdminUser(CreateAdminUserData data)
         {
             if (data == null || data.Username == null || data.EmailAddress == null || data.PasswordMD5Hash == null || data.Language == null)

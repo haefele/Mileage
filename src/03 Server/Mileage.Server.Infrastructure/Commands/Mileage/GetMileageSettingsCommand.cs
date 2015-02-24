@@ -23,15 +23,18 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
 
         public override async Task<Result<MileageSettings>> Execute(GetMileageSettingsCommand command, ICommandScope scope)
         {
-            MileageSettings settings = await this._documentSession.LoadAsync<MileageSettings>(MileageSettings.CreateId()).WithCurrentCulture();
+            using(this._documentSession.Advanced.DocumentStore.AggressivelyCache())
+            { 
+                MileageSettings settings = await this._documentSession.LoadAsync<MileageSettings>(MileageSettings.CreateId()).WithCurrentCulture();
 
-            if (settings == null)
-            {
-                settings = new MileageSettings();
-                await this._documentSession.StoreAsync(settings).WithCurrentCulture();
+                if (settings == null)
+                {
+                    settings = new MileageSettings();
+                    await this._documentSession.StoreAsync(settings).WithCurrentCulture();
+                }
+
+                return Result.AsSuccess(settings);
             }
-
-            return Result.AsSuccess(settings);
         }
     }
 }

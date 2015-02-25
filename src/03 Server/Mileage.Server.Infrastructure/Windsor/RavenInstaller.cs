@@ -66,9 +66,7 @@ namespace Mileage.Server.Infrastructure.Windsor
 
             ravenDbServer.FilesStore.DefaultFileSystem = Dependency.OnAppSettingsValue("Mileage/RavenName").Value;
             ravenDbServer.FilesStore.AsyncFilesCommands.Admin.EnsureFileSystemExistsAsync(ravenDbServer.FilesStore.DefaultFileSystem).Wait();
-
-            IndexCreation.CreateIndexes(this.GetType().Assembly, ravenDbServer.DocumentStore);
-
+            
             if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/EnableRavenHttpServer").Value))
             {
                 ravenDbServer.EnableHttpServer();

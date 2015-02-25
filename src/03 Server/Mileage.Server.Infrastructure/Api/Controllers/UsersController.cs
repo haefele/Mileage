@@ -35,18 +35,14 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </summary>
         /// <returns>
         /// 302 - Found: The user was found.
-        /// 409 - Conflict: An error occured.
+        /// 500 - InternalServerError: An error occured.
         /// </returns>
         [Route("Me")]
         [MileageAuthentication]
         public async Task<HttpResponseMessage> GetMe()
         {
             Result<User> result = await this.CommandExecutor.Execute(new GetCurrentUserCommand());
-
-            if (result.IsError)
-                return this.Request.GetMessageWithResult(HttpStatusCode.Conflict, result);
-
-            return this.Request.GetMessageWithObject(HttpStatusCode.Found, result.Data);
+            return this.Request.GetMessageWithResult(HttpStatusCode.Found, HttpStatusCode.InternalServerError, result);
         }
         #endregion
     }

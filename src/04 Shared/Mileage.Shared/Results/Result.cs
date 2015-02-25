@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using LiteGuard;
 
 namespace Mileage.Shared.Results
@@ -135,6 +136,20 @@ namespace Mileage.Shared.Results
             try
             {
                 return Result.AsSuccess(action());
+            }
+            catch (Exception exception)
+            {
+                return Result.FromException(exception);
+            }
+        }
+
+        public static async Task<Result<T>> CreateAsync<T>(Func<Task<T>> action)
+        {
+            Guard.AgainstNullArgument("action", action);
+
+            try
+            {
+                return Result.AsSuccess(await action());
             }
             catch (Exception exception)
             {

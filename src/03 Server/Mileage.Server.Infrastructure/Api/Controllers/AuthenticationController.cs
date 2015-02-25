@@ -45,7 +45,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// <returns>
         /// 200 - OK: Login is successfull.
         /// 400 - BadRequest: Required data are missing.
-        /// 409 - Conflict: An error occured.
+        /// 500 - InternalServerError: An error occured.
         /// </returns>
         [HttpPost]
         [Route("Login")]
@@ -63,10 +63,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 userAgent.Version,
                 this.OwinContext.Request.RemoteIpAddress));
 
-            if (result.IsError)
-                return this.Request.GetMessageWithResult(HttpStatusCode.Conflict, result);
-
-            return this.Request.GetMessageWithObject(HttpStatusCode.OK, result.Data);
+            return this.Request.GetMessageWithResult(HttpStatusCode.OK, HttpStatusCode.InternalServerError, result);
         }
         #endregion
     }

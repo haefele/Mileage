@@ -34,7 +34,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// <returns>
         /// 201 - Created: The admin user was created.
         /// 400 - BadRequest: Required data are missing.
-        /// 409 - Conflict: An error occured.
+        /// 500 - InternalServerError: An error occured.
         /// </returns>
         [HttpPost]
         [Route("CreateAdminUser")]
@@ -49,10 +49,35 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 data.EmailAddress, 
                 data.Language));
 
-            if (result.IsError)
-                return this.Request.GetMessageWithResult(HttpStatusCode.Conflict, result);
-
-            return this.Request.GetMessageWithObject(HttpStatusCode.Created, result.Data);
+            return this.Request.GetMessageWithResult(HttpStatusCode.InternalServerError, HttpStatusCode.Created, result);
+        }
+        /// <summary>
+        /// Makes sure that all indexes in the RavenDB database are created.
+        /// </summary>
+        /// <returns>
+        /// 201 - Created: All indexes were created successfully.
+        /// 500 - InternalServerError: An error occured.
+        /// </returns>
+        [HttpPost]
+        [Route("CreateIndexes")]
+        public async Task<HttpResponseMessage> CreateIndexes()
+        {
+            Result<object> result = await this.CommandExecutor.Execute(new CreateIndexesCommand());
+            return this.Request.GetMessageWithResult(HttpStatusCode.Created, HttpStatusCode.InternalServerError, result, ignoreData:true);
+        }
+        /// <summary>
+        /// Resets all indexes in the RavenDB database.
+        /// </summary>
+        /// <returns>
+        /// 200 - OK: All indexes were reset.
+        /// 500 - InternalServerError: An error occured.
+        /// </returns>
+        [HttpPost]
+        [Route("ResetIndexes")]
+        public async Task<HttpResponseMessage> ResetIndexes()
+        {
+            var result = await this.CommandExecutor.Execute(new ResetIndexesCommand());
+            return this.Request.GetMessageWithResult(HttpStatusCode.OK, HttpStatusCode.InternalServerError, result, ignoreData: true);
         }
         #endregion
     }

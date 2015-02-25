@@ -11,20 +11,23 @@ namespace Mileage.Server.Infrastructure.Extensions
         {
             return request.CreateErrorResponse(statusCode, new HttpError(message));
         }
-        public static HttpResponseMessage GetMessageWithResult(this HttpRequestMessage request, HttpStatusCode statusCode, Result result)
-        {
-            return request.CreateErrorResponse(statusCode, new HttpError(result.Message));
-        }
-        public static HttpResponseMessage GetMessageWithResult<T>(this HttpRequestMessage request, HttpStatusCode statusCode, Result<T> result)
+        public static HttpResponseMessage GetMessageWithResult<T>(this HttpRequestMessage request, HttpStatusCode successStatusCode, HttpStatusCode errorStatusCode, Result<T> result, bool ignoreData = false)
         {
             if (result.IsError)
-                return request.CreateErrorResponse(statusCode, new HttpError(result.Message));
+                return request.CreateErrorResponse(errorStatusCode, new HttpError(result.Message));
+            else if (ignoreData)
+                return request.CreateResponse(successStatusCode);
             else
-                return request.CreateResponse(statusCode, result.Data);
+                return request.CreateResponse(successStatusCode, result.Data);
         }
         public static HttpResponseMessage GetMessageWithObject<T>(this HttpRequestMessage request, HttpStatusCode statusCode, T obj)
         {
             return request.CreateResponse(statusCode, obj);
+        }
+
+        public static HttpResponseMessage GetMessage(this HttpRequestMessage request, HttpStatusCode statusCode)
+        {
+            return request.CreateResponse(statusCode);
         }
     }
 }

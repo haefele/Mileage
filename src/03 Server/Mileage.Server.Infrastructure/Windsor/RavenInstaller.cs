@@ -90,9 +90,9 @@ namespace Mileage.Server.Infrastructure.Windsor
             {
                 return Task.FromResult(AuthenticationToken.CreateId(entity.Token));
             });
-            documentStore.Conventions.RegisterAsyncIdConvention<MileageSettings>((databaseName, commands, entity) =>
+            documentStore.Conventions.RegisterAsyncIdConvention<MileageInternalSettings>((databaseName, commands, entity) =>
             {
-                return Task.FromResult(MileageSettings.CreateId());
+                return Task.FromResult(MileageInternalSettings.CreateId());
             });
         }
         #endregion

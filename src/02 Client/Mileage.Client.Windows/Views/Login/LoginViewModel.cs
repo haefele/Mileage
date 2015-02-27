@@ -22,7 +22,7 @@ namespace Mileage.Client.Windows.Views.Login
     public class LoginViewModel : MileageReactiveScreen
     {
         #region Fields
-        private string _username;
+        private string _emailAddress;
         private string _password;
         #endregion
 
@@ -30,10 +30,10 @@ namespace Mileage.Client.Windows.Views.Login
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
-        public string Username
+        public string EmailAddress
         {
-            get { return this._username; }
-            set { this.RaiseAndSetIfChanged(ref this._username, value); }
+            get { return this._emailAddress; }
+            set { this.RaiseAndSetIfChanged(ref this._emailAddress, value); }
         }
         /// <summary>
         /// Gets or sets the password.
@@ -66,8 +66,8 @@ namespace Mileage.Client.Windows.Views.Login
         #region Private Methods
         private void CreateCommands()
         {
-            var canLogin = this.WhenAnyValue(f => f.Username, f => f.Password,
-                (username, password) => string.IsNullOrWhiteSpace(username) == false && string.IsNullOrWhiteSpace(password) == false);
+            var canLogin = this.WhenAnyValue(f => f.EmailAddress, f => f.Password,
+                (emailAddress, password) => string.IsNullOrWhiteSpace(emailAddress) == false && string.IsNullOrWhiteSpace(password) == false);
 
             this.Login = ReactiveCommand.CreateAsyncTask(canLogin, _ => this.LoginImpl());
             this.Login.ThrownExceptions.Subscribe(this.ExceptionHandler.Handle);
@@ -76,7 +76,7 @@ namespace Mileage.Client.Windows.Views.Login
         {
             var data = new LoginData
             {
-                Username = this.Username,
+                EmailAddress = this.EmailAddress,
                 PasswordMD5Hash = this.GetPasswordMD5Hash()
             };
 

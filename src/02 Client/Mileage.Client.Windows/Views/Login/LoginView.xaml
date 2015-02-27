@@ -26,7 +26,7 @@
         
         <dxlc:LayoutGroup View="GroupBox" Header="{lex:Loc Login}" Orientation="Vertical">
             <dxlc:LayoutItem>
-                <dxe:TextEdit EditValue="{Binding Username, UpdateSourceTrigger=PropertyChanged}" NullText="Username">
+                <dxe:TextEdit EditValue="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" NullText="{lex:Loc EmailAddress}">
                     <dxmvvm:Interaction.Behaviors>
                         <dxmvvm:FocusBehavior />
                     </dxmvvm:Interaction.Behaviors>    
@@ -36,7 +36,7 @@
                 </dxe:TextEdit>
             </dxlc:LayoutItem>
             <dxlc:LayoutItem>
-                <dxe:PasswordBoxEdit EditValue="{Binding Password, UpdateSourceTrigger=PropertyChanged}" NullText="Password">
+                <dxe:PasswordBoxEdit EditValue="{Binding Password, UpdateSourceTrigger=PropertyChanged}" NullText="{lex:Loc Password}">
                     <dxe:PasswordBoxEdit.InputBindings>
                         <KeyBinding Command="{Binding Login}" Key="Enter" />
                     </dxe:PasswordBoxEdit.InputBindings>

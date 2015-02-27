@@ -51,13 +51,13 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         [Route("Login")]
         public async Task<HttpResponseMessage> LoginAsync(LoginData loginDataData)
         {
-            if (loginDataData == null || loginDataData.Username == null || loginDataData.PasswordMD5Hash == null)
+            if (loginDataData == null || loginDataData.EmailAddress == null || loginDataData.PasswordMD5Hash == null)
                 return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, AuthenticationMessages.LoginDataMissing);
 
             var userAgent = this.Request.Headers.UserAgent.Select(f => f.Product).First();
             
             Result<AuthenticationToken> result = await this.CommandExecutor.Execute(new ValidateLoginAndCreateTokenCommand(
-                loginDataData.Username,
+                loginDataData.EmailAddress,
                 loginDataData.PasswordMD5Hash,
                 userAgent.Name,
                 userAgent.Version,

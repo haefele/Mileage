@@ -58,6 +58,7 @@
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\Driver.cs" />
     <Compile Include="Entities\DriversLicense.cs" />
+    <Compile Include="Entities\Mileage\MileageInternalSettings.cs" />
     <Compile Include="Entities\Mileage\MileageSettings.cs" />
     <Compile Include="Entities\Users\User.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />

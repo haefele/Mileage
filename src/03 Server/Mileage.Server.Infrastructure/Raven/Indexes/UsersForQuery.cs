@@ -13,12 +13,10 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
             this.Map = users => from user in users
                                 select new
                                 {
-                                    user.Username,
-                                    user.NotificationEmailAddress
+                                    user.EmailAddress
                                 };
 
-            this.Index(f => f.Username, FieldIndexing.NotAnalyzed);
-            this.Index(f => f.NotificationEmailAddress, FieldIndexing.NotAnalyzed);
+            this.Index(f => f.EmailAddress, FieldIndexing.NotAnalyzed);
         }
 
         public override string IndexName

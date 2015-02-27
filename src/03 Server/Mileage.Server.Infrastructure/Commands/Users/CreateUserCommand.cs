@@ -18,22 +18,19 @@ namespace Mileage.Server.Infrastructure.Commands.Users
 {
     public class CreateUserCommand : ICommand<User>
     {
-        public CreateUserCommand(string username, byte[] passwordMD5Hash, string emailAddress, string language)
+        public CreateUserCommand(string emailAddress, byte[] passwordMD5Hash, string language)
         {
-            Guard.AgainstNullArgument("username", username);
-            Guard.AgainstNullArgument("passwordMD5Hash", passwordMD5Hash);
             Guard.AgainstNullArgument("emailAddress", emailAddress);
+            Guard.AgainstNullArgument("passwordMD5Hash", passwordMD5Hash);
             Guard.AgainstNullArgument("language", language);
 
-            this.Username = username;
-            this.PasswordMD5Hash = passwordMD5Hash;
             this.EmailAddress = emailAddress;
+            this.PasswordMD5Hash = passwordMD5Hash;
             this.Language = language;
         }
 
-        public string Username { get; private set; }
-        public byte[] PasswordMD5Hash { get; private set; }
         public string EmailAddress { get; private set; }
+        public byte[] PasswordMD5Hash { get; private set; }
         public string Language { get; private set; }
     }
 
@@ -61,10 +58,9 @@ namespace Mileage.Server.Infrastructure.Commands.Users
 
             var user = new User
             {
+                EmailAddress = command.EmailAddress,
                 IsDeactivated = true,
-                NotificationEmailAddress = command.EmailAddress,
                 PreferredLanguage = command.Language,
-                Username = command.Username
             };
 
             await this._documentSession.StoreAsync(user).WithCurrentCulture();
@@ -88,7 +84,7 @@ namespace Mileage.Server.Infrastructure.Commands.Users
         private Task<bool> IsEmailAddressInUse(string emailAddress)
         {
             return this._documentSession.Query<User, UsersForQuery>()
-                .Where(f => f.NotificationEmailAddress == emailAddress)
+                .Where(f => f.EmailAddress == emailAddress)
                 .AnyAsync();
         }
     }

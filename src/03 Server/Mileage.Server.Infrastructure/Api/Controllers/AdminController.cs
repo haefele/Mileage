@@ -40,13 +40,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         [Route("CreateAdminUser")]
         public async Task<HttpResponseMessage> CreateAdminUser(CreateAdminUserData data)
         {
-            if (data == null || data.Username == null || data.EmailAddress == null || data.PasswordMD5Hash == null || data.Language == null)
+            if (data == null || data.EmailAddress == null || data.PasswordMD5Hash == null || data.Language == null)
                 return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, "asdf");
 
             Result<User> result = await this.CommandExecutor.Execute(new CreateAdminUserCommand(
-                data.Username, 
-                data.PasswordMD5Hash,
                 data.EmailAddress, 
+                data.PasswordMD5Hash,
                 data.Language));
 
             return this.Request.GetMessageWithResult(HttpStatusCode.InternalServerError, HttpStatusCode.Created, result);

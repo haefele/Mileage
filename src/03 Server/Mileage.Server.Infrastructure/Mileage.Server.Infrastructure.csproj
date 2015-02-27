@@ -167,6 +167,7 @@
     <Compile Include="Commands\CommandScope.cs" />
     <Compile Include="Commands\Mileage\CreateAdminUserCommand.cs" />
     <Compile Include="Commands\Mileage\CreateIndexesCommand.cs" />
+    <Compile Include="Commands\Mileage\GetMileageInternalSettingsCommand.cs" />
     <Compile Include="Commands\Mileage\GetMileageSettingsCommand.cs" />
     <Compile Include="Commands\Mileage\ResetIndexesCommand.cs" />
     <Compile Include="Commands\Users\CreateUserCommand.cs" />

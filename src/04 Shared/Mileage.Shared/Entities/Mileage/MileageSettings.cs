@@ -7,6 +7,6 @@
             return "MileageSettings/Global";
         }
 
-        public bool IsAdminUserCreated { get; set; }
+        public string DefaultEmailSuffix { get; set; }
     }
 }

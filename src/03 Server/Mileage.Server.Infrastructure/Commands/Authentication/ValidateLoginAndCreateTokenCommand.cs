@@ -127,33 +127,47 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
         #region Private Methods
         /// <summary>
         /// Returns the user with the specified <paramref name="emailAddress"/>.
+        /// This works in a three step process:
+        /// 1. Exact given <paramref name="emailAddress"/>.
+        /// 2. Append the <see cref="MileageSettings.DefaultEmailSuffix"/> to the given <paramref name="emailAddress"/>.
+        /// 3. Replace everything after the <c>@</c> in the <paramref name="emailAddress"/> with the <see cref="MileageSettings.DefaultEmailSuffix"/>.
         /// </summary>
         /// <param name="emailAddress">The email address.</param>
         /// <param name="scope">The command scope.</param>
         private async Task<Result<User>> GetUserWithEmailAddress(string emailAddress, ICommandScope scope)
         {
-            User userByFullEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
+            User userByGivenEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
                 .Where(f => f.EmailAddress == emailAddress)
                 .FirstOrDefaultAsync()
                 .WithCurrentCulture();
 
-            if (userByFullEmailAddress != null)
-                return Result.AsSuccess(userByFullEmailAddress);
+            if (userByGivenEmailAddress != null)
+                return Result.AsSuccess(userByGivenEmailAddress);
 
             Result<MileageSettings> mileageSettingsCommand = await scope.Execute(new GetMileageSettingsCommand());
 
             if (mileageSettingsCommand.IsError)
                 return Result.AsError(mileageSettingsCommand.Message);
 
-            string fullEmailAddress = string.Format("{0}@{1}", emailAddress, mileageSettingsCommand.Data.DefaultEmailSuffix);
+            string appendedEmailAddress = emailAddress.AppendEmailSuffix(mileageSettingsCommand.Data.DefaultEmailSuffix);
 
-            User userByConstructedEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
-                .Where(f => f.EmailAddress == fullEmailAddress)
+            User userByAppendedEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
+                .Where(f => f.EmailAddress == appendedEmailAddress)
                 .FirstOrDefaultAsync()
                 .WithCurrentCulture();
 
-            if (userByConstructedEmailAddress != null)
-                return Result.AsSuccess(userByConstructedEmailAddress);
+            if (userByAppendedEmailAddress != null)
+                return Result.AsSuccess(userByAppendedEmailAddress);
+
+            string replacedEmailAddress = emailAddress.UpdateEmailSuffix(mileageSettingsCommand.Data.DefaultEmailSuffix);
+
+            User userByReplacedEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
+                .Where(f => f.EmailAddress == replacedEmailAddress)
+                .FirstOrDefaultAsync()
+                .WithCurrentCulture();
+
+            if (userByReplacedEmailAddress != null)
+                return Result.AsSuccess(userByReplacedEmailAddress);
 
             return Result.AsError(CommandMessages.UserNotFound);
         }

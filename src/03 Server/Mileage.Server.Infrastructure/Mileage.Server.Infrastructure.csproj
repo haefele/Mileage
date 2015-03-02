@@ -179,6 +179,7 @@
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\SaltCombinerExtensions.cs" />
     <Compile Include="Extensions\SecretGeneratorExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Licensing\ClientIdMissingValidationFailure.cs" />
     <Compile Include="Licensing\LicenseIsInvalidForCurrentVersionValidationFailure.cs" />
     <Compile Include="Licensing\LicensingService.cs" />

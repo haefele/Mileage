@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AuthenticationTokenExpired" xml:space="preserve">
-    <value>Ihre Sitzung ist abgelaufen.</value>
+  <data name="AdminUserAlreadyCreated" xml:space="preserve">
+    <value>The admin user was already created.</value>
   </data>
-  <data name="LoginDataMissing" xml:space="preserve">
-    <value>Bitte tragen Sie Ihren Benutzernamen und Passwort ein.</value>
+  <data name="EmailIsNotAvailable" xml:space="preserve">
+    <value>The email address is already in use.</value>
   </data>
-  <data name="NoAuthenticationTokenGiven" xml:space="preserve">
-    <value>Keine Sitzungsinformationen vorhanden.</value>
+  <data name="PasswordIncorrect" xml:space="preserve">
+    <value>The password is incorrect.</value>
+  </data>
+  <data name="UserIsDeactivated" xml:space="preserve">
+    <value>This user is deactivated.</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>No user was found with your username.</value>
   </data>
 </root>

@@ -2,6 +2,7 @@
 using LiteGuard;
 using Metrics.Core;
 using Mileage.Localization.Server.Authentication;
+using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Contracts.Encryption;
 using Mileage.Server.Infrastructure.Extensions;
@@ -36,10 +37,19 @@ namespace Mileage.Server.Infrastructure.Commands.Users
 
     public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, User>
     {
+        #region Fields
         private readonly IAsyncDocumentSession _documentSession;
         private readonly ISecretGenerator _secretGenerator;
         private readonly ISaltCombiner _saltCombiner;
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateUserCommandHandler"/> class.
+        /// </summary>
+        /// <param name="documentSession">The document session.</param>
+        /// <param name="secretGenerator">The secret generator.</param>
+        /// <param name="saltCombiner">The salt combiner.</param>
         public CreateUserCommandHandler(IAsyncDocumentSession documentSession, ISecretGenerator secretGenerator, ISaltCombiner saltCombiner)
         {
             Guard.AgainstNullArgument("documentSession", documentSession);
@@ -50,11 +60,18 @@ namespace Mileage.Server.Infrastructure.Commands.Users
             this._secretGenerator = secretGenerator;
             this._saltCombiner = saltCombiner;
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Executes the specified command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="scope">The scope.</param>
         public override async Task<Result<User>> Execute(CreateUserCommand command, ICommandScope scope)
         {
             if (await this.IsEmailAddressInUse(command.EmailAddress).WithCurrentCulture())
-                return Result.AsError(AuthenticationMessages.EmailIsNotAvailable);
+                return Result.AsError(CommandMessages.EmailIsNotAvailable);
 
             var user = new User
             {
@@ -76,7 +93,9 @@ namespace Mileage.Server.Infrastructure.Commands.Users
 
             return Result.AsSuccess(user);
         }
+        #endregion
 
+        #region Private Methods
         /// <summary>
         /// Returns whether the specified <paramref name="emailAddress"/> is already in use.
         /// </summary>
@@ -87,5 +106,6 @@ namespace Mileage.Server.Infrastructure.Commands.Users
                 .Where(f => f.EmailAddress == emailAddress)
                 .AnyAsync();
         }
+        #endregion
     }
 }

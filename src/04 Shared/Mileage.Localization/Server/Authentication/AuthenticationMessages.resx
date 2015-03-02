@@ -120,25 +120,10 @@
   <data name="AuthenticationTokenExpired" xml:space="preserve">
     <value>Your session has expired.</value>
   </data>
-  <data name="EmailIsNotAvailable" xml:space="preserve">
-    <value>The email address is already in use.</value>
-  </data>
   <data name="LoginDataMissing" xml:space="preserve">
     <value>You need to enter your username and password.</value>
   </data>
   <data name="NoAuthenticationTokenGiven" xml:space="preserve">
     <value>No session informations was given.</value>
-  </data>
-  <data name="PasswordIncorrect" xml:space="preserve">
-    <value>The password is incorrect.</value>
-  </data>
-  <data name="RegisterDataMissing" xml:space="preserve">
-    <value>You need to enter a username, password and email address.</value>
-  </data>
-  <data name="UserIsDeactivated" xml:space="preserve">
-    <value>This user is deactivated.</value>
-  </data>
-  <data name="UserNotFound" xml:space="preserve">
-    <value>No user was found with your username.</value>
   </data>
 </root>

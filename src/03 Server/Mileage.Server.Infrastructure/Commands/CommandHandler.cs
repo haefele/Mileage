@@ -9,6 +9,11 @@ namespace Mileage.Server.Infrastructure.Commands
     public abstract class CommandHandler<TCommand, TResult> 
         where TCommand : ICommand<TResult>
     {
+        /// <summary>
+        /// Executes the specified command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="scope">The scope.</param>
         public abstract Task<Result<TResult>> Execute(TCommand command, ICommandScope scope);
     }
 }

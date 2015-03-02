@@ -15,17 +15,34 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
 
     public class ResetIndexesCommandHandler : CommandHandler<ResetIndexesCommand, object>
     {
+        #region Fields
         private readonly IDocumentStore _documentStore;
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResetIndexesCommandHandler"/> class.
+        /// </summary>
+        /// <param name="documentStore">The document store.</param>
         public ResetIndexesCommandHandler(IDocumentStore documentStore)
         {
             Guard.AgainstNullArgument("documentStore", documentStore);
 
             this._documentStore = documentStore;
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Executes the specified command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="scope">The scope.</param>
         public override Task<Result<object>> Execute(ResetIndexesCommand command, ICommandScope scope)
         {
+            Guard.AgainstNullArgument("command", command);
+            Guard.AgainstNullArgument("scope", scope);
+
             return Result.CreateAsync(async () =>
             {
                 var compositionContainer = new CompositionContainer(new AssemblyCatalog(this.GetType().Assembly));
@@ -37,5 +54,6 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
                 return new object();
             });
         }
+        #endregion
     }
 }

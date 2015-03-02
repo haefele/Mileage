@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using LiteGuard;
 using Mileage.Localization.Server.Authentication;
+using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Contracts.Encryption;
 using Mileage.Server.Infrastructure.Commands.Mileage;
@@ -53,10 +54,19 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
         public const int ValidTokenDurationInHours = 12;
         #endregion
 
+        #region Fields
         private readonly IAsyncDocumentSession _documentSession;
         private readonly ISaltCombiner _saltCombiner;
         private readonly ISecretGenerator _secretGenerator;
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidateLoginAndCreateTokenCommandHandler"/> class.
+        /// </summary>
+        /// <param name="documentSession">The document session.</param>
+        /// <param name="saltCombiner">The salt combiner.</param>
+        /// <param name="secretGenerator">The secret generator.</param>
         public ValidateLoginAndCreateTokenCommandHandler(IAsyncDocumentSession documentSession, ISaltCombiner saltCombiner, ISecretGenerator secretGenerator)
         {
             Guard.AgainstNullArgument("documentSession", documentSession);
@@ -67,7 +77,14 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
             this._saltCombiner = saltCombiner;
             this._secretGenerator = secretGenerator;
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Executes the specified command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="scope">The scope.</param>
         public override async Task<Result<AuthenticationToken>> Execute(ValidateLoginAndCreateTokenCommand command, ICommandScope scope)
         {
             Result<User> userResult = await this.GetUserWithEmailAddress(command.EmailAddress, scope).WithCurrentCulture();
@@ -76,7 +93,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
                 return Result.AsError(userResult.Message);
 
             if (userResult.Data.IsDeactivated)
-                return Result.AsError(AuthenticationMessages.UserIsDeactivated);
+                return Result.AsError(CommandMessages.UserIsDeactivated);
             
             AuthenticationData authenticationData = await this._documentSession
                 .LoadAsync<AuthenticationData>(AuthenticationData.CreateId(userResult.Data.Id))
@@ -85,7 +102,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
             byte[] passedHash = this._saltCombiner.Combine(authenticationData.Salt, command.PasswordMD5Hash);
 
             if (authenticationData.Hash.SequenceEqual(passedHash) == false)
-                return Result.AsError(AuthenticationMessages.PasswordIncorrect);
+                return Result.AsError(CommandMessages.PasswordIncorrect);
             
             var token = new AuthenticationToken
             {
@@ -105,7 +122,9 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
 
             return Result.AsSuccess(token);
         }
+        #endregion
 
+        #region Private Methods
         /// <summary>
         /// Returns the user with the specified <paramref name="emailAddress"/>.
         /// </summary>
@@ -136,7 +155,8 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
             if (userByConstructedEmailAddress != null)
                 return Result.AsSuccess(userByConstructedEmailAddress);
 
-            return Result.AsError(AuthenticationMessages.UserNotFound);
+            return Result.AsError(CommandMessages.UserNotFound);
         }
+        #endregion
     }
 }

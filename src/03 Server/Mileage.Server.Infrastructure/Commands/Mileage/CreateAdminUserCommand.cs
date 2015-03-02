@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using LiteGuard;
+using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Commands.Users;
 using Mileage.Shared.Entities.Mileage;
@@ -28,15 +29,24 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
 
     public class CreateAdminUserCommandHandler : CommandHandler<CreateAdminUserCommand, User>
     {
+        #region Methods
+        /// <summary>
+        /// Executes the specified command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="scope">The scope.</param>
         public override async Task<Result<User>> Execute(CreateAdminUserCommand command, ICommandScope scope)
         {
+            Guard.AgainstNullArgument("command", command);
+            Guard.AgainstNullArgument("scope", scope);
+
             Result<MileageInternalSettings> mileageInternalSettingsResult = await scope.Execute(new GetMileageInternalSettingsCommand());
 
             if (mileageInternalSettingsResult.IsError)
                 return Result.AsError(mileageInternalSettingsResult.Message);
 
             if (mileageInternalSettingsResult.Data.IsAdminUserCreated)
-                return Result.AsError("Admin user already created.");
+                return Result.AsError(CommandMessages.AdminUserAlreadyCreated);
 
             Result<User> createUserResult = await scope.Execute(new CreateUserCommand(command.EmailAddress, command.PasswordMD5Hash, command.Language));
 
@@ -51,5 +61,6 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
 
             return createUserResult;
         }
+        #endregion
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Mileage.Localization.Server.Authentication {
+namespace Mileage.Localization.Server.Commands {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Mileage.Localization.Server.Authentication {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AuthenticationMessages {
+    public class CommandMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AuthenticationMessages() {
+        internal CommandMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Mileage.Localization.Server.Authentication {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Server.Authentication.AuthenticationMessages", typeof(AuthenticationMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mileage.Localization.Server.Commands.CommandMessages", typeof(CommandMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,47 @@ namespace Mileage.Localization.Server.Authentication {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your session has expired..
+        ///   Looks up a localized string similar to The admin user was already created..
         /// </summary>
-        public static string AuthenticationTokenExpired {
+        public static string AdminUserAlreadyCreated {
             get {
-                return ResourceManager.GetString("AuthenticationTokenExpired", resourceCulture);
+                return ResourceManager.GetString("AdminUserAlreadyCreated", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to enter your username and password..
+        ///   Looks up a localized string similar to The email address is already in use..
         /// </summary>
-        public static string LoginDataMissing {
+        public static string EmailIsNotAvailable {
             get {
-                return ResourceManager.GetString("LoginDataMissing", resourceCulture);
+                return ResourceManager.GetString("EmailIsNotAvailable", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No session informations was given..
+        ///   Looks up a localized string similar to The password is incorrect..
         /// </summary>
-        public static string NoAuthenticationTokenGiven {
+        public static string PasswordIncorrect {
             get {
-                return ResourceManager.GetString("NoAuthenticationTokenGiven", resourceCulture);
+                return ResourceManager.GetString("PasswordIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user is deactivated..
+        /// </summary>
+        public static string UserIsDeactivated {
+            get {
+                return ResourceManager.GetString("UserIsDeactivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No user was found with your username..
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
     }

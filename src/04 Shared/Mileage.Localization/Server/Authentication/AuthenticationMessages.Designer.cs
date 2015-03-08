@@ -61,29 +61,11 @@ namespace Mileage.Localization.Server.Authentication {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your session has expired..
-        /// </summary>
-        public static string AuthenticationTokenExpired {
-            get {
-                return ResourceManager.GetString("AuthenticationTokenExpired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You need to enter your username and password..
         /// </summary>
         public static string LoginDataMissing {
             get {
                 return ResourceManager.GetString("LoginDataMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No session informations was given..
-        /// </summary>
-        public static string NoAuthenticationTokenGiven {
-            get {
-                return ResourceManager.GetString("NoAuthenticationTokenGiven", resourceCulture);
             }
         }
     }

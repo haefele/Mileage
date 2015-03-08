@@ -158,9 +158,9 @@
     <Compile Include="Api\MessageHandlers\LoggingMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\RequestExecutionTimeMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\VersionValidationMessageHandler.cs" />
-    <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Bootstrapper\LoadLicenseStartable.cs" />
     <Compile Include="Bootstrapper\MetricsStartable.cs" />
+    <Compile Include="Commands\Authentication\AuthenticateCommand.cs" />
     <Compile Include="Commands\Authentication\ValidateLoginAndCreateTokenCommand.cs" />
     <Compile Include="Commands\CommandExecutor.cs" />
     <Compile Include="Commands\CommandHandler.cs" />

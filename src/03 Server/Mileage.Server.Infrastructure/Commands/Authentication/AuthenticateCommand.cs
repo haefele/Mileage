@@ -1,61 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using LiteGuard;
 using Microsoft.Owin;
 using Mileage.Localization.Server.Authentication;
-using Mileage.Server.Contracts.Authentication;
-using Mileage.Shared.Entities;
+using Mileage.Localization.Server.Commands;
+using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Entities.Authentication;
+using Mileage.Shared.Extensions;
 using Mileage.Shared.Results;
-using Raven.Abstractions.Data;
 using Raven.Client;
 
-namespace Mileage.Server.Infrastructure.Authentication
+namespace Mileage.Server.Infrastructure.Commands.Authentication
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticateCommand : ICommand<string>
+    {
+        public IOwinContext OwinContext { get; private set; }
+
+        public AuthenticateCommand(IOwinContext owinContext)
+        {
+            Guard.AgainstNullArgument("owinContext", owinContext);
+
+            this.OwinContext = owinContext;
+        }
+    }
+
+    public class AuthenticateCommandHandler : CommandHandler<AuthenticateCommand, string>
     {
         #region Fields
-        private readonly IDocumentStore _documentStore;
+        private readonly IAsyncDocumentSession _documentSession;
         #endregion
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
+        /// Initializes a new instance of the <see cref="AuthenticateCommandHandler"/> class.
         /// </summary>
-        /// <param name="documentStore">The document store.</param>
-        public AuthenticationService(IDocumentStore documentStore)
+        /// <param name="documentSession">The document session.</param>
+        public AuthenticateCommandHandler(IAsyncDocumentSession documentSession)
         {
-            Guard.AgainstNullArgument("documentStore", documentStore);
+            Guard.AgainstNullArgument("documentSession", documentSession);
 
-            this._documentStore = documentStore;
+            this._documentSession = documentSession;
         }
         #endregion
 
         #region Methods
         /// <summary>
-        /// Returns the authenticated user id from the specified <paramref name="requestContext"/>.
+        /// Executes the specified command.
         /// </summary>
-        /// <param name="requestContext">The request context.</param>
-        public Result<string> GetAuthenticatedUserId(IOwinContext requestContext)
+        /// <param name="command">The command.</param>
+        /// <param name="scope">The scope.</param>
+        public override async Task<Result<string>> Execute(AuthenticateCommand command, ICommandScope scope)
         {
-            Guard.AgainstNullArgument("requestContext", requestContext);
-
-            Result<string> authenticationToken = this.GetToken(requestContext);
+            Result<string> authenticationToken = this.GetToken(command.OwinContext);
 
             if (authenticationToken.IsError)
                 return authenticationToken;
 
-            using (this._documentStore.AggressivelyCache())
-            using (IDocumentSession session = this._documentStore.OpenSession())
+            using (this._documentSession.Advanced.DocumentStore.AggressivelyCache())
             {
-                var token = session.Load<AuthenticationToken>(AuthenticationToken.CreateId(authenticationToken.Data));
+                AuthenticationToken token = await this._documentSession.LoadAsync<AuthenticationToken>(AuthenticationToken.CreateId(authenticationToken.Data)).WithCurrentCulture();
 
                 if (token == null)
-                    return Result.AsError(AuthenticationMessages.NoAuthenticationTokenGiven);
+                    return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
 
                 if (token.IsValid() == false)
-                    return Result.AsError(AuthenticationMessages.AuthenticationTokenExpired);
+                    return Result.AsError(CommandMessages.AuthenticationTokenExpired);
 
                 return Result.AsSuccess(token.UserId);
             }
@@ -79,7 +90,7 @@ namespace Mileage.Server.Infrastructure.Authentication
             if (tokenFromHeader.IsSuccess)
                 return tokenFromHeader;
 
-            return Result.AsError(AuthenticationMessages.NoAuthenticationTokenGiven);
+            return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
         }
         /// <summary>
         /// Tries to extract the <see cref="AuthenticationToken.Token"/> from the request query parameters.
@@ -88,11 +99,11 @@ namespace Mileage.Server.Infrastructure.Authentication
         private Result<string> GetTokenFromUri(IOwinContext requestContext)
         {
             IList<string> values = requestContext.Request.Query.GetValues("token");
-            
+
             if (values != null && values.Any())
                 return Result.AsSuccess(values.First());
 
-            return Result.AsError(AuthenticationMessages.NoAuthenticationTokenGiven);
+            return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
         }
         /// <summary>
         /// Tries to extract the <see cref="AuthenticationToken.Token"/> from the request headers.
@@ -105,10 +116,10 @@ namespace Mileage.Server.Infrastructure.Authentication
             string[] parts = authorizationHeader.Split(' ');
 
             if (parts.Length != 2)
-                return Result.AsError(AuthenticationMessages.NoAuthenticationTokenGiven);
+                return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
 
             if (parts[1].Equals("Mileage", StringComparison.InvariantCultureIgnoreCase))
-                return Result.AsError(AuthenticationMessages.NoAuthenticationTokenGiven);
+                return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
 
             return Result.AsSuccess(parts[2]);
         }

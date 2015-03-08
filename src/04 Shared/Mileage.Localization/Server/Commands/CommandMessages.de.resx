@@ -120,8 +120,14 @@
   <data name="AdminUserAlreadyCreated" xml:space="preserve">
     <value>Der Admin-Benutzer wurde bereits erstellt.</value>
   </data>
+  <data name="AuthenticationTokenExpired" xml:space="preserve">
+    <value>Ihre Sitzung ist abgelaufen.</value>
+  </data>
   <data name="EmailIsNotAvailable" xml:space="preserve">
     <value>Diese E-Mail-Adresse wird bereits verwendet.</value>
+  </data>
+  <data name="NoAuthenticationTokenGiven" xml:space="preserve">
+    <value>Keine Sitzungsinformationen vorhanden.</value>
   </data>
   <data name="PasswordIncorrect" xml:space="preserve">
     <value>Das Passwort ist falsch.</value>

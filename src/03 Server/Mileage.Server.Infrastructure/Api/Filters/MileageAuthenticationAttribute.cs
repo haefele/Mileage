@@ -9,7 +9,8 @@ using System.Web.Http;
 using System.Web.Http.Filters;
 using LiteGuard;
 using Microsoft.Owin;
-using Mileage.Server.Contracts.Authentication;
+using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Infrastructure.Commands.Authentication;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Results;
 
@@ -33,12 +34,12 @@ namespace Mileage.Server.Infrastructure.Api.Filters
         /// </summary>
         /// <param name="context">The authentication context.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
+        public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
-            var authenticationService = context.ActionContext.ControllerContext.Configuration.DependencyResolver.GetService<IAuthenticationService>();
+            var commandExecutor = context.ActionContext.ControllerContext.Configuration.DependencyResolver.GetService<ICommandExecutor>();
 
             IOwinContext requestContext = context.Request.GetOwinContext();
-            Result<string> isAuthenticated = authenticationService.GetAuthenticatedUserId(requestContext);
+            Result<string> isAuthenticated = await commandExecutor.Execute(new AuthenticateCommand(requestContext));
 
             if (isAuthenticated.IsSuccess)
             {
@@ -48,8 +49,6 @@ namespace Mileage.Server.Infrastructure.Api.Filters
             {
                 context.ErrorResult = new AuthenticationFailureResult(isAuthenticated.Message, context.Request);
             }
-
-            return Task.FromResult(new object());
         }
         /// <summary>
         /// Returns a challenge to the caller application.

@@ -18,7 +18,7 @@
              
              Width="300"
              >
-    <dxlc:LayoutControl Orientation="Vertical" Padding="0">
+    <dxlc:LayoutControl Orientation="Vertical">
         
         <dxlc:LayoutItem>
             <Canvas Width="200" Height="200" />

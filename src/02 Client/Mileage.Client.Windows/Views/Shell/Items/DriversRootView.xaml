@@ -1,0 +1,35 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             x:Class="Mileage.Client.Windows.Views.Shell.Items.DriversRootView"
+             mc:Ignorable="d"
+             
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             >
+    <dxb:BarManager>
+        <DockPanel>
+            <dxr:RibbonControl DockPanel.Dock="Top"
+                                RibbonStyle="Office2010"
+                                x:Name="ActualRibbonControl">
+                <dxr:RibbonPageCategory Caption="Fahrer">
+                    <dxr:RibbonPage Caption="Merge Page">
+                        <dxr:RibbonPageGroup Caption="MergeGroup">
+                            <dxb:BarButtonItem Content="Hier noch ein Button!" />
+                        </dxr:RibbonPageGroup>
+                    </dxr:RibbonPage>
+                </dxr:RibbonPageCategory>
+            </dxr:RibbonControl>
+            
+            
+            <Button Content="Klick Mich!" />
+            
+            
+        </DockPanel>
+    </dxb:BarManager>
+</UserControl>

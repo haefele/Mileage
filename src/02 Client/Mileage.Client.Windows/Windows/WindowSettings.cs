@@ -77,7 +77,7 @@ namespace Mileage.Client.Windows.Windows
         /// </summary>
         public WindowSettings NoWindowButtons()
         {
-            this[ExtendedDXWindow.HideWindowButtonsProperty.Name] = true;
+            this[ExtendedDXRibbonWindow.HideWindowButtonsProperty.Name] = true;
 
             return this;
         }

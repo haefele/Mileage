@@ -16,6 +16,7 @@ using DevExpress.Xpf.Editors;
 using DevExpress.Xpf.Grid;
 using DevExpress.Xpf.LayoutControl;
 using Mileage.Client.Windows.Views.Login;
+using Mileage.Client.Windows.Views.Shell;
 using Mileage.Client.Windows.Windows;
 
 namespace Mileage.Client.Windows
@@ -135,7 +136,7 @@ namespace Mileage.Client.Windows
         /// </summary>
         private void ConfigureDevExpressTheme()
         {
-            ThemeManager.ApplicationThemeName = "MetropolisLight";
+            ThemeManager.ApplicationThemeName = "Office2013";
         }
         /// <summary>
         /// Shows the login view and returns whether the login was successfull.
@@ -156,7 +157,14 @@ namespace Mileage.Client.Windows
         /// </summary>
         private bool ShowShellView()
         {
-            return true;
+            var windowManager = this._container.Resolve<IWindowManager>();
+            var shellViewModel = this._container.Resolve<ShellViewModel>();
+
+            bool? loggedOut = windowManager.ShowDialog(shellViewModel, null, WindowSettings.With().FixedSize(1280, 720).Resize().NoIcon());
+            
+            this._container.Release(shellViewModel);
+
+            return loggedOut.GetValueOrDefault();
         }
         #endregion
     }

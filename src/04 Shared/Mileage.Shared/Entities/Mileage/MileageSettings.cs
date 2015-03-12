@@ -7,6 +7,11 @@
             return "MileageSettings/Global";
         }
 
+        public MileageSettings()
+        {
+            this.DefaultEmailSuffix = string.Empty;
+        }
+
         public string DefaultEmailSuffix { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro.ReactiveUI;
+﻿using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
 using LiteGuard;
 using Mileage.Client.Contracts.Exceptions;
@@ -12,6 +13,10 @@ namespace Mileage.Client.Windows.Views
 {
     public abstract class MileageReactiveScreen : ReactiveScreen
     {
+        #region Fields
+        private readonly IWindsorContainer _container;
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets or sets the message service.
@@ -48,6 +53,8 @@ namespace Mileage.Client.Windows.Views
         {
             Guard.AgainstNullArgument("container", container);
 
+            this._container = container;
+
             this.MessageService = container.Resolve<IMessageService>();
             this.ExceptionHandler = container.Resolve<IExceptionHandler>();
             this.LocalizationManager = container.Resolve<ILocalizationManager>();
@@ -58,8 +65,16 @@ namespace Mileage.Client.Windows.Views
             this.LocalizationManager.AddLanguageDependentAction(this.UpdateDisplayName);
         }
         #endregion
-
+        
         #region Private Methods
+        /// <summary>
+        /// Creates the specified <typeparamref name="TViewModel"/>.
+        /// </summary>
+        /// <typeparam name="TViewModel">The type of the viewmodel.</typeparam>
+        protected virtual TViewModel CreateViewModel<TViewModel>() where TViewModel : ReactivePropertyChangedBase
+        {
+            return this._container.Resolve<TViewModel>();
+        }
         /// <summary>
         /// Updates the display name.
         /// </summary>

@@ -29,7 +29,7 @@ namespace Mileage.Server.Infrastructure.Extensions
             return string.Format("{0}@{1}", prefix, suffix.TryRemoveAtPrefix());
         }
 
-        public static string TryRemoveAtPrefix(this string emailSuffix)
+        private static string TryRemoveAtPrefix(this string emailSuffix)
         {
             if (emailSuffix.StartsWith("@"))
                 return emailSuffix.Substring(1, emailSuffix.Length - 1);
@@ -37,7 +37,7 @@ namespace Mileage.Server.Infrastructure.Extensions
             return emailSuffix;
         }
 
-        public static string TryRemoveAtSuffix(this string self)
+        private static string TryRemoveAtSuffix(this string self)
         {
             if (self.EndsWith("@"))
                 return self.Substring(0, self.Length - 1);

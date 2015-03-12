@@ -48,7 +48,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 data.PasswordMD5Hash,
                 data.Language));
 
-            return this.Request.GetMessageWithResult(HttpStatusCode.InternalServerError, HttpStatusCode.Created, result);
+            return this.Request.GetMessageWithResult(HttpStatusCode.Created, HttpStatusCode.InternalServerError, result);
         }
         /// <summary>
         /// Makes sure that all indexes in the RavenDB database are created.

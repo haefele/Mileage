@@ -19,7 +19,7 @@ namespace Mileage.Client.Windows.Windows
         /// <param name="isDialog">Whethor or not the window is being shown as a dialog.</param>
         protected override Window EnsureWindow(object model, object view, bool isDialog)
         {
-            var window = view as ExtendedDXWindow;
+            var window = view as Window;
 
             if (window == null)
             {
@@ -61,15 +61,15 @@ namespace Mileage.Client.Windows.Windows
         /// <param name="model">The model.</param>
         /// <param name="view">The view.</param>
         /// <param name="isDialog">if set to <c>true</c> [is dialog].</param>
-        protected virtual ExtendedDXWindow CreateWindow(object model, object view, bool isDialog)
+        protected virtual Window CreateWindow(object model, object view, bool isDialog)
         {
-            return new ExtendedDXWindow();
+            return new ExtendedDXRibbonWindow();
         }
         /// <summary>
         /// Configures the window.
         /// </summary>
         /// <param name="window">The window.</param>
-        protected virtual void ConfigureWindow(ExtendedDXWindow window)
+        protected virtual void ConfigureWindow(Window window)
         {
             window.UseLayoutRounding = true;
         }

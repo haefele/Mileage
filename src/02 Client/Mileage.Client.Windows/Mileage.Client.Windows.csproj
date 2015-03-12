@@ -67,9 +67,10 @@
     <Reference Include="DevExpress.Xpf.Grid.v14.1.Core, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.LayoutControl.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpf.Printing.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpf.Themes.MetropolisLight.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpf.Ribbon.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Themes.Office2013.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\DevExpress 14.1\Components\Bin\Framework\DevExpress.Xpf.Themes.MetropolisLight.v14.1.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\DevExpress 14.1\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2013.v14.1.dll</HintPath>
     </Reference>
     <Reference Include="LiteDB">
       <HintPath>..\..\packages\LiteDB.0.9.0\lib\net35\LiteDB.dll</HintPath>
@@ -120,7 +121,7 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Caliburn.Micro.2.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\packages\MahApps.Metro.1.1.3-ALPHA005\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -172,17 +173,32 @@
     <Compile Include="Messages\MessageServiceExtensions.cs" />
     <Compile Include="Storage\LiteDatabaseStorage.cs" />
     <Compile Include="Versioning\VersionService.cs" />
+    <Compile Include="Views\MileageReactiveConductorWithCollectionAllActive.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginViewModel.cs" />
+    <Compile Include="Views\MileageReactiveConductor.cs" />
+    <Compile Include="Views\MileageReactiveConductorBase.cs" />
+    <Compile Include="Views\MileageReactiveConductorBaseWithActiveItem.cs" />
     <Compile Include="Views\MileageReactiveScreen.cs" />
+    <Compile Include="Views\ReactiveConductorWithCollectionOneActive.cs" />
+    <Compile Include="Views\Shell\IAmDisplayedInShell.cs" />
+    <Compile Include="Views\Shell\IHaveRibbonToMerge.cs" />
+    <Compile Include="Views\Shell\Items\DriversRootView.xaml.cs">
+      <DependentUpon>DriversRootView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell\Items\DriversRootViewModel.cs" />
+    <Compile Include="Views\Shell\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell\ShellViewModel.cs" />
     <Compile Include="WebServices\AuthenticationClient.cs" />
     <Compile Include="WebServices\HttpQueryBuilder.cs" />
     <Compile Include="WebServices\MileageClient.cs" />
     <Compile Include="WebServices\Session.cs" />
     <Compile Include="WebServices\WebServiceClient.cs" />
-    <Compile Include="Windows\ExtendedDXWindow.cs" />
+    <Compile Include="Windows\ExtendedDXRibbonWindow.cs" />
     <Compile Include="Windows\MileageWindowManager.cs" />
     <Compile Include="Windows\WindowSettings.cs" />
     <Compile Include="Windsor\CaliburnInstaller.cs" />
@@ -228,15 +244,21 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shell\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Messages\MessageDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shell\Items\DriversRootView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shell\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,14 +3,15 @@ using System.Windows;
 using System.Windows.Controls;
 using DevExpress.Xpf.Core;
 using DevExpress.Xpf.Core.Native;
+using DevExpress.Xpf.Ribbon;
 
 namespace Mileage.Client.Windows.Windows
 {
-    public class ExtendedDXWindow : DXWindow
+    public class ExtendedDXRibbonWindow : DXRibbonWindow
     {
         #region Dependency Properties
         public static readonly DependencyProperty HideWindowButtonsProperty = DependencyProperty.Register(
-            "HideWindowButtons", typeof (bool), typeof (ExtendedDXWindow), new PropertyMetadata(default(bool)));
+            "HideWindowButtons", typeof (bool), typeof (ExtendedDXRibbonWindow), new PropertyMetadata(default(bool)));
         #endregion
 
         #region Properties
@@ -26,9 +27,9 @@ namespace Mileage.Client.Windows.Windows
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExtendedDXWindow"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedDXRibbonWindow"/> class.
         /// </summary>
-        public ExtendedDXWindow()
+        public ExtendedDXRibbonWindow()
         {
             this.Loaded += this.OnLoaded;
         }

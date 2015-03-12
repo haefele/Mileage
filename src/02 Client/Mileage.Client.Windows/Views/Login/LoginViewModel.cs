@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
 using LiteGuard;
@@ -60,10 +61,16 @@ namespace Mileage.Client.Windows.Views.Login
             : base(container)
         {
             this.CreateCommands();
+
+            this.EmailAddress = "haefele@xemio.net";
+            this.Password = "123456";
         }
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Creates all commands of this ViewModel.
+        /// </summary>
         private void CreateCommands()
         {
             var canLogin = this.WhenAnyValue(f => f.EmailAddress, f => f.Password,

@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell
 {
-    public class ShellViewModel : MileageReactiveConductor<IAmDisplayedInShell>.Collection.OneActive
+    public class ShellViewModel : MileageConductor<IAmDisplayedInShell>.Collection.OneActive
     {
         #region Commands
         /// <summary>

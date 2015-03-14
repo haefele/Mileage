@@ -7,11 +7,11 @@ namespace Mileage.Client.Windows.Views
     /// A base class for various implementations of <see cref="IConductor"/> that maintain an active item.
     /// </summary>
     /// <typeparam name="T">The type that is being conducted.</typeparam>
-    public abstract class MileageReactiveConductorBaseWithActiveItem<T> : MileageReactiveConductorBase<T>, IConductActiveItem where T : class
+    public abstract class MileageConductorBaseWithActiveItem<T> : MileageConductorBase<T>, IConductActiveItem where T : class
     {
         T activeItem;
 
-        protected MileageReactiveConductorBaseWithActiveItem(IWindsorContainer container) : base(container)
+        protected MileageConductorBaseWithActiveItem(IWindsorContainer container) : base(container)
         {
         }
 

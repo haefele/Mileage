@@ -173,16 +173,16 @@
     <Compile Include="Messages\MessageServiceExtensions.cs" />
     <Compile Include="Storage\LiteDatabaseStorage.cs" />
     <Compile Include="Versioning\VersionService.cs" />
-    <Compile Include="Views\MileageReactiveConductorWithCollectionAllActive.cs" />
+    <Compile Include="Views\MileageConductorWithCollectionAllActive.cs" />
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\LoginViewModel.cs" />
-    <Compile Include="Views\MileageReactiveConductor.cs" />
-    <Compile Include="Views\MileageReactiveConductorBase.cs" />
-    <Compile Include="Views\MileageReactiveConductorBaseWithActiveItem.cs" />
-    <Compile Include="Views\MileageReactiveScreen.cs" />
-    <Compile Include="Views\ReactiveConductorWithCollectionOneActive.cs" />
+    <Compile Include="Views\MileageConductor.cs" />
+    <Compile Include="Views\MileageConductorBase.cs" />
+    <Compile Include="Views\MileageConductorBaseWithActiveItem.cs" />
+    <Compile Include="Views\MileageScreen.cs" />
+    <Compile Include="Views\MileageConductorWithCollectionOneActive.cs" />
     <Compile Include="Views\Shell\IAmDisplayedInShell.cs" />
     <Compile Include="Views\Shell\IHaveRibbonToMerge.cs" />
     <Compile Include="Views\Shell\Items\DriversRootView.xaml.cs">

@@ -10,7 +10,7 @@ using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views
 {
-    public partial class MileageReactiveConductor<T>
+    public partial class MileageConductor<T>
     {
         /// <summary>
         /// An implementation of <see cref="IConductor"/> that holds on many items.
@@ -20,7 +20,7 @@ namespace Mileage.Client.Windows.Views
             /// <summary>
             /// An implementation of <see cref="IConductor"/> that holds on to many items wich are all activated.
             /// </summary>
-            public class AllActive : MileageReactiveConductorBase<T>
+            public class AllActive : MileageConductorBase<T>
             {
                 readonly ReactiveObservableCollection<T> items = new ReactiveObservableCollection<T>();
                 

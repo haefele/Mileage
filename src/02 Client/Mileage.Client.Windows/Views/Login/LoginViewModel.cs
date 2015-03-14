@@ -6,21 +6,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Caliburn.Micro;
-using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
-using LiteGuard;
-using Mileage.Client.Contracts.Messages;
-using Mileage.Client.Windows.Messages;
-using Mileage.Localization.Common;
-using Mileage.Shared.Entities;
 using Mileage.Shared.Entities.Authentication;
 using Mileage.Shared.Models;
 using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Login
 {
-    public class LoginViewModel : MileageReactiveScreen
+    public class LoginViewModel : MileageScreen
     {
         #region Fields
         private string _emailAddress;

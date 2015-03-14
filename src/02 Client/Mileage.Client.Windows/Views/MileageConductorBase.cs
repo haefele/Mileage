@@ -18,11 +18,11 @@ namespace Mileage.Client.Windows.Views
     /// A base class for various implementations of <see cref="IConductor"/>.
     /// </summary>
     /// <typeparam name="T">The type that is being conducted.</typeparam>
-    public abstract class MileageReactiveConductorBase<T> : MileageReactiveScreen, IConductor, IParent<T> where T : class
+    public abstract class MileageConductorBase<T> : MileageScreen, IConductor, IParent<T> where T : class
     {
         ICloseStrategy<T> closeStrategy;
 
-        protected MileageReactiveConductorBase(IWindsorContainer container) 
+        protected MileageConductorBase(IWindsorContainer container) 
             : base(container)
         {
         }

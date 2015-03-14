@@ -8,9 +8,9 @@ namespace Mileage.Client.Windows.Views
     /// <summary>
     /// An implementation of <see cref="IConductor"/> that holds on to and activates only one item at a time.
     /// </summary>
-    public partial class MileageReactiveConductor<T> : MileageReactiveConductorBaseWithActiveItem<T> where T : class
+    public partial class MileageConductor<T> : MileageConductorBaseWithActiveItem<T> where T : class
     {
-        public MileageReactiveConductor(IWindsorContainer container) : base(container)
+        public MileageConductor(IWindsorContainer container) : base(container)
         {
         }
 

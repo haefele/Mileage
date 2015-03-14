@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro.ReactiveUI;
+﻿using Caliburn.Micro;
+using Caliburn.Micro.ReactiveUI;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;

@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
+using Castle.Core.Logging;
 using Castle.Windsor;
 using LiteGuard;
 using Mileage.Client.Contracts.Exceptions;
@@ -11,10 +12,17 @@ using Mileage.Localization.Common;
 
 namespace Mileage.Client.Windows.Views
 {
-    public abstract class MileageReactiveScreen : ReactiveScreen
+    public abstract class MileageScreen : ReactiveScreen
     {
         #region Fields
         private readonly IWindsorContainer _container;
+        #endregion
+
+        #region Logger
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        public ILogger Logger { get; set; }
         #endregion
 
         #region Properties
@@ -46,14 +54,16 @@ namespace Mileage.Client.Windows.Views
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="MileageReactiveScreen"/> class.
+        /// Initializes a new instance of the <see cref="MileageScreen"/> class.
         /// </summary>
         /// <param name="container">The container.</param>
-        protected MileageReactiveScreen(IWindsorContainer container)
+        protected MileageScreen(IWindsorContainer container)
         {
             Guard.AgainstNullArgument("container", container);
 
             this._container = container;
+
+            this.Logger = NullLogger.Instance;
 
             this.MessageService = container.Resolve<IMessageService>();
             this.ExceptionHandler = container.Resolve<IExceptionHandler>();
@@ -80,7 +90,14 @@ namespace Mileage.Client.Windows.Views
         /// </summary>
         private void UpdateDisplayName()
         {
-            this.DisplayName = CommonMessages.Mileage;
+            this.DisplayName = this.GetDisplayName();
+        }
+        /// <summary>
+        /// Returns the display name.
+        /// </summary>
+        protected virtual string GetDisplayName()
+        {
+            return CommonMessages.Mileage ;
         }
         #endregion
     }

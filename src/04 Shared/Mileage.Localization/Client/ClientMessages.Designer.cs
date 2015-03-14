@@ -61,7 +61,7 @@ namespace Mileage.Localization.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The server is not reachable..
         /// </summary>
         public static string NotReachable {
             get {

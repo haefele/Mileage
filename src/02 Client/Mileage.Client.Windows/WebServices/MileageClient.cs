@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Castle.Core.Logging;
 using LiteGuard;
 using Mileage.Client.Contracts.Localization;
@@ -123,7 +125,7 @@ namespace Mileage.Client.Windows.WebServices
         {
             return new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
-                Content = new StringContent(ClientMessages.NotReachable)
+                Content = new ObjectContent(typeof(HttpError),new HttpError(ClientMessages.NotReachable), new JsonMediaTypeFormatter())
             };
         }
         #endregion

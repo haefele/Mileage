@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using Castle.Core.Logging;
@@ -12,12 +14,14 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Docking;
 using DevExpress.Xpf.Editors;
 using DevExpress.Xpf.Grid;
 using DevExpress.Xpf.LayoutControl;
 using Mileage.Client.Windows.Views.Login;
 using Mileage.Client.Windows.Views.Shell;
 using Mileage.Client.Windows.Windows;
+using LayoutGroup = DevExpress.Xpf.Docking.LayoutGroup;
 
 namespace Mileage.Client.Windows
 {
@@ -47,6 +51,7 @@ namespace Mileage.Client.Windows
             this._container.Install(FromAssembly.This());
 
             this.ConfigureDevExpressTheme();
+            DevExpressConventions.Install();
         }
         /// <summary>
         /// Override this to provide an IoC specific implementation.
@@ -165,6 +170,196 @@ namespace Mileage.Client.Windows
             this._container.Release(shellViewModel);
 
             return loggedOut.GetValueOrDefault();
+        }
+        #endregion
+
+        #region Internal
+        private class DevExpressConventions
+        {
+            public static void Install()
+            {
+                ReplaceGetNamedElements();
+                InstallElementConventions();
+            }
+
+            private static void ReplaceGetNamedElements()
+            {
+                BindingScope.GetNamedElements = elementInScope =>
+                {
+                    var root = elementInScope;
+                    var previous = elementInScope;
+                    DependencyObject contentPresenter = null;
+                    var routeHops = new Dictionary<DependencyObject, DependencyObject>();
+
+                    while (true)
+                    {
+                        if (root == null)
+                        {
+                            root = previous;
+                            break;
+                        }
+
+                        if (root is UserControl)
+                            break;
+#if !SILVERLIGHT
+                        if (root is Page)
+                        {
+                            root = ((Page)root).Content as DependencyObject ?? root;
+                            break;
+                        }
+#endif
+                        if ((bool)root.GetValue(View.IsScopeRootProperty))
+                            break;
+
+                        if (root is ContentPresenter)
+                            contentPresenter = root;
+                        else if (root is ItemsPresenter && contentPresenter != null)
+                        {
+                            routeHops[root] = contentPresenter;
+                            contentPresenter = null;
+                        }
+
+                        previous = root;
+                        root = VisualTreeHelper.GetParent(previous);
+                    }
+
+                    var descendants = new List<FrameworkElement>();
+                    var queue = new Queue<DependencyObject>();
+                    queue.Enqueue(root);
+
+                    while (queue.Count > 0)
+                    {
+                        var current = queue.Dequeue();
+                        var currentElement = current as FrameworkElement;
+
+                        if (currentElement != null && !string.IsNullOrEmpty(currentElement.Name))
+                            descendants.Add(currentElement);
+
+                        #region DevExpress specific
+
+                        else
+                        {
+                            //BaseLayoutItem defines it's own Name property thus hiding FrameworkElement.Name
+                            var currentLayoutElement = current as BaseLayoutItem;
+                            if (currentLayoutElement != null && !string.IsNullOrEmpty(currentLayoutElement.Name))
+                            {
+                                descendants.Add(currentLayoutElement);
+
+                                //Setting FrameworkElement.Name to BaseLayoutItem.Name so later Caliburn can reference the name and so no need to replace ViewModelBinder.BindProperties
+                                currentElement.Name = currentLayoutElement.Name;
+                            }
+                        }
+
+                        #endregion DevExpress specific
+
+                        if (current is UserControl && current != root)
+                            continue;
+
+                        if (routeHops.ContainsKey(current))
+                        {
+                            queue.Enqueue(routeHops[current]);
+                            continue;
+                        }
+
+                        var childCount = VisualTreeHelper.GetChildrenCount(current);
+                        if (childCount > 0)
+                        {
+                            for (var i = 0; i < childCount; i++)
+                            {
+                                var childDo = VisualTreeHelper.GetChild(current, i);
+                                queue.Enqueue(childDo);
+                            }
+                        }
+                        else
+                        {
+                            var contentControl = current as ContentControl;
+                            if (contentControl != null)
+                            {
+                                if (contentControl.Content is DependencyObject)
+                                    queue.Enqueue(contentControl.Content as DependencyObject);
+
+                                var headeredControl = contentControl as HeaderedContentControl;
+                                if (headeredControl != null && headeredControl.Header is DependencyObject)
+                                    queue.Enqueue(headeredControl.Header as DependencyObject);
+                            }
+                            else
+                            {
+                                var itemsControl = current as ItemsControl;
+                                if (itemsControl != null)
+                                {
+                                    itemsControl.Items.OfType<DependencyObject>()
+                                        .Apply(queue.Enqueue);
+
+                                    var headeredControl = itemsControl as HeaderedItemsControl;
+                                    if (headeredControl != null && headeredControl.Header is DependencyObject)
+                                        queue.Enqueue(headeredControl.Header as DependencyObject);
+                                }
+
+                                #region DevExpress specific
+                                else
+                                {
+                                    var dockLayoutManager = current as DockLayoutManager;
+                                    if (dockLayoutManager != null && dockLayoutManager.LayoutRoot != null)
+                                    {
+                                        queue.Enqueue(dockLayoutManager.LayoutRoot);
+                                    }
+
+                                    var layoutGroup = current as LayoutGroup;
+                                    if (layoutGroup != null && layoutGroup.Items != null)
+                                    {
+                                        layoutGroup.Items.OfType<DependencyObject>().Apply(queue.Enqueue);
+                                    }
+
+                                    var layoutPanel = current as LayoutPanel;
+                                    if (layoutPanel != null && layoutPanel.Control != null)
+                                    {
+                                        queue.Enqueue(layoutPanel.Control);
+                                    }
+
+                                    var layoutItem = current as LayoutItem;
+                                    if (layoutItem != null && layoutItem.Content != null)
+                                    {
+                                        queue.Enqueue(layoutItem.Content);
+                                    }
+
+                                    var gridControl = current as GridControl;
+                                    if (gridControl != null && gridControl.View != null && string.IsNullOrWhiteSpace(gridControl.View.Name) == false)
+                                    {
+                                        queue.Enqueue(gridControl.View);
+                                    }
+                                }
+
+                                #endregion DevExpress specific
+                            }
+                        }
+                    }
+
+                    return descendants;
+                };
+            }
+
+            private static void InstallElementConventions()
+            {
+                //Grid
+                ConventionManager.AddElementConvention<DataControlBase>(DataControlBase.ItemsSourceProperty, "DataContext", "Loaded");
+                
+                //LayoutControl
+                ConventionManager.AddElementConvention<DataLayoutControl>(DataLayoutControl.CurrentItemProperty, "DataContext", "Loaded");
+                
+                //Editors
+                ConventionManager.AddElementConvention<LookUpEditBase>(LookUpEditBase.ItemsSourceProperty, "SelectedItem", "SelectedIndexChanged")
+                    .ApplyBinding = (viewModelType, path, property, element, convention) =>
+                    {
+                        var bindableProperty = convention.GetBindableProperty(element);
+                        if (!ConventionManager.SetBindingWithoutBindingOrValueOverwrite(viewModelType, path, property, element, convention, bindableProperty))
+                            return false;
+                        ConventionManager.ConfigureSelectedItem(element, LookUpEditBase.SelectedItemProperty, viewModelType, path);
+                        return true;
+                    };
+                ConventionManager.AddElementConvention<RangeBaseEdit>(RangeBaseEdit.ValueProperty, "Value", "EditValueChanged");
+                ConventionManager.AddElementConvention<SpinEdit>(SpinEdit.ValueProperty, "Value", "EditValueChanged");
+                ConventionManager.AddElementConvention<BaseEdit>(BaseEdit.EditValueProperty, "EditValue", "EditValueChanged");
+            }
         }
         #endregion
     }

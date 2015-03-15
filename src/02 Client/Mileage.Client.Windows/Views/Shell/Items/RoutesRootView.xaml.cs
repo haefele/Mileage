@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Caliburn.Micro;
-using DevExpress.Xpf.Ribbon;
 
 namespace Mileage.Client.Windows.Views.Shell.Items
 {
     /// <summary>
-    /// Interaction logic for DriversRootView.xaml
+    /// Interaction logic for RoutesRootView.xaml
     /// </summary>
-    public partial class DriversRootView : UserControl, IHaveRibbonToMerge
+    public partial class RoutesRootView : UserControl
     {
-        public DriversRootView()
+        public RoutesRootView()
         {
             InitializeComponent();
-        }
-
-        public RibbonControl RibbonControl
-        {
-            get { return this.ActualRibbonControl; }
         }
     }
 }

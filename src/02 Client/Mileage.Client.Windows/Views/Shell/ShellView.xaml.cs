@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Caliburn.Micro;
 using DevExpress.Mvvm.POCO;
+using DevExpress.Xpf.Grid.TreeList;
 using DevExpress.Xpf.Ribbon;
 using Mileage.Client.Windows.Windows;
 
@@ -44,7 +45,7 @@ namespace Mileage.Client.Windows.Views.Shell
         /// </summary>
         public ShellView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
         #endregion
 
@@ -75,7 +76,9 @@ namespace Mileage.Client.Windows.Views.Shell
         {
             //UnMerge the RibbonControls
             if (this._latestMergedRibbonView != null)
+            {
                 this.RibbonControl.UnMerge(this._latestMergedRibbonView.RibbonControl);
+            }
 
             var ribbon = this.ActiveItem.Content as IHaveRibbonToMerge;
             this._latestMergedRibbonView = ribbon;

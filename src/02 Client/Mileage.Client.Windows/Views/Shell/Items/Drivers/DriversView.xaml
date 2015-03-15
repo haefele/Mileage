@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Mileage.Client.Windows.Views.Shell.Items.DriversRootView"
+﻿<UserControl x:Class="Mileage.Client.Windows.Views.Shell.Items.Drivers.DriversRootView"
              
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

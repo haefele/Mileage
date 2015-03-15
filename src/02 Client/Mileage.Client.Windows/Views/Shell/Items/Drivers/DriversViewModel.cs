@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Reactive;
-using System.Threading.Tasks;
 using System.Windows;
 using Castle.Windsor;
 using Mileage.Localization.Client.Shell;
 using ReactiveUI;
 
-namespace Mileage.Client.Windows.Views.Shell.Items
+namespace Mileage.Client.Windows.Views.Shell.Items.Drivers
 {
-    public class DriversRootViewModel : ShellItemViewModel
+    public class DriversRootViewModel : MileageScreen, IShellItem
     {
         public ReactiveCommand<object> DoSomething { get; private set; }
 
@@ -20,13 +18,13 @@ namespace Mileage.Client.Windows.Views.Shell.Items
             {
                 MessageBox.Show("asdf");
             });
-
-            this.ActivateItem(new RoutesRootViewModel(container));
         }
 
         protected override string GetDisplayName()
         {
             return ShellMessages.Drivers;
         }
+
+        public MileageScreen PopupViewModel { get; private set; }
     }
 }

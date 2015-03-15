@@ -1,6 +1,6 @@
 using DevExpress.Xpf.Ribbon;
 
-namespace Mileage.Client.Windows.Views.Shell
+namespace Mileage.Client.Windows.Views.Shell.Items
 {
     /// <summary>
     /// A marker interface for views that have <see cref="RibbonControl"/>s to merge with the shell <see cref="RibbonControl"/>.

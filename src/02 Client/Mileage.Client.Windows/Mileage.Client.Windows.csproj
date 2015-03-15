@@ -171,6 +171,7 @@
     <Compile Include="AttachedProperties\Runtime.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
+    <Compile Include="Extensions\MileageScreenExtensions.cs" />
     <Compile Include="Localization\LanguageChangedEvent.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Messages\MessageDialogView.xaml.cs">
@@ -191,20 +192,24 @@
     <Compile Include="Views\MileageConductorBaseWithActiveItem.cs" />
     <Compile Include="Views\MileageScreen.cs" />
     <Compile Include="Views\MileageConductorWithCollectionOneActive.cs" />
-    <Compile Include="Views\Shell\IHaveRibbonToMerge.cs" />
-    <Compile Include="Views\Shell\Items\DashboardView.xaml.cs">
+    <Compile Include="Views\Shell\Items\IHaveRibbonToMerge.cs" />
+    <Compile Include="Views\Shell\Items\Dashboard\DashboardPopupView.xaml.cs">
+      <DependentUpon>DashboardPopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell\Items\Dashboard\DashboardPopupViewModel.cs" />
+    <Compile Include="Views\Shell\Items\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\DashboardViewModel.cs" />
-    <Compile Include="Views\Shell\Items\DriversRootView.xaml.cs">
-      <DependentUpon>DriversRootView.xaml</DependentUpon>
+    <Compile Include="Views\Shell\Items\Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Views\Shell\Items\Drivers\DriversView.xaml.cs">
+      <DependentUpon>DriversView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\DriversRootViewModel.cs" />
-    <Compile Include="Views\Shell\Items\RoutesRootView.xaml.cs">
-      <DependentUpon>RoutesRootView.xaml</DependentUpon>
+    <Compile Include="Views\Shell\Items\Drivers\DriversViewModel.cs" />
+    <Compile Include="Views\Shell\Items\IShellItem.cs" />
+    <Compile Include="Views\Shell\Items\Routes\RoutesView.xaml.cs">
+      <DependentUpon>RoutesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\RoutesRootViewModel.cs" />
-    <Compile Include="Views\Shell\ShellItemViewModel.cs" />
+    <Compile Include="Views\Shell\Items\Routes\RoutesViewModel.cs" />
     <Compile Include="Views\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -271,15 +276,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\DashboardView.xaml">
+    <Page Include="Views\Shell\Items\Dashboard\DashboardPopupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\DriversRootView.xaml">
+    <Page Include="Views\Shell\Items\Dashboard\DashboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\RoutesRootView.xaml">
+    <Page Include="Views\Shell\Items\Drivers\DriversView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shell\Items\Routes\RoutesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

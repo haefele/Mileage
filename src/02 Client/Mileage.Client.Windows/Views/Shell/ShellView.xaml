@@ -13,6 +13,7 @@
              
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              mc:Ignorable="d"
              
              d:DesignHeight="300"
@@ -60,22 +61,31 @@
                                            ItemsSource="{Binding Items}" 
                                            SelectedItem="{Binding ActiveItem}" 
                                            DisplayMemberPath="DisplayName" 
-                                           CustomizationButtonVisibility="Hidden">
+                                           CustomizationButtonVisibility="Hidden"
+                                           PeekFormShowDelay="500"
+                                           PeekFormHideDelay="100"
+                                           >
+                    <dxnav:OfficeNavigationBar.Resources>
+                        <dxmvvm:ObjectToObjectConverter x:Key="peekFormTemplateConverter">
+                            <dxmvvm:ObjectToObjectConverter.DefaultTarget>
+                                <DataTemplate>
+                                    <dxwui:Flyout ShowIndicator="True">
+                                        <Grid Height="400"
+                                              Width="250">
+                                            <ContentControl caliburn:View.Model="{Binding PopupViewModel}" />
+                                        </Grid>
+                                    </dxwui:Flyout>
+                                </DataTemplate>
+                            </dxmvvm:ObjectToObjectConverter.DefaultTarget>
+                            <dxmvvm:MapItem Source="{x:Null}" Target="{x:Null}" />
+                        </dxmvvm:ObjectToObjectConverter>
+                    </dxnav:OfficeNavigationBar.Resources>
                     <dxnav:OfficeNavigationBar.ItemContainerStyle>
                         <Style TargetType="dxnav:NavigationBarItem">
-                            <Setter Property="Padding" Value="10, 0, 5, 0" />
-                            <Setter Property="PeekFormTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <dxwui:Flyout ShowIndicator="True">
-                                            <Grid Height="400"
-                                                  Width="250">
-                                                <ContentControl caliburn:View.Model="{Binding ActiveItem}" />
-                                            </Grid>
-                                        </dxwui:Flyout>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
+                            <Setter Property="Padding" 
+                                    Value="10, 0, 5, 0" />
+                            <Setter Property="PeekFormTemplate"
+                                    Value="{Binding PopupViewModel, Converter={StaticResource peekFormTemplateConverter}}" />
                         </Style>
                     </dxnav:OfficeNavigationBar.ItemContainerStyle>
                 </dxnav:OfficeNavigationBar>

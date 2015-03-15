@@ -1,9 +1,9 @@
 ﻿using Castle.Windsor;
 using Mileage.Localization.Client.Shell;
 
-namespace Mileage.Client.Windows.Views.Shell.Items
+namespace Mileage.Client.Windows.Views.Shell.Items.Routes
 {
-    public class RoutesRootViewModel : ShellItemViewModel
+    public class RoutesRootViewModel : MileageScreen, IShellItem
     {
         public RoutesRootViewModel(IWindsorContainer container)
             : base(container)
@@ -14,5 +14,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items
         {
             return ShellMessages.Routes;
         }
+
+        public MileageScreen PopupViewModel { get; private set; }
     }
 }

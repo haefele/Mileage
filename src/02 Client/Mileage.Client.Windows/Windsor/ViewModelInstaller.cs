@@ -6,6 +6,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Mileage.Client.Windows.Views;
 using Mileage.Client.Windows.Views.Shell;
+using Mileage.Client.Windows.Views.Shell.Items;
 using Mileage.Shared.Extensions;
 
 namespace Mileage.Client.Windows.Windsor
@@ -24,9 +25,9 @@ namespace Mileage.Client.Windows.Windsor
                     .FromThisAssembly()
                     .BasedOn<ReactivePropertyChangedBase>()
                     .WithServiceSelf()
-                    //Register all ShellItemViewModels
-                    .ConfigureFor<ShellItemViewModel>(f => 
-                        f.Forward<ShellItemViewModel>())
+                    //Register all IShellItem
+                    .ConfigureFor<IShellItem>(f =>
+                        f.Forward<IShellItem>())
                     //Ignore the ActiveItem properties of conductors
                     .ConfigureIf(f => typeof(MileageConductorBaseWithActiveItem<>).IsAssignableFromGenericType(f.Implementation), f => 
                         f.PropertiesIgnore(d => d.Name == "ActiveItem"))

@@ -16,6 +16,7 @@ using Caliburn.Micro;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Xpf.Grid.TreeList;
 using DevExpress.Xpf.Ribbon;
+using Mileage.Client.Windows.Views.Shell.Items;
 using Mileage.Client.Windows.Windows;
 
 namespace Mileage.Client.Windows.Views.Shell
@@ -23,7 +24,7 @@ namespace Mileage.Client.Windows.Views.Shell
     /// <summary>
     /// Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class ShellView : UserControl, IHaveRibbonToMerge
+    public partial class ShellView : UserControl
     {
         #region Fields
         private IHaveRibbonToMerge _latestMergedRibbonView;
@@ -57,7 +58,7 @@ namespace Mileage.Client.Windows.Views.Shell
         /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private void ShellViewOnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            this.ViewModel.ActivationProcessed += ViewModelOnActivationProcessed;
+            this.ViewModel.ActivationProcessed += this.ViewModelOnActivationProcessed;
             this.HandleRibbonMergeAndUnMerge();
         }
         /// <summary>
@@ -77,7 +78,7 @@ namespace Mileage.Client.Windows.Views.Shell
             //UnMerge the RibbonControls
             if (this._latestMergedRibbonView != null)
             {
-                this.RibbonControl.UnMerge(this._latestMergedRibbonView.RibbonControl);
+                this.ActualRibbonControl.UnMerge(this._latestMergedRibbonView.RibbonControl);
             }
 
             var ribbon = this.ActiveItem.Content as IHaveRibbonToMerge;
@@ -86,18 +87,8 @@ namespace Mileage.Client.Windows.Views.Shell
             if (ribbon != null)
             {
                 //Merge the RibbonControls
-                this.RibbonControl.Merge(ribbon.RibbonControl);
+                this.ActualRibbonControl.Merge(ribbon.RibbonControl);
             }
-        }
-        #endregion
-
-        #region Implementation of IHaveRibbonToMerge
-        /// <summary>
-        /// Gets the ribbon control.
-        /// </summary>
-        public RibbonControl RibbonControl
-        {
-            get { return this.ActualRibbonControl; }
         }
         #endregion
     }

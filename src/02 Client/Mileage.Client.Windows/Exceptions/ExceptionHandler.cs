@@ -31,6 +31,7 @@ namespace Mileage.Client.Windows.Exceptions
         public ExceptionHandler(IMessageService messageService)
         {
             Guard.AgainstNullArgument("messageService", messageService);
+
             this._messageService = messageService;
 
             this.Logger = NullLogger.Instance;
@@ -57,6 +58,8 @@ namespace Mileage.Client.Windows.Exceptions
 
             if (exception is KnownException)
             {
+                this.Logger.Debug("The exception is a KnownException, just showing the message to the user.");
+
                 this._messageService.ShowConfirmationDialog(exception.Message, CommonMessages.Error, MessageImage.Information);
             }
             else

@@ -6,7 +6,7 @@ using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell
 {
-    public class ShellViewModel : MileageConductor<IAmDisplayedInShell>.Collection.OneActive
+    public class ShellViewModel : MileageConductor<ShellItemViewModel>.Collection.OneActive
     {
         #region Commands
         /// <summary>
@@ -16,10 +16,25 @@ namespace Mileage.Client.Windows.Views.Shell
         public ReactiveCommand<object> ChangeContent { get; private set; }
         #endregion
 
-        public ShellViewModel(IWindsorContainer container)
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShellViewModel" /> class.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <param name="shellItems">The shell items.</param>
+        public ShellViewModel(IWindsorContainer container, ShellItemViewModel[] shellItems)
             : base(container)
         {
             this.CreateCommands();
+
+            this.Items.AddRange(shellItems);
+        }
+        #endregion
+
+        #region Private Methods
+        protected override void OnInitialize()
+        {
+            this.CreateRootItems();
         }
 
         private void CreateCommands()
@@ -27,29 +42,9 @@ namespace Mileage.Client.Windows.Views.Shell
             this.Logout = ReactiveCommand.Create();
             this.Logout.Subscribe(_ => this.LogoutImpl());
             this.Logout.ThrownExceptions.Subscribe(this.ExceptionHandler.Handle);
-
-            this.ChangeContent = ReactiveCommand.Create();
-            this.ChangeContent.Subscribe(_ => this.ChangeContentImpl());
-            this.ChangeContent.ThrownExceptions.Subscribe(this.ExceptionHandler.Handle);
         }
-
-        protected override void OnInitialize()
-        {
-            this.CreateRootItems();
-        }
-
-        private void ChangeContentImpl()
-        {
-            if (this.ActiveItem is DriversRootViewModel)
-                this.ActivateItem(this.Items.Last());
-            else
-                this.ActivateItem(this.Items.First());
-        }
-
         private void CreateRootItems()
         {
-            this.Items.Add(this.CreateViewModel<DriversRootViewModel>());
-
             this.ActivateItem(this.Items.First());
         }
 
@@ -58,5 +53,6 @@ namespace Mileage.Client.Windows.Views.Shell
             this.Session.Clear();
             this.TryClose(true);
         }
+        #endregion
     }
 }

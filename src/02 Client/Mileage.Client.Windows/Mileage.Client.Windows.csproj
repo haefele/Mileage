@@ -187,8 +187,11 @@
     <Compile Include="Views\MileageConductorBaseWithActiveItem.cs" />
     <Compile Include="Views\MileageScreen.cs" />
     <Compile Include="Views\MileageConductorWithCollectionOneActive.cs" />
-    <Compile Include="Views\Shell\IAmDisplayedInShell.cs" />
     <Compile Include="Views\Shell\IHaveRibbonToMerge.cs" />
+    <Compile Include="Views\Shell\Items\DashboardView.xaml.cs">
+      <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell\Items\DashboardViewModel.cs" />
     <Compile Include="Views\Shell\Items\DriversRootView.xaml.cs">
       <DependentUpon>DriversRootView.xaml</DependentUpon>
     </Compile>
@@ -197,6 +200,7 @@
       <DependentUpon>RoutesRootView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell\Items\RoutesRootViewModel.cs" />
+    <Compile Include="Views\Shell\ShellItemViewModel.cs" />
     <Compile Include="Views\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -209,6 +213,7 @@
     <Compile Include="Windows\ExtendedDXRibbonWindow.cs" />
     <Compile Include="Windows\MileageWindowManager.cs" />
     <Compile Include="Windows\WindowSettings.cs" />
+    <Compile Include="Windsor\ArrayInstaller.cs" />
     <Compile Include="Windsor\CaliburnInstaller.cs" />
     <Compile Include="Windsor\ContainerInstaller.cs" />
     <Compile Include="Windsor\ExceptionsInstaller.cs" />
@@ -259,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shell\Items\DashboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

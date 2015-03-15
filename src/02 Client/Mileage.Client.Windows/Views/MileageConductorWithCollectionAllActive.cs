@@ -20,7 +20,7 @@ namespace Mileage.Client.Windows.Views
             /// <summary>
             /// An implementation of <see cref="IConductor"/> that holds on to many items wich are all activated.
             /// </summary>
-            public class AllActive : MileageConductorBase<T>
+            public abstract class AllActive : MileageConductorBase<T>
             {
                 readonly ReactiveObservableCollection<T> items = new ReactiveObservableCollection<T>();
                 

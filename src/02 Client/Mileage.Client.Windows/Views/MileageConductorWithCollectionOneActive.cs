@@ -19,7 +19,7 @@ namespace Mileage.Client.Windows.Views
             /// <summary>
             /// An implementation of <see cref="IConductor"/> that holds on many items but only activates one at a time.
             /// </summary>
-            public class OneActive : MileageConductorBaseWithActiveItem<T>
+            public abstract class OneActive : MileageConductorBaseWithActiveItem<T>
             {
                 readonly ReactiveObservableCollection<T> items = new ReactiveObservableCollection<T>();
 

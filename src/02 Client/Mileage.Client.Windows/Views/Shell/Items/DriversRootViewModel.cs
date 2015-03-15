@@ -3,11 +3,12 @@ using System.Reactive;
 using System.Threading.Tasks;
 using System.Windows;
 using Castle.Windsor;
+using Mileage.Localization.Client.Shell;
 using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell.Items
 {
-    public class DriversRootViewModel : MileageConductor<MileageScreen>, IAmDisplayedInShell
+    public class DriversRootViewModel : ShellItemViewModel
     {
         public ReactiveCommand<object> DoSomething { get; private set; }
 
@@ -25,7 +26,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items
 
         protected override string GetDisplayName()
         {
-            return "Fahrer";
+            return ShellMessages.Drivers;
         }
     }
 }

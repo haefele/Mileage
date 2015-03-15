@@ -56,6 +56,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Client\Shell\ShellMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShellMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Common\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,6 +99,11 @@
     <EmbeddedResource Include="Client\Login\LoginMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\Shell\ShellMessages.de.resx" />
+    <EmbeddedResource Include="Client\Shell\ShellMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShellMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\CommonMessages.de.resx" />
     <EmbeddedResource Include="Common\CommonMessages.resx">

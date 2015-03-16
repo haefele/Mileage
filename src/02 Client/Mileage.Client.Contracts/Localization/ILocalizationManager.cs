@@ -23,7 +23,7 @@ namespace Mileage.Client.Contracts.Localization
         IEnumerable<CultureInfo> GetSupportedLanguages();
 
         /// <summary>
-        /// Adds the language dependent action.
+        /// Adds an action that will be executed once the language has changed.
         /// </summary>
         /// <param name="action">The action.</param>
         void AddLanguageDependentAction(Action action);

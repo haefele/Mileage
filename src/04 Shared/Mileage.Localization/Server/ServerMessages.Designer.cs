@@ -61,6 +61,15 @@ namespace Mileage.Localization.Server {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occured in the server..
+        /// </summary>
+        public static string InternalServerError {
+            get {
+                return ResourceManager.GetString("InternalServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The application is not up-to-date..
         /// </summary>
         public static string OutdatedVersion {

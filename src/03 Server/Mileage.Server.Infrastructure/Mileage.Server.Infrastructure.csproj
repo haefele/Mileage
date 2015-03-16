@@ -143,6 +143,8 @@
     </Compile>
     <Compile Include="Api\Configuration\JsonContentNegotiator.cs" />
     <Compile Include="Api\Configuration\MileageAssembliesResolver.cs" />
+    <Compile Include="Api\Configuration\MileageExceptionHandler.cs" />
+    <Compile Include="Api\Configuration\MileageExceptionLogger.cs" />
     <Compile Include="Api\Controllers\AdminController.cs" />
     <Compile Include="Api\Controllers\BaseController.cs" />
     <Compile Include="Api\Controllers\AuthenticationController.cs" />

@@ -25,7 +25,8 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         [Route("Tests")]
         public HttpResponseMessage GetTests()
         {
-            return this.Request.GetMessageWithObject(HttpStatusCode.OK, new {Message = "asdf"});
+            throw new Exception("yolo wolo");
+            //return this.Request.GetMessageWithObject(HttpStatusCode.OK, new {Message = "asdf"});
         }
     }
 }

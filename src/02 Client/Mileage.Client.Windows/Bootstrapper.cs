@@ -130,7 +130,7 @@ namespace Mileage.Client.Windows
         {
             var loggerFactory = this._container.Resolve<ILoggerFactory>();
 
-            ILogger logger = loggerFactory.Create("Default");
+            ILogger logger = loggerFactory.Create("Mileage.GlobalExceptionHandler");
             logger.Error("An unhandled error occured.", e.Exception);
         }
         #endregion

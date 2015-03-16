@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using System.Web.Http.ExceptionHandling;
 using Castle.Core.Configuration;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -53,7 +54,7 @@ namespace Mileage.Server.Infrastructure
             this.ConfigureWindsor(config);
             this.ConfigureFilters(config);
             this.ConfigureMessageHandlers(config);
-            this.ConfigureWebApiAssemblies(config);
+            this.ConfigureServices(config);
             this.ConfigureRoutes(config);
             this.ConfigureAllowOnlyJson(config);
 
@@ -102,12 +103,14 @@ namespace Mileage.Server.Infrastructure
             config.MessageHandlers.Add(new LicenseValidationMessageHandler());
         }
         /// <summary>
-        /// Configures the assemblies that contain webapi controllers.
+        /// Configures the WebAPI services.
         /// </summary>
         /// <param name="config">The configuration.</param>
-        private void ConfigureWebApiAssemblies(HttpConfiguration config)
+        private void ConfigureServices(HttpConfiguration config)
         {
             config.Services.Replace(typeof(IAssembliesResolver), new MileageAssembliesResolver());
+            config.Services.Replace(typeof(IExceptionHandler), new MileageExceptionHandler());
+            config.Services.Replace(typeof(IExceptionLogger), new MileageExceptionLogger());
         }
         /// <summary>
         /// Configures the routes.

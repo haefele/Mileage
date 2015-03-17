@@ -55,7 +55,7 @@
     <Compile Include="Entities\AggregateRoot.cs" />
     <Compile Include="Entities\Authentication\AuthenticationData.cs" />
     <Compile Include="Entities\Authentication\AuthenticationToken.cs" />
-    <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\Authentication\Client.cs" />
     <Compile Include="Entities\Driver.cs" />
     <Compile Include="Entities\DriversLicense.cs" />
     <Compile Include="Entities\Mileage\MileageInternalSettings.cs" />

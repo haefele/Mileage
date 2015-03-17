@@ -1,4 +1,4 @@
-﻿namespace Mileage.Shared.Entities
+﻿namespace Mileage.Shared.Entities.Authentication
 {
     public class Client
     {

@@ -28,6 +28,10 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
 
     public class AuthenticateCommandHandler : CommandHandler<AuthenticateCommand, string>
     {
+        #region Constants
+        public const string AuthenticationMechanism = "Mileage";
+        #endregion
+
         #region Fields
         private readonly IAsyncDocumentSession _documentSession;
         #endregion
@@ -113,12 +117,15 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
         {
             string authorizationHeader = requestContext.Request.Headers.Get("Authorization");
 
+            if (authorizationHeader == null)
+                return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
+
             string[] parts = authorizationHeader.Split(' ');
 
             if (parts.Length != 2)
                 return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
-
-            if (parts[1].Equals("Mileage", StringComparison.InvariantCultureIgnoreCase))
+            
+            if (parts[1].Equals(AuthenticationMechanism, StringComparison.InvariantCultureIgnoreCase))
                 return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
 
             return Result.AsSuccess(parts[2]);

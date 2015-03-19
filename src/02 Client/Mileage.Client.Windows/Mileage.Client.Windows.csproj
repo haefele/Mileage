@@ -192,6 +192,11 @@
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
     <Compile Include="Extensions\MileageScreenExtensions.cs" />
+    <Compile Include="Layout\Serializer\GridControlLayoutSerializer.cs" />
+    <Compile Include="Layout\Serializer\LayoutSerializerBase.cs" />
+    <Compile Include="Layout\Serializer\ILayoutSerializer.cs" />
+    <Compile Include="Layout\LayoutManager.cs" />
+    <Compile Include="Layout\LayoutSettings.cs" />
     <Compile Include="Localization\LanguageChangedEvent.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Messages\MessageDialogView.xaml.cs">
@@ -246,6 +251,7 @@
     <Compile Include="Windsor\CaliburnInstaller.cs" />
     <Compile Include="Windsor\ContainerInstaller.cs" />
     <Compile Include="Windsor\ExceptionsInstaller.cs" />
+    <Compile Include="Windsor\LayoutInstaller.cs" />
     <Compile Include="Windsor\LiteDatabaseInstaller.cs" />
     <Compile Include="Windsor\LocalizationInstaller.cs" />
     <Compile Include="Windsor\LoggingInstaller.cs" />

@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using Caliburn.Micro;
+using Mileage.Client.Contracts.Layout;
 
 namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 {
@@ -10,6 +13,12 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         public DashboardView()
         {
             InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var layoutManager = IoC.Get<ILayoutManager>();
+            layoutManager.SaveLayout(this);
         }
     }
 }

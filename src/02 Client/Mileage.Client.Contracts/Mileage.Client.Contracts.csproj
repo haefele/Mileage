@@ -51,6 +51,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\01 Solution Items\SolutionInfo.cs">
@@ -60,6 +61,8 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Exceptions\IExceptionHandler.cs" />
+    <Compile Include="Layout\ILayoutManager.cs" />
+    <Compile Include="Layout\ILayoutStorage.cs" />
     <Compile Include="Localization\ILocalizationManager.cs" />
     <Compile Include="Messages\IMessageService.cs" />
     <Compile Include="Messages\MessageImage.cs" />

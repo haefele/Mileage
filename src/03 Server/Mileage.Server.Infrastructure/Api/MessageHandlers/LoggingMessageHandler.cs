@@ -21,12 +21,18 @@ namespace Mileage.Server.Infrastructure.Api.MessageHandlers
             var logger = this.GetLogger(request);
 
             if (logger.IsDebugEnabled)
-                logger.DebugFormat("Handling request: {0} | Content: {1}", request, await request.Content.ReadAsStringAsync());
+            {
+                string content = request.Content != null ? await request.Content.ReadAsStringAsync() : "No content";
+                logger.DebugFormat("Handling request: {0} | Content: {1}", request, content);
+            }
 
             HttpResponseMessage result = await base.SendAsync(request, cancellationToken);
 
             if (logger.IsDebugEnabled)
-                logger.DebugFormat("Sending response: {0} | Content: {1}", result, await result.Content.ReadAsStringAsync());
+            {
+                string content = result.Content != null ? await result.Content.ReadAsStringAsync() : "No content";
+                logger.DebugFormat("Sending response: {0} | Content: {1}", result, content);
+            }
 
             return result;
         }

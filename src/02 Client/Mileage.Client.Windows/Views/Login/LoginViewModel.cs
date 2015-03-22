@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Castle.Windsor;
 using Mileage.Shared.Entities.Authentication;
+using Mileage.Shared.Entities.Users;
 using Mileage.Shared.Models;
 using ReactiveUI;
 
@@ -84,22 +85,36 @@ namespace Mileage.Client.Windows.Views.Login
 
             HttpResponseMessage response = await this.WebService.Authentication.LoginAsync(data);
 
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                this.Logger.DebugFormat("Login was successfull.");
-
-                var token = await response.Content.ReadAsAsync<AuthenticationToken>();
-                this.Session.Token = token;
-
-                this.TryClose(true);
-            }
-            else
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 this.Logger.DebugFormat("Login failed.");
 
                 var error = await response.Content.ReadAsAsync<HttpError>();
                 this.ExceptionHandler.Handle(error);
+
+                return;
             }
+
+            this.Logger.DebugFormat("Login was successfull.");
+
+            var token = await response.Content.ReadAsAsync<AuthenticationToken>();
+            this.Session.Token = token;
+
+            HttpResponseMessage currentUserResponse = await this.WebService.Users.GetMe();
+            if (currentUserResponse.StatusCode != HttpStatusCode.Found)
+            {
+                this.Session.Clear();
+
+                var error = await response.Content.ReadAsAsync<HttpError>();
+                this.ExceptionHandler.Handle(error);
+
+                return;
+            }
+
+            var currentUser = await currentUserResponse.Content.ReadAsAsync<User>();
+            this.Session.CurrentUser = currentUser;
+
+            this.TryClose(true);
         }
         private byte[] GetPasswordMD5Hash()
         {

@@ -126,6 +126,9 @@
   <data name="EmailIsNotAvailable" xml:space="preserve">
     <value>Diese E-Mail-Adresse wird bereits verwendet.</value>
   </data>
+  <data name="LayoutNotFound" xml:space="preserve">
+    <value>Das Layout wurde nicht gefunden.</value>
+  </data>
   <data name="NoAuthenticationTokenGiven" xml:space="preserve">
     <value>Keine Sitzungsinformationen vorhanden.</value>
   </data>

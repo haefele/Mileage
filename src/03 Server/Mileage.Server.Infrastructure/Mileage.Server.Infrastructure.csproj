@@ -86,15 +86,15 @@
     </Reference>
     <Reference Include="Raven.Abstractions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RavenDB.Database.3.0.3587-Unstable\lib\net45\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\..\packages\RavenDB.Database.3.0.3599\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=3.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RavenDB.Client.3.0.3587-Unstable\lib\net45\Raven.Client.Lightweight.dll</HintPath>
+      <HintPath>..\..\packages\RavenDB.Client.3.0.3599\lib\net45\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Database, Version=3.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RavenDB.Database.3.0.3587-Unstable\lib\net45\Raven.Database.dll</HintPath>
+      <HintPath>..\..\packages\RavenDB.Database.3.0.3599\lib\net45\Raven.Database.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -150,6 +150,7 @@
     <Compile Include="Api\Controllers\AdminController.cs" />
     <Compile Include="Api\Controllers\BaseController.cs" />
     <Compile Include="Api\Controllers\AuthenticationController.cs" />
+    <Compile Include="Api\Controllers\LayoutController.cs" />
     <Compile Include="Api\Controllers\MetricsController.cs" />
     <Compile Include="Api\Controllers\TestsController.cs" />
     <Compile Include="Api\Controllers\UsersController.cs" />
@@ -169,6 +170,8 @@
     <Compile Include="Commands\CommandExecutor.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Commands\CommandScope.cs" />
+    <Compile Include="Commands\Layout\GetLayoutCommand.cs" />
+    <Compile Include="Commands\Layout\SaveLayoutCommand.cs" />
     <Compile Include="Commands\Mileage\CreateAdminUserCommand.cs" />
     <Compile Include="Commands\Mileage\CreateIndexesCommand.cs" />
     <Compile Include="Commands\Mileage\GetMileageInternalSettingsCommand.cs" />

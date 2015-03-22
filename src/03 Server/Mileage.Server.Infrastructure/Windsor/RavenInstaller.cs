@@ -6,6 +6,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Mileage.Shared.Entities;
 using Mileage.Shared.Entities.Authentication;
+using Mileage.Shared.Entities.Layout;
 using Mileage.Shared.Entities.Mileage;
 using Raven.Client;
 using Raven.Client.Connection;
@@ -93,6 +94,14 @@ namespace Mileage.Server.Infrastructure.Windsor
             documentStore.Conventions.RegisterAsyncIdConvention<MileageInternalSettings>((databaseName, commands, entity) =>
             {
                 return Task.FromResult(MileageInternalSettings.CreateId());
+            });
+            documentStore.Conventions.RegisterAsyncIdConvention<MileageSettings>((databaseName, commands, entity) =>
+            {
+                return Task.FromResult(MileageSettings.CreateId());
+            });
+            documentStore.Conventions.RegisterAsyncIdConvention<StoredLayout>((databaseName, commands, entity) =>
+            {
+                return Task.FromResult(StoredLayout.CreateId(entity.UserId, entity.LayoutName));
             });
         }
         #endregion

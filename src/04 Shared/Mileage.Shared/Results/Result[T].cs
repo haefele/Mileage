@@ -53,7 +53,7 @@ namespace Mileage.Shared.Results
         /// <param name="result">The result.</param>
         public static implicit operator Result<T>(Result result)
         {
-            if (result.IsSuccess)
+            if (result.IsSuccess && typeof(T) != typeof(object))
                 throw new InvalidOperationException("You can't return a successfull 'Result' without data.");
 
             return new Result<T>

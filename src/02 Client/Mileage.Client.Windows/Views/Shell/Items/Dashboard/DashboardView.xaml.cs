@@ -14,11 +14,5 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         {
             InitializeComponent();
         }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            var layoutManager = IoC.Get<ILayoutManager>();
-            layoutManager.SaveLayout(this);
-        }
     }
 }

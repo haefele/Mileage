@@ -62,7 +62,6 @@
     </Compile>
     <Compile Include="Exceptions\IExceptionHandler.cs" />
     <Compile Include="Layout\ILayoutManager.cs" />
-    <Compile Include="Layout\ILayoutStorage.cs" />
     <Compile Include="Localization\ILocalizationManager.cs" />
     <Compile Include="Messages\IMessageService.cs" />
     <Compile Include="Messages\MessageImage.cs" />
@@ -70,6 +69,8 @@
     <Compile Include="Storage\IDataStorage.cs" />
     <Compile Include="Versioning\IVersionService.cs" />
     <Compile Include="WebServices\IAuthenticationClient.cs" />
+    <Compile Include="WebServices\ILayoutClient.cs" />
+    <Compile Include="WebServices\IUsersClient.cs" />
     <Compile Include="WebServices\IWebServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>

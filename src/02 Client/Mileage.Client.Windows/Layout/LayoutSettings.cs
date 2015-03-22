@@ -4,30 +4,30 @@ namespace Mileage.Client.Windows.Layout
 {
     public class LayoutSettings
     {
-        public static readonly DependencyProperty ControlNameProperty = DependencyProperty.RegisterAttached(
-            "ControlName", typeof (string), typeof (LayoutSettings), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty LayoutControlNameProperty = DependencyProperty.RegisterAttached(
+            "LayoutControlName", typeof (string), typeof (LayoutSettings), new PropertyMetadata(default(string)));
 
-        public static void SetControlName(DependencyObject element, string value)
+        public static void SetLayoutControlName(DependencyObject element, string value)
         {
-            element.SetValue(ControlNameProperty, value);
+            element.SetValue(LayoutControlNameProperty, value);
         }
 
-        public static string GetControlName(DependencyObject element)
+        public static string GetLayoutControlName(DependencyObject element)
         {
-            return (string)element.GetValue(ControlNameProperty);
+            return (string)element.GetValue(LayoutControlNameProperty);
         }
 
-        public static readonly DependencyProperty StopLayoutAnalysisProperty = DependencyProperty.RegisterAttached(
-            "StopLayoutAnalysis", typeof (bool), typeof (LayoutSettings), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty IgnoreChildControlsProperty = DependencyProperty.RegisterAttached(
+            "IgnoreChildControls", typeof (bool), typeof (LayoutSettings), new PropertyMetadata(default(bool)));
 
-        public static void SetStopLayoutAnalysis(DependencyObject element, bool value)
+        public static void SetIgnoreChildControls(DependencyObject element, bool value)
         {
-            element.SetValue(StopLayoutAnalysisProperty, value);
+            element.SetValue(IgnoreChildControlsProperty, value);
         }
 
-        public static bool GetStopLayoutAnalysis(DependencyObject element)
+        public static bool GetIgnoreChildControls(DependencyObject element)
         {
-            return (bool)element.GetValue(StopLayoutAnalysisProperty);
+            return (bool)element.GetValue(IgnoreChildControlsProperty);
         }
     }
 }

@@ -38,6 +38,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// 500 - InternalServerError: An error occured.
         /// </returns>
         [Route("Me")]
+        [HttpGet]
         [MileageAuthentication]
         public async Task<HttpResponseMessage> GetMe()
         {

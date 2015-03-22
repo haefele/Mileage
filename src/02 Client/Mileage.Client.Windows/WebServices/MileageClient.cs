@@ -90,7 +90,7 @@ namespace Mileage.Client.Windows.WebServices
         {
             try
             {
-                return await this._client.SendAsync(request);
+                return await this._client.SendAsync(request).ConfigureAwait(false);
             }
             catch (Exception exception)
             {

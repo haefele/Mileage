@@ -192,6 +192,7 @@
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
     <Compile Include="Extensions\MileageScreenExtensions.cs" />
+    <Compile Include="Layout\SaveAndRestoreLayout.cs" />
     <Compile Include="Layout\Serializer\GridControlLayoutSerializer.cs" />
     <Compile Include="Layout\Serializer\LayoutSerializerBase.cs" />
     <Compile Include="Layout\Serializer\ILayoutSerializer.cs" />
@@ -241,8 +242,10 @@
     <Compile Include="Views\Shell\ShellViewModel.cs" />
     <Compile Include="WebServices\AuthenticationClient.cs" />
     <Compile Include="WebServices\HttpQueryBuilder.cs" />
+    <Compile Include="WebServices\LayoutClient.cs" />
     <Compile Include="WebServices\MileageClient.cs" />
     <Compile Include="WebServices\Session.cs" />
+    <Compile Include="WebServices\UsersClient.cs" />
     <Compile Include="WebServices\WebServiceClient.cs" />
     <Compile Include="Windows\ExtendedDXRibbonWindow.cs" />
     <Compile Include="Windows\MileageWindowManager.cs" />

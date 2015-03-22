@@ -125,10 +125,10 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
             if (parts.Length != 2)
                 return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
             
-            if (parts[1].Equals(AuthenticationMechanism, StringComparison.InvariantCultureIgnoreCase))
+            if (parts[0].Equals(AuthenticationMechanism, StringComparison.InvariantCultureIgnoreCase) == false)
                 return Result.AsError(CommandMessages.NoAuthenticationTokenGiven);
 
-            return Result.AsSuccess(parts[2]);
+            return Result.AsSuccess(parts[1]);
         }
         #endregion
     }

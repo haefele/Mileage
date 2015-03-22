@@ -44,7 +44,6 @@ namespace Mileage.Client.Windows.Views.Shell
         }
         private void LogoutImpl()
         {
-            this.Session.Clear();
             this.TryClose(true);
         }
         #endregion

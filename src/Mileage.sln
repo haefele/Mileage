@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Solution Items", "01 Sol
 		01 Solution Items\VersionInfo.cs = 01 Solution Items\VersionInfo.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mileage.Tests.RavenDBConcurrency", "05 Tests\Mileage.Tests.RavenDBConcurrency\Mileage.Tests.RavenDBConcurrency.csproj", "{761404A7-58B6-4D8B-B20C-BECB569A8AA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{93642956-AC5F-4FA0-98F5-4D99671580AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93642956-AC5F-4FA0-98F5-4D99671580AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93642956-AC5F-4FA0-98F5-4D99671580AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{761404A7-58B6-4D8B-B20C-BECB569A8AA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{761404A7-58B6-4D8B-B20C-BECB569A8AA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{761404A7-58B6-4D8B-B20C-BECB569A8AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{761404A7-58B6-4D8B-B20C-BECB569A8AA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +100,6 @@ Global
 		{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7} = {CAD4D317-3751-4B51-9B30-1C6C58C52F94}
 		{B4348F9D-92C6-40A8-AF64-7FC1DFE8CD08} = {7D283DD3-8560-4D7F-8647-C4AC236CB7A0}
 		{93642956-AC5F-4FA0-98F5-4D99671580AD} = {3C05C4AF-5FA3-4CB7-904B-512EE04BFF90}
+		{761404A7-58B6-4D8B-B20C-BECB569A8AA6} = {3C05C4AF-5FA3-4CB7-904B-512EE04BFF90}
 	EndGlobalSection
 EndGlobal

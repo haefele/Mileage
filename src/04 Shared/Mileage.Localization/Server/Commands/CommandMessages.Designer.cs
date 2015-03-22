@@ -88,6 +88,15 @@ namespace Mileage.Localization.Server.Commands {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The requested layout was not found..
+        /// </summary>
+        public static string LayoutNotFound {
+            get {
+                return ResourceManager.GetString("LayoutNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No session informations was given..
         /// </summary>
         public static string NoAuthenticationTokenGiven {

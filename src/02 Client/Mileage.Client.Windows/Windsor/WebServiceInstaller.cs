@@ -12,7 +12,9 @@ namespace Mileage.Client.Windows.Windsor
         {
             container.Register(
                 Component.For<WebServiceClient>().LifestyleSingleton(),
-                Component.For<IAuthenticationClient>().ImplementedBy<AuthenticationClient>().LifestyleTransient(),
+                Component.For<IAuthenticationClient>().ImplementedBy<AuthenticationClient>().LifestyleSingleton(),
+                Component.For<IUsersClient>().ImplementedBy<UsersClient>().LifestyleSingleton(),
+                Component.For<ILayoutClient>().ImplementedBy<LayoutClient>().LifestyleSingleton(),
                 Component.For<MileageClient>().LifestyleSingleton().DependsOn(Dependency.OnAppSettingsValue("baseAddress", "Mileage/WebServiceAddress")),
                 Component.For<Session>().LifestyleSingleton());
         }

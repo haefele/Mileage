@@ -12,7 +12,7 @@ namespace Mileage.Server.Infrastructure.Bootstrapper
         /// </summary>
         public void Start()
         {
-            if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/EnableDefaultMetrics").Value))
+            if (Config.EnableDefaultMetrics.GetValue())
             {
                 Metric.Config.WithAllCounters();
             }

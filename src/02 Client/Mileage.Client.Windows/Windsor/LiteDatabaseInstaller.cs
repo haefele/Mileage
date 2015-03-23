@@ -18,7 +18,7 @@ namespace Mileage.Client.Windows.Windsor
         {
             container.Register(
                 Component.For<IDataStorage>().ImplementedBy<LiteDatabaseStorage>()
-                    .DependsOn(Dependency.OnAppSettingsValue("filePath", "Mileage/EmbeddedDatabaseName")));
+                    .DependsOn(Dependency.OnValue("filePath", Config.EmbeddedDatabaseName.GetValue())));
         }
     }
 }

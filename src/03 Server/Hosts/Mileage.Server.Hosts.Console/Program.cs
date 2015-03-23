@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Castle.MicroKernel.Registration;
+﻿using System.Linq;
 using Microsoft.Owin.Hosting;
 using Mileage.Server.Infrastructure;
 using Raven.Abstractions.Extensions;
@@ -16,7 +10,7 @@ namespace Mileage.Server.Hosts.Console
         static void Main(string[] args)
         {
             var startOptions = new StartOptions();
-            startOptions.Urls.AddRange(Dependency.OnAppSettingsValue("Mileage/Addresses").Value.Split('|'));
+            startOptions.Urls.AddRange(Config.Addresses.GetValue().Select(f => f.ToString()));
 
             using (WebApp.Start<Startup>(startOptions))
             {

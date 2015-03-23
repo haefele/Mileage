@@ -36,6 +36,7 @@
       <HintPath>..\..\packages\LiteGuard.0.10.0\lib\net35\LiteGuard.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,6 +53,11 @@
     </Compile>
     <Compile Include="Common\ClientIds.cs" />
     <Compile Include="Common\CultureAwaiter.cs" />
+    <Compile Include="Configuration\BaseSetting.cs" />
+    <Compile Include="Configuration\BoolSetting.cs" />
+    <Compile Include="Configuration\IntSetting.cs" />
+    <Compile Include="Configuration\StringSetting.cs" />
+    <Compile Include="Configuration\UriListSetting.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\AggregateRoot.cs" />
     <Compile Include="Entities\Authentication\AuthenticationData.cs" />

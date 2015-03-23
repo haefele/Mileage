@@ -189,6 +189,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AttachedProperties\Runtime.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
     <Compile Include="Extensions\MileageScreenExtensions.cs" />

@@ -1,8 +1,6 @@
 ﻿using Castle.Core;
-using Castle.MicroKernel.Registration;
 using LiteGuard;
 using Mileage.Server.Contracts.Licensing;
-using Mileage.Server.Infrastructure.Licensing;
 
 namespace Mileage.Server.Infrastructure.Bootstrapper
 {
@@ -31,7 +29,7 @@ namespace Mileage.Server.Infrastructure.Bootstrapper
         /// </summary>
         public void Start()
         {
-            this._licensingService.LoadLicense(Dependency.OnAppSettingsValue("Mileage/LicensePath").Value);
+            this._licensingService.LoadLicense(Config.LicensePath.GetValue());
         }
         /// <summary>
         /// Stops this instance.

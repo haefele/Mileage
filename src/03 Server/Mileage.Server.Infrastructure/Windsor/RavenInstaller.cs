@@ -47,7 +47,7 @@ namespace Mileage.Server.Infrastructure.Windsor
         {
             var config = new RavenConfiguration
             {
-                Port = int.Parse(Dependency.OnAppSettingsValue("Mileage/RavenHttpServerPort").Value),
+                Port = Config.RavenHttpServerPort.GetValue(),
 
                 AssembliesDirectory = Path.Combine(".", "Database", "Assemblies"),
                 EmbeddedFilesDirectory = Path.Combine(".", "Database", "Files"),
@@ -62,13 +62,13 @@ namespace Mileage.Server.Infrastructure.Windsor
 
             ravenDbServer.Initialize();
 
-            ravenDbServer.DocumentStore.DefaultDatabase = Dependency.OnAppSettingsValue("Mileage/RavenName").Value;
+            ravenDbServer.DocumentStore.DefaultDatabase = Config.RavenName.GetValue();
             ravenDbServer.DocumentStore.DatabaseCommands.GlobalAdmin.EnsureDatabaseExists(ravenDbServer.DocumentStore.DefaultDatabase);
 
-            ravenDbServer.FilesStore.DefaultFileSystem = Dependency.OnAppSettingsValue("Mileage/RavenName").Value;
+            ravenDbServer.FilesStore.DefaultFileSystem = Config.RavenName.GetValue();
             ravenDbServer.FilesStore.AsyncFilesCommands.Admin.EnsureFileSystemExistsAsync(ravenDbServer.FilesStore.DefaultFileSystem).Wait();
             
-            if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/EnableRavenHttpServer").Value))
+            if (Config.EnableRavenHttpServer.GetValue())
             {
                 ravenDbServer.EnableHttpServer();
             }

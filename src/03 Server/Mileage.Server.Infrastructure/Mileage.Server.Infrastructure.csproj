@@ -98,6 +98,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Abstractions, Version=2.0.0.103, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -179,6 +180,7 @@
     <Compile Include="Commands\Mileage\ResetIndexesCommand.cs" />
     <Compile Include="Commands\Users\CreateUserCommand.cs" />
     <Compile Include="Commands\Users\GetCurrentUserCommand.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Encryption\SaltCombiner.cs" />
     <Compile Include="Encryption\SecretGenerator.cs" />
     <Compile Include="Extensions\CommandExecutorExtensions.cs" />

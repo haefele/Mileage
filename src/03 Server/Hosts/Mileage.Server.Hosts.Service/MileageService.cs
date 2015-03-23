@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Castle.MicroKernel.Registration;
 using Microsoft.Owin.Hosting;
 using Mileage.Server.Infrastructure;
@@ -19,7 +20,7 @@ namespace Mileage.Server.Hosts.Service
         public void Start()
         {
             var startOptions = new StartOptions();
-            startOptions.Urls.AddRange(Dependency.OnAppSettingsValue("Mileage/Addresses").Value.Split('|'));
+            startOptions.Urls.AddRange(Config.Addresses.GetValue().Select(f => f.ToString()));
 
             this._webApp = WebApp.Start<Startup>(startOptions);
         }

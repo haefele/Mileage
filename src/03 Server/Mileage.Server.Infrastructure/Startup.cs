@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Formatting;
+﻿using System.Configuration;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using System.Web.Http.ExceptionHandling;
@@ -87,14 +88,14 @@ namespace Mileage.Server.Infrastructure
             config.MessageHandlers.Add(new RequestExecutionTimeMessageHandler());
             config.MessageHandlers.Add(new ConcurrentRequestCountMessageHandler());
 
-            if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/CompressResponses").Value))
+            if (Config.CompressResponses.GetValue())
             {
                 config.MessageHandlers.Add(new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
             }
 
             config.MessageHandlers.Add(new LocalizationMessageHandler());
 
-            if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/EnableDebugRequestResponseLogging").Value))
+            if (Config.EnableDebugRequestResponseLogging.GetValue())
             {
                 config.MessageHandlers.Add(new LoggingMessageHandler());
             }
@@ -126,7 +127,7 @@ namespace Mileage.Server.Infrastructure
         /// <param name="config">The configuration.</param>
         private void ConfigureAllowOnlyJson(HttpConfiguration config)
         {
-            if (bool.Parse(Dependency.OnAppSettingsValue("Mileage/FormatResponses").Value))
+            if (Config.FormatResponses.GetValue())
             {
                 config.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
             }

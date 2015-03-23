@@ -9,6 +9,7 @@ using Castle.Core.Logging;
 using LiteGuard;
 using Mileage.Client.Contracts.Localization;
 using Mileage.Client.Contracts.Storage;
+using Mileage.Localization;
 using Weakly;
 using WPFLocalizeExtension.Engine;
 
@@ -99,8 +100,7 @@ namespace Mileage.Client.Windows.Localization
         /// </summary>
         public IEnumerable<CultureInfo> GetSupportedLanguages()
         {
-            yield return new CultureInfo("de");
-            yield return new CultureInfo("en");
+            return Languages.GetSupportedLanguages();
         }
         /// <summary>
         /// Adds the language dependent action.
@@ -121,9 +121,9 @@ namespace Mileage.Client.Windows.Localization
         private void LoadCurrentLanguage()
         {
             var languageData = this._dataStorage.Get<LanguageData>(CurrentLanguageId);
-            CultureInfo language = languageData != null ? 
-                new CultureInfo(languageData.Language) : 
-                this.GetSupportedLanguages().First();
+            CultureInfo language = languageData != null ?
+                new CultureInfo(languageData.Language) :
+                Languages.GetDefaultLanguage();
 
             this.ChangeLanguage(language);
         }

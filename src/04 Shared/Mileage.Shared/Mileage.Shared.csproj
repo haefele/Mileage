@@ -50,7 +50,7 @@
     <Compile Include="..\..\01 Solution Items\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Common\ClientId.cs" />
+    <Compile Include="Common\ClientIds.cs" />
     <Compile Include="Common\CultureAwaiter.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\AggregateRoot.cs" />
@@ -63,6 +63,7 @@
     <Compile Include="Entities\Mileage\MileageInternalSettings.cs" />
     <Compile Include="Entities\Mileage\MileageSettings.cs" />
     <Compile Include="Entities\Users\User.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Models\LoginData.cs" />

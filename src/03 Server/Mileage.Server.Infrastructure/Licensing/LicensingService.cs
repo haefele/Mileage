@@ -9,6 +9,7 @@ using LiteGuard;
 using Mileage.Localization.Server.Licensing;
 using Mileage.Server.Contracts.Licensing;
 using Mileage.Server.Contracts.Versioning;
+using Mileage.Shared.Common;
 using Mileage.Shared.Results;
 using Portable.Licensing;
 using Portable.Licensing.Validation;
@@ -101,7 +102,10 @@ namespace Mileage.Server.Infrastructure.Licensing
 
             if (this._license == null)
                 return Result.AsError(LicensingMessages.LicenseNotFound);
-            
+
+            if (ClientIds.Get().Any(f => string.Equals(f, clientId, StringComparison.InvariantCultureIgnoreCase)) == false)
+                return Result.AsError(LicensingMessages.InvalidClient);
+
             List<IValidationFailure> errors = this._license
                 .Validate().ExpirationDate()
                 .And().Signature(PublicKey)

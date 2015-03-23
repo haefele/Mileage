@@ -120,6 +120,9 @@
   <data name="ClientIdMissing" xml:space="preserve">
     <value>You cannot use this license for this client application of Mileage.</value>
   </data>
+  <data name="InvalidClient" xml:space="preserve">
+    <value>Your client is unknown.</value>
+  </data>
   <data name="InvalidSignature" xml:space="preserve">
     <value>Your license file is invalid. This happens if the license got corrupted or was altered.</value>
   </data>

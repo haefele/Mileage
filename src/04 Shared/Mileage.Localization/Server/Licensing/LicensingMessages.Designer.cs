@@ -70,6 +70,15 @@ namespace Mileage.Localization.Server.Licensing {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your client is unknown..
+        /// </summary>
+        public static string InvalidClient {
+            get {
+                return ResourceManager.GetString("InvalidClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your license file is invalid. This happens if the license got corrupted or was altered..
         /// </summary>
         public static string InvalidSignature {

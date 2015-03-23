@@ -1,13 +1,10 @@
 ﻿using System.Threading.Tasks;
 using LiteGuard;
-using Metrics.Core;
-using Mileage.Localization.Server.Authentication;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Contracts.Encryption;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Server.Infrastructure.Raven.Indexes;
-using Mileage.Shared.Entities;
 using Mileage.Shared.Entities.Authentication;
 using Mileage.Shared.Entities.Users;
 using Mileage.Shared.Extensions;

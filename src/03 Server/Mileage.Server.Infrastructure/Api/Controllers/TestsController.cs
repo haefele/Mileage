@@ -20,43 +20,9 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 {
     public class TestsController : BaseController
     {
-        private readonly IDocumentStore _documentStore;
-
-        public TestsController(ICommandExecutor commandExecutor, IDocumentStore documentStore) : base(commandExecutor)
+        public TestsController(ICommandExecutor commandExecutor) 
+            : base(commandExecutor)
         {
-            _documentStore = documentStore;
-        }
-
-        [HttpGet]
-        [Route("Tests")]
-        public async Task<HttpResponseMessage> GetTests()
-        {
-            var layout = new StoredLayout
-            {
-                UserId = "users/1",
-                LayoutName = "TestLayout"
-            };
-            layout.Id = StoredLayout.CreateId(layout.UserId, layout.LayoutName);
-
-            using (var session = this._documentStore.OpenAsyncSession())
-            {
-
-                await session.StoreAsync(layout);
-                await session.SaveChangesAsync();
-            }
-
-            using (var session = this._documentStore.OpenAsyncSession())
-            {
-                await session.StoreAsync(layout);
-                await session.SaveChangesAsync();
-            }
-
-            //Result<object> result = await this.CommandExecutor.Execute(new SaveLayoutCommand(layout));
-
-            //result = await this.CommandExecutor.Execute(new SaveLayoutCommand(layout));
-
-            //return this.Request.GetMessageWithResult(HttpStatusCode.OK, HttpStatusCode.InternalServerError, result, ignoreData: true);
-            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

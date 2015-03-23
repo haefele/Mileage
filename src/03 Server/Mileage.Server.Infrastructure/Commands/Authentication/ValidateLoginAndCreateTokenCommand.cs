@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using LiteGuard;
-using Mileage.Localization.Server.Authentication;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Contracts.Encryption;
 using Mileage.Server.Infrastructure.Commands.Mileage;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Server.Infrastructure.Raven.Indexes;
-using Mileage.Shared.Entities;
 using Mileage.Shared.Entities.Authentication;
 using Mileage.Shared.Entities.Mileage;
 using Mileage.Shared.Entities.Users;

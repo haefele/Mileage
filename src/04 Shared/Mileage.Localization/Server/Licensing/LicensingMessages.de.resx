@@ -120,6 +120,9 @@
   <data name="ClientIdMissing" xml:space="preserve">
     <value>Sie können diesen Client nicht benutzen, Ihre Lizenz ist nicht gültig dafür.</value>
   </data>
+  <data name="InvalidClient" xml:space="preserve">
+    <value>Ihr Client ist unbekannt.</value>
+  </data>
   <data name="InvalidSignature" xml:space="preserve">
     <value>Ihre Lizenz ist ungültig. Dies passiert wenn die Lizenz kaputt ging oder geändert wurde.</value>
   </data>

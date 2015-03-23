@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using LiteGuard;
 using Microsoft.Owin;
-using Mileage.Localization.Server.Authentication;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Entities.Authentication;

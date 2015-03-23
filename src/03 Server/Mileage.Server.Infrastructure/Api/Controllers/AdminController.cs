@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Mileage.Localization.Server.Controllers;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Commands.Mileage;
 using Mileage.Server.Infrastructure.Extensions;
@@ -41,7 +42,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public async Task<HttpResponseMessage> CreateAdminUser(CreateAdminUserData data)
         {
             if (data == null || data.EmailAddress == null || data.PasswordMD5Hash == null || data.Language == null)
-                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, "asdf");
+                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, ControllerMessages.RequiredDataAreMissing);
 
             Result<User> result = await this.CommandExecutor.Execute(new CreateAdminUserCommand(
                 data.EmailAddress, 

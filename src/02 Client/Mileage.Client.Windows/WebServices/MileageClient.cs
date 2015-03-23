@@ -78,7 +78,7 @@ namespace Mileage.Client.Windows.WebServices
             request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(this._localizationManager.CurrentLanguage.Name));
 
             Version currentVersion = this._versionService.GetCurrentVersion();
-            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(ClientId.Desktop, currentVersion.ToString())));
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue(ClientIds.Desktop, currentVersion.ToString())));
 
             return request;
         }

@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Mileage.Localization;
+
 
 namespace Mileage.Server.Infrastructure.Api.MessageHandlers
 {
@@ -22,7 +24,7 @@ namespace Mileage.Server.Infrastructure.Api.MessageHandlers
 
                 if (string.IsNullOrWhiteSpace(language) == false)
                 {
-                    var culture = CultureInfo.CreateSpecificCulture(language);
+                    CultureInfo culture = Languages.GetLanguageByName(language);
 
                     Thread.CurrentThread.CurrentCulture = culture;
                     Thread.CurrentThread.CurrentUICulture = culture;

@@ -66,21 +66,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommonMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Languages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Commands\CommandMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Server\Controllers\ControllerMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControllerMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Server\Licensing\LicensingMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LicensingMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Server\Authentication\AuthenticationMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AuthenticationMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Server\ServerMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -88,7 +89,12 @@
       <DependentUpon>ServerMessages.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Mileage.Shared\Mileage.Shared.csproj">
+      <Project>{EF3B26E2-AE0C-4CD9-8B15-CC39B394C7D7}</Project>
+      <Name>Mileage.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Client\ClientMessages.de.resx" />
     <EmbeddedResource Include="Client\ClientMessages.resx">
@@ -115,15 +121,15 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CommandMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Server\Controllers\ControllerMessages.de.resx" />
+    <EmbeddedResource Include="Server\Controllers\ControllerMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ControllerMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Server\Licensing\LicensingMessages.de.resx" />
     <EmbeddedResource Include="Server\Licensing\LicensingMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LicensingMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Server\Authentication\AuthenticationMessages.de.resx" />
-    <EmbeddedResource Include="Server\Authentication\AuthenticationMessages.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AuthenticationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Server\ServerMessages.de.resx" />
     <EmbeddedResource Include="Server\ServerMessages.resx">

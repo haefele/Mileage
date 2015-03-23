@@ -1,25 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using LiteGuard;
-using Mileage.Localization.Server.Authentication;
+using Mileage.Localization.Server.Controllers;
 using Mileage.Server.Contracts.Commands;
-using Mileage.Server.Contracts.Encryption;
 using Mileage.Server.Infrastructure.Commands.Authentication;
-using Mileage.Server.Infrastructure.Commands.Users;
 using Mileage.Server.Infrastructure.Extensions;
-using Mileage.Server.Infrastructure.Raven.Indexes;
-using Mileage.Shared.Entities;
 using Mileage.Shared.Entities.Authentication;
-using Mileage.Shared.Entities.Users;
-using Mileage.Shared.Extensions;
 using Mileage.Shared.Models;
 using Mileage.Shared.Results;
-using Raven.Client;
-using Raven.Client.FileSystem;
 
 namespace Mileage.Server.Infrastructure.Api.Controllers
 {
@@ -52,7 +42,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public async Task<HttpResponseMessage> LoginAsync(LoginData loginDataData)
         {
             if (loginDataData == null || loginDataData.EmailAddress == null || loginDataData.PasswordMD5Hash == null)
-                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, AuthenticationMessages.LoginDataMissing);
+                return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, ControllerMessages.RequiredDataAreMissing);
 
             var userAgent = this.Request.Headers.UserAgent.Select(f => f.Product).First();
             

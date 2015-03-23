@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoginDataMissing" xml:space="preserve">
-    <value>You need to enter your username and password.</value>
+  <data name="RequiredDataAreMissing" xml:space="preserve">
+    <value>Benötigte Daten fehlen.</value>
   </data>
 </root>

@@ -14,16 +14,20 @@ namespace Mileage.Shared.Extensions
         /// <param name="childSelector">The child selector.</param>
         public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childSelector)
         {
+            var result = new HashSet<T>();
+
             var stack = new Stack<T>(items);
             while (stack.Any())
             {
                 var next = stack.Pop();
 
-                yield return next;
+                result.Add(next);
 
-                foreach(var child in childSelector(next))
+                foreach(var child in childSelector(next).Where(f => result.Contains(f) == false))
                     stack.Push(child);
             }
+
+            return result;
         }
     }
 }

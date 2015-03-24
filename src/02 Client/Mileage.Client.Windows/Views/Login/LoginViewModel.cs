@@ -6,7 +6,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Caliburn.Micro;
 using Castle.Windsor;
+using Mileage.Client.Windows.Events;
 using Mileage.Shared.Entities.Authentication;
 using Mileage.Shared.Entities.Users;
 using Mileage.Shared.Models;
@@ -84,7 +86,6 @@ namespace Mileage.Client.Windows.Views.Login
             this.Logger.DebugFormat("Login try with email address '{0}' and password MD5 hash '{1}'.", data.EmailAddress, string.Join("-", data.PasswordMD5Hash));
 
             HttpResponseMessage response = await this.WebService.Authentication.LoginAsync(data);
-
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 this.Logger.DebugFormat("Login failed.");
@@ -113,6 +114,8 @@ namespace Mileage.Client.Windows.Views.Login
 
             var currentUser = await currentUserResponse.Content.ReadAsAsync<User>();
             this.Session.CurrentUser = currentUser;
+
+            this.EventAggregator.PublishOnCurrentThread(new UserLoggedInEvent(currentUser));
 
             this.TryClose(true);
         }

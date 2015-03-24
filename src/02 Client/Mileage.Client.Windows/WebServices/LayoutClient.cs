@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using LiteGuard;
 using Mileage.Client.Contracts.WebServices;
@@ -17,18 +18,15 @@ namespace Mileage.Client.Windows.WebServices
             this._mileageClient = mileageClient;
         }
 
-        public Task<HttpResponseMessage> SaveLayout(StoredLayout layout)
+        public Task<HttpResponseMessage> SaveLayout(string layoutName, Dictionary<string, byte[]> layoutData)
         {
-            var request = this._mileageClient.CreateRequest("Layout", HttpMethod.Post, layout);
+            var request = this._mileageClient.CreateRequest(string.Format("Layout/{0}", layoutName), HttpMethod.Post, layoutData);
             return this._mileageClient.SendRequestAsync(request);
         }
 
         public Task<HttpResponseMessage> GetLayout(string layoutName)
         {
-            var queryBuilder = new HttpQueryBuilder();
-            queryBuilder.AddParameter("layoutName", layoutName);
-
-            var request = this._mileageClient.CreateRequest(string.Format("Layout{0}", queryBuilder), HttpMethod.Get);
+            var request = this._mileageClient.CreateRequest(string.Format("Layout/{0}", layoutName), HttpMethod.Get);
             return this._mileageClient.SendRequestAsync(request);
         }
     }

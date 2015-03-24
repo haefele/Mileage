@@ -47,10 +47,10 @@ namespace Mileage.Client.Windows.Layout
             var layoutManager = IoC.Get<ILayoutManager>();
             await layoutManager.SaveLayoutAsync(this._currentUser, this.LayoutName, this.AssociatedObject);
         }
-        private void AssociatedObjectOnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        private async void AssociatedObjectOnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            //var layoutManager = IoC.Get<ILayoutManager>();
-            //await layoutManager.RestoreLayoutAsync(this._currentUser, this.LayoutName, this.AssociatedObject);
+            var layoutManager = IoC.Get<ILayoutManager>();
+            await layoutManager.RestoreLayoutAsync(this._currentUser, this.LayoutName, this.AssociatedObject);
         }
         #endregion
     }

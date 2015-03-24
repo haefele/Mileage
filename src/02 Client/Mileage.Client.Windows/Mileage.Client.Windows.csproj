@@ -190,9 +190,12 @@
     </Compile>
     <Compile Include="AttachedProperties\Runtime.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Events\UserLoggedInEvent.cs" />
+    <Compile Include="Events\UserLoggedOutEvent.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
     <Compile Include="Extensions\MileageScreenExtensions.cs" />
+    <Compile Include="Layout\LayoutCache.cs" />
     <Compile Include="Layout\SaveAndRestoreLayout.cs" />
     <Compile Include="Layout\Serializer\GridControlLayoutSerializer.cs" />
     <Compile Include="Layout\Serializer\LayoutSerializerBase.cs" />

@@ -12,7 +12,8 @@ namespace Mileage.Client.Windows.Windsor
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Component.For<ILayoutManager>().ImplementedBy<LayoutManager>().LifestyleSingleton());
+                Component.For<ILayoutManager>().ImplementedBy<LayoutManager>().LifestyleSingleton(),
+                Component.For<LayoutCache>().LifestyleSingleton());
 
             container.Register(
                 Classes.FromThisAssembly()

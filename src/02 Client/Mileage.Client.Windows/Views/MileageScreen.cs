@@ -35,6 +35,10 @@ namespace Mileage.Client.Windows.Views
         /// </summary>
         protected IExceptionHandler ExceptionHandler { get; set; }
         /// <summary>
+        /// Gets or sets the event aggregator.
+        /// </summary>
+        protected IEventAggregator EventAggregator { get; set; }
+        /// <summary>
         /// Gets or sets the localization manager.
         /// </summary>
         protected ILocalizationManager LocalizationManager { get; set; }
@@ -67,12 +71,15 @@ namespace Mileage.Client.Windows.Views
 
             this.MessageService = container.Resolve<IMessageService>();
             this.ExceptionHandler = container.Resolve<IExceptionHandler>();
+            this.EventAggregator = container.Resolve<IEventAggregator>();
             this.LocalizationManager = container.Resolve<ILocalizationManager>();
             this.DataStorage = container.Resolve<IDataStorage>();
             this.WebService = container.Resolve<WebServiceClient>();
             this.Session = container.Resolve<Session>();
 
             this.LocalizationManager.AddLanguageDependentAction(this.UpdateDisplayName);
+
+            this.EventAggregator.Subscribe(this);
         }
         #endregion
         
@@ -97,7 +104,7 @@ namespace Mileage.Client.Windows.Views
         /// </summary>
         protected virtual string GetDisplayName()
         {
-            return CommonMessages.Mileage ;
+            return CommonMessages.Mileage;
         }
         #endregion
     }

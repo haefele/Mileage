@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Caliburn.Micro;
 using Castle.Windsor;
+using Mileage.Client.Windows.Events;
 using Mileage.Client.Windows.Views.Shell.Items;
+using Mileage.Shared.Entities.Users;
 using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell
@@ -44,6 +47,10 @@ namespace Mileage.Client.Windows.Views.Shell
         }
         private void LogoutImpl()
         {
+            User user = this.Session.CurrentUser;
+            this.Session.Clear();
+            this.EventAggregator.PublishOnCurrentThread(new UserLoggedOutEvent(user));
+
             this.TryClose(true);
         }
         #endregion

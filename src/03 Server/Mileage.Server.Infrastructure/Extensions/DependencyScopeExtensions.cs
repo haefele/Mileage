@@ -1,4 +1,5 @@
 ﻿using System.Web.Http.Dependencies;
+using JetBrains.Annotations;
 
 namespace Mileage.Server.Infrastructure.Extensions
 {
@@ -9,7 +10,8 @@ namespace Mileage.Server.Infrastructure.Extensions
         /// </summary>
         /// <typeparam name="T">The type of service.</typeparam>
         /// <param name="dependencyScope">The dependency scope.</param>
-        public static T GetService<T>(this IDependencyScope dependencyScope)
+        [CanBeNull]
+        public static T GetService<T>([NotNull]this IDependencyScope dependencyScope)
         {
             return (T)dependencyScope.GetService(typeof(T));
         }

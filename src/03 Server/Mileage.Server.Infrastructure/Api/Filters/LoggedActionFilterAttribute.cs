@@ -2,6 +2,7 @@
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Castle.Core.Logging;
+using JetBrains.Annotations;
 using Mileage.Server.Infrastructure.Extensions;
 
 namespace Mileage.Server.Infrastructure.Api.Filters
@@ -17,7 +18,8 @@ namespace Mileage.Server.Infrastructure.Api.Filters
         /// Gets the logger.
         /// </summary>
         /// <param name="context">The context.</param>
-        protected ILogger GetLogger(HttpActionContext context)
+        [NotNull]
+        protected ILogger GetLogger([NotNull]HttpActionContext context)
         {
             if (this._logger != null)
                 return this._logger;

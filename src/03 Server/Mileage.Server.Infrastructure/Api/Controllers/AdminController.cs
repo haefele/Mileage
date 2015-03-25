@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Mileage.Localization.Server.Controllers;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Commands.Mileage;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities.Users;
@@ -38,12 +39,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// 500 - InternalServerError: An error occured.
         /// </returns>
         [HttpPost]
-        [Route("CreateAdminUser")]
+        [Route("AdminUser")]
         public async Task<HttpResponseMessage> CreateAdminUser(CreateAdminUserData data)
         {
             if (data == null || data.EmailAddress == null || data.PasswordMD5Hash == null || data.Language == null)
                 return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, ControllerMessages.RequiredDataAreMissing);
-
+            
             Result<User> result = await this.CommandExecutor.Execute(new CreateAdminUserCommand(
                 data.EmailAddress, 
                 data.PasswordMD5Hash,
@@ -59,7 +60,8 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// 500 - InternalServerError: An error occured.
         /// </returns>
         [HttpPost]
-        [Route("CreateIndexes")]
+        [Route("Indexes")]
+        [MileageAuthentication]
         public async Task<HttpResponseMessage> CreateIndexes()
         {
             Result<object> result = await this.CommandExecutor.Execute(new CreateIndexesCommand());
@@ -73,7 +75,8 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// 500 - InternalServerError: An error occured.
         /// </returns>
         [HttpPost]
-        [Route("ResetIndexes")]
+        [Route("Indexes/Reset")]
+        [MileageAuthentication]
         public async Task<HttpResponseMessage> ResetIndexes()
         {
             var result = await this.CommandExecutor.Execute(new ResetIndexesCommand());

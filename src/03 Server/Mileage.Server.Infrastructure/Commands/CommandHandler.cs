@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Results;
 using Raven.Client;
@@ -14,6 +15,7 @@ namespace Mileage.Server.Infrastructure.Commands
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public abstract Task<Result<TResult>> Execute(TCommand command, ICommandScope scope);
+        [NotNull]
+        public abstract Task<Result<TResult>> Execute([NotNull]TCommand command, [NotNull]ICommandScope scope);
     }
 }

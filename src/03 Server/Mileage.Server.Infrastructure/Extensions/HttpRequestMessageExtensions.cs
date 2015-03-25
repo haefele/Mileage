@@ -1,17 +1,20 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using JetBrains.Annotations;
 using Mileage.Shared.Results;
 
 namespace Mileage.Server.Infrastructure.Extensions
 {
     public static class HttpRequestMessageExtensions
     {
-        public static HttpResponseMessage GetMessageWithError(this HttpRequestMessage request, HttpStatusCode statusCode, string message)
+        [NotNull]
+        public static HttpResponseMessage GetMessageWithError([NotNull]this HttpRequestMessage request, HttpStatusCode statusCode, [CanBeNull]string message)
         {
             return request.CreateErrorResponse(statusCode, new HttpError(message));
         }
-        public static HttpResponseMessage GetMessageWithResult<T>(this HttpRequestMessage request, HttpStatusCode successStatusCode, HttpStatusCode errorStatusCode, Result<T> result, bool ignoreData = false)
+        [NotNull]
+        public static HttpResponseMessage GetMessageWithResult<T>([NotNull]this HttpRequestMessage request, HttpStatusCode successStatusCode, HttpStatusCode errorStatusCode, [NotNull]Result<T> result, bool ignoreData = false)
         {
             if (result.IsError)
                 return request.CreateErrorResponse(errorStatusCode, new HttpError(result.Message));
@@ -20,12 +23,13 @@ namespace Mileage.Server.Infrastructure.Extensions
             else
                 return request.CreateResponse(successStatusCode, result.Data);
         }
-        public static HttpResponseMessage GetMessageWithObject<T>(this HttpRequestMessage request, HttpStatusCode statusCode, T obj)
+        [NotNull]
+        public static HttpResponseMessage GetMessageWithObject<T>([NotNull]this HttpRequestMessage request, HttpStatusCode statusCode, [NotNull]T obj)
         {
             return request.CreateResponse(statusCode, obj);
         }
-
-        public static HttpResponseMessage GetMessage(this HttpRequestMessage request, HttpStatusCode statusCode)
+        [NotNull]
+        public static HttpResponseMessage GetMessage([NotNull]this HttpRequestMessage request, HttpStatusCode statusCode)
         {
             return request.CreateResponse(statusCode);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Entities.Layout;
@@ -11,7 +12,7 @@ namespace Mileage.Server.Infrastructure.Commands.Layout
 {
     public class SaveLayoutCommand : ICommand<object>
     {
-        public SaveLayoutCommand(string layoutName, string userId, Dictionary<string, byte[]> layoutData)
+        public SaveLayoutCommand([NotNull]string layoutName, [NotNull]string userId, [NotNull]Dictionary<string, byte[]> layoutData)
         {
             Guard.AgainstNullArgument("layoutName", layoutName);
             Guard.AgainstNullArgument("userId", userId);

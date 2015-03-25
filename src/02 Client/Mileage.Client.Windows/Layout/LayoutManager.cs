@@ -41,7 +41,6 @@ namespace Mileage.Client.Windows.Layout
         #endregion
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LayoutManager"/> class.
         /// </summary>
@@ -111,21 +110,6 @@ namespace Mileage.Client.Windows.Layout
                 }
             });
         }
-
-        private async Task<Dictionary<string, byte[]>> GetLayoutFromWebService(string layoutName)
-        {
-            var getLayoutResponse = await this._webServiceClient.LayoutClient.GetLayout(layoutName);
-            if (getLayoutResponse.StatusCode != HttpStatusCode.Found)
-            {
-                HttpError error = await getLayoutResponse.Content.ReadAsAsync<HttpError>();
-                this.Logger.DebugFormat(error.Message);
-
-                return null;
-            }
-
-            return await getLayoutResponse.Content.ReadAsAsync<Dictionary<string, byte[]>>();
-        }
-
         #endregion
 
         #region Private Methods
@@ -176,6 +160,20 @@ namespace Mileage.Client.Windows.Layout
                 //Execute the actual action
                 action(serializer, currentElement, controlName);
             }
+        }
+        
+        private async Task<Dictionary<string, byte[]>> GetLayoutFromWebService(string layoutName)
+        {
+            var getLayoutResponse = await this._webServiceClient.LayoutClient.GetLayout(layoutName);
+            if (getLayoutResponse.StatusCode != HttpStatusCode.Found)
+            {
+                HttpError error = await getLayoutResponse.Content.ReadAsAsync<HttpError>();
+                this.Logger.DebugFormat(error.Message);
+
+                return null;
+            }
+
+            return await getLayoutResponse.Content.ReadAsAsync<Dictionary<string, byte[]>>();
         }
         #endregion
     }

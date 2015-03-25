@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
@@ -19,7 +20,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
 {
     public class ValidateLoginAndCreateTokenCommand : ICommand<AuthenticationToken>
     {
-        public ValidateLoginAndCreateTokenCommand(string emailAddress, byte[] passwordMD5Hash, string clientId, string clientVersion, string clientIP)
+        public ValidateLoginAndCreateTokenCommand([NotNull]string emailAddress, [NotNull]byte[] passwordMD5Hash, [NotNull]string clientId, [NotNull]string clientVersion, [NotNull]string clientIP)
         {
             Guard.AgainstNullArgument("EmailAddress", emailAddress);
             Guard.AgainstNullArgument("passwordMD5Hash", passwordMD5Hash);

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Mileage.Server.Contracts.Commands
 {
     public interface ICommandExecutor
     {
-        Task<T> Batch<T>(Func<ICommandScope, Task<T>> batchAction);
+        [NotNull]
+        Task<T> Batch<T>([NotNull]Func<ICommandScope, Task<T>> batchAction);
     }
 }

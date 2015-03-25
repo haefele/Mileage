@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Mileage.Server.Contracts.Versioning
 {
@@ -7,6 +8,7 @@ namespace Mileage.Server.Contracts.Versioning
         /// <summary>
         /// Gets the current version.
         /// </summary>
+        [NotNull]
         Version GetCurrentVersion();
     }
 }

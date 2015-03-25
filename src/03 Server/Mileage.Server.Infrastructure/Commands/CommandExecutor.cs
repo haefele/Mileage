@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Castle.MicroKernel.Lifestyle;
 using Castle.Windsor;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Extensions;
@@ -15,7 +16,7 @@ namespace Mileage.Server.Infrastructure.Commands
     {
         private readonly IWindsorContainer _container;
 
-        public CommandExecutor(IWindsorContainer container)
+        public CommandExecutor([NotNull]IWindsorContainer container)
         {
             Guard.AgainstNullArgument("container", container);
 

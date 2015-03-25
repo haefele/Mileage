@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using Castle.Windsor;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Results;
@@ -19,7 +20,7 @@ namespace Mileage.Server.Infrastructure.Commands
         /// Initializes a new instance of the <see cref="CommandScope"/> class.
         /// </summary>
         /// <param name="container">The container.</param>
-        public CommandScope(IWindsorContainer container)
+        public CommandScope([NotNull]IWindsorContainer container)
         {
             Guard.AgainstNullArgument("container", container);
 
@@ -33,7 +34,8 @@ namespace Mileage.Server.Infrastructure.Commands
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="command">The command.</param>
-        public Task<Result<TResult>> Execute<TResult>(ICommand<TResult> command)
+        [NotNull]
+        public Task<Result<TResult>> Execute<TResult>([NotNull]ICommand<TResult> command)
         {
             Guard.AgainstNullArgument("command", command);
 
@@ -51,7 +53,7 @@ namespace Mileage.Server.Infrastructure.Commands
             private readonly ICommandScope _scope;
             private readonly object _actualCommandHandler;
 
-            public CommandHandlerWrapper(ICommandScope scope, object actualCommandHandler)
+            public CommandHandlerWrapper([NotNull]ICommandScope scope, [NotNull]object actualCommandHandler)
             {
                 Guard.AgainstNullArgument("scope", scope);
                 Guard.AgainstNullArgument("actualCommandHandler", actualCommandHandler);

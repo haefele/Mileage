@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using LiteGuard;
 using Microsoft.Owin;
 using Mileage.Localization.Server.Commands;
@@ -17,7 +18,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
     {
         public IOwinContext OwinContext { get; private set; }
 
-        public AuthenticateCommand(IOwinContext owinContext)
+        public AuthenticateCommand([NotNull]IOwinContext owinContext)
         {
             Guard.AgainstNullArgument("owinContext", owinContext);
 

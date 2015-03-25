@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
+using Castle.Core.Logging;
 using Mileage.Client.Windows.Events;
 
 namespace Mileage.Client.Windows.Layout
@@ -11,16 +12,20 @@ namespace Mileage.Client.Windows.Layout
         private readonly Dictionary<string, Dictionary<string, byte[]>> _cache;
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        public ILogger Logger { get; set; }
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="LayoutCache"/> class.
         /// </summary>
-        /// <param name="eventAggregator">The event aggregator.</param>
-        public LayoutCache(IEventAggregator eventAggregator)
+        public LayoutCache()
         {
             this._cache = new Dictionary<string, Dictionary<string, byte[]>>();
-
-            eventAggregator.Subscribe(this);
         }
         #endregion
 
@@ -34,15 +39,23 @@ namespace Mileage.Client.Windows.Layout
         {
             if (this._cache.ContainsKey(layoutName) == false)
             {
+                this.Logger.DebugFormat("The layout {0} has changed, we dont have it in our cache.", layoutName);
+
                 this._cache.Add(layoutName, layoutData);
                 return true;
             }
+
+            this.Logger.DebugFormat("The layout {0} is in the cache, lets check if it has changed.", layoutName);
 
             Dictionary<string, byte[]> oldValue = this._cache[layoutName];
             this._cache[layoutName] = layoutData;
 
             var comparer = new LayoutComparer();
-            return comparer.Equals(oldValue, layoutData) == false;
+            var hasChanged = comparer.Equals(oldValue, layoutData) == false;
+
+            this.Logger.DebugFormat("The layout {0} has changed {1}.", layoutName, hasChanged);
+
+            return hasChanged;
         }
         /// <summary>
         /// Returns the specified layout.
@@ -51,7 +64,11 @@ namespace Mileage.Client.Windows.Layout
         public Dictionary<string, byte[]> Get(string layoutName)
         {
             if (this._cache.ContainsKey(layoutName))
+            {
+                this.Logger.DebugFormat("Returning the layout {0} from the cache.");
+
                 return this._cache[layoutName];
+            }
 
             return null;
         }
@@ -64,6 +81,7 @@ namespace Mileage.Client.Windows.Layout
         /// <param name="message">The message.</param>
         void IHandle<UserLoggedOutEvent>.Handle(UserLoggedOutEvent message)
         {
+            this.Logger.DebugFormat("Cleaning the cache because the user logged out.");
             this._cache.Clear();
         }
         #endregion

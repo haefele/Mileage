@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Mileage.Shared.Results;
 
 namespace Mileage.Server.Contracts.Commands
 {
     public interface ICommandScope
     {
-        Task<Result<TResult>> Execute<TResult>(ICommand<TResult> command);
+        [NotNull]
+        Task<Result<TResult>> Execute<TResult>([NotNull]ICommand<TResult> command);
     }
 }

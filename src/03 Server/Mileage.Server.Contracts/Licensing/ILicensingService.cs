@@ -1,4 +1,5 @@
-﻿using Mileage.Shared.Results;
+﻿using JetBrains.Annotations;
+using Mileage.Shared.Results;
 
 namespace Mileage.Server.Contracts.Licensing
 {
@@ -8,11 +9,13 @@ namespace Mileage.Server.Contracts.Licensing
         /// Loads the license from the specified <paramref name="licensePath"/>.
         /// </summary>
         /// <param name="licensePath">The license path.</param>
-        Result LoadLicense(string licensePath);
+        [NotNull]
+        Result LoadLicense([NotNull]string licensePath);
         /// <summary>
         /// Returns whether the license is valid and is valid for the specified <paramref name="clientId"/>.
         /// </summary>
         /// <param name="clientId">The client identifier.</param>
-        Result AssertValidLicense(string clientId);
+        [NotNull]
+        Result AssertValidLicense([NotNull]string clientId);
     }
 }

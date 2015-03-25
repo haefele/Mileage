@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
@@ -13,7 +14,7 @@ namespace Mileage.Server.Infrastructure.Commands.Layout
 {
     public class GetLayoutCommand : ICommand<Dictionary<string, byte[]>>
     {
-        public GetLayoutCommand(string userId, string layoutName)
+        public GetLayoutCommand([NotNull]string userId, [NotNull]string layoutName)
         {
             Guard.AgainstNullArgument("userId", userId);
             Guard.AgainstNullArgument("layoutName", layoutName);

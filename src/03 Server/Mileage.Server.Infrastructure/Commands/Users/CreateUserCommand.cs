@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
@@ -16,7 +17,7 @@ namespace Mileage.Server.Infrastructure.Commands.Users
 {
     public class CreateUserCommand : ICommand<User>
     {
-        public CreateUserCommand(string emailAddress, byte[] passwordMD5Hash, string language)
+        public CreateUserCommand([NotNull]string emailAddress, [NotNull]byte[] passwordMD5Hash, [NotNull]string language)
         {
             Guard.AgainstNullArgument("emailAddress", emailAddress);
             Guard.AgainstNullArgument("passwordMD5Hash", passwordMD5Hash);

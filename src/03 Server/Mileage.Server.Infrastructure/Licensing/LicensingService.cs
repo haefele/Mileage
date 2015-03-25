@@ -5,6 +5,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Text;
 using Castle.Core.Logging;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Localization.Server.Licensing;
 using Mileage.Server.Contracts.Licensing;
@@ -45,7 +46,7 @@ namespace Mileage.Server.Infrastructure.Licensing
         /// </summary>
         /// <param name="versionService">The version service.</param>
         /// <param name="fileSystem">The file system.</param>
-        public LicensingService(IVersionService versionService, IFileSystem fileSystem)
+        public LicensingService([NotNull]IVersionService versionService, [NotNull]IFileSystem fileSystem)
         {
             Guard.AgainstNullArgument("versionService", versionService);
             Guard.AgainstNullArgument("fileSystem", fileSystem);
@@ -132,7 +133,8 @@ namespace Mileage.Server.Infrastructure.Licensing
         /// Loads the license from the specified <paramref name="licensePath"/>.
         /// </summary>
         /// <param name="licensePath">The license path.</param>
-        private Result<License> LoadLicenseFromFile(string licensePath)
+        [NotNull]
+        private Result<License> LoadLicenseFromFile([NotNull]string licensePath)
         {
             Guard.AgainstNullArgument("licensePath", licensePath);
 
@@ -148,7 +150,7 @@ namespace Mileage.Server.Infrastructure.Licensing
         /// Returns whether the license is valid with the current version of Mileage.
         /// </summary>
         /// <param name="license">The license.</param>
-        private bool LicenseIsValidForCurrentVersion(License license)
+        private bool LicenseIsValidForCurrentVersion([NotNull]License license)
         {
             return new Version(license.AdditionalAttributes.Get("Version")) <= this._versionService.GetCurrentVersion();
         }
@@ -157,7 +159,7 @@ namespace Mileage.Server.Infrastructure.Licensing
         /// </summary>
         /// <param name="license">The license.</param>
         /// <param name="clientId">The client identifier.</param>
-        private bool LicenseHasClientId(License license, string clientId)
+        private bool LicenseHasClientId([NotNull]License license, [NotNull]string clientId)
         {
             return license.ProductFeatures.Get("Products").Split(';').Contains(clientId);
         }
@@ -165,7 +167,7 @@ namespace Mileage.Server.Infrastructure.Licensing
         /// Creates the license error messages for the client.
         /// </summary>
         /// <param name="errors">The errors.</param>
-        private string GetLicenseErrorMessagesForClient(IEnumerable<IValidationFailure> errors)
+        private string GetLicenseErrorMessagesForClient([NotNull]IEnumerable<IValidationFailure> errors)
         {
             return errors
                 .Select(f =>

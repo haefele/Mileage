@@ -6,22 +6,23 @@ using Raven.Client.Indexes;
 
 namespace Mileage.Server.Infrastructure.Raven.Indexes
 {
-    public class UsersForQuery : AbstractIndexCreationTask<User>
+    public class UsersForSearch : AbstractIndexCreationTask<User>
     {
-        public UsersForQuery()
+        public UsersForSearch()
         {
-            this.Map = users => from user in users
-                                select new
-                                {
-                                    user.EmailAddress
-                                };
+            this.Map = users => 
+                from user in users
+                select new
+                {
+                    user.EmailAddress
+                };
 
             this.Index(f => f.EmailAddress, FieldIndexing.NotAnalyzed);
         }
 
         public override string IndexName
         {
-            get { return "Users/ForQuery"; }
+            get { return "Users/ForSearch"; }
         }
     }
 }

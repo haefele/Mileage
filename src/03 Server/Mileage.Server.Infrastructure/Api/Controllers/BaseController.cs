@@ -9,6 +9,7 @@ using LiteGuard;
 using Microsoft.Owin;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Api.Filters;
+using Mileage.Server.Infrastructure.Data;
 using Mileage.Shared.Results;
 using Raven.Client;
 using Raven.Client.FileSystem;
@@ -33,6 +34,28 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public IOwinContext OwinContext
         {
             get { return this.Request.GetOwinContext(); }
+        }
+        /// <summary>
+        /// Returns the paging informations.
+        /// </summary>
+        public PagingInfo Paging
+        {
+            get
+            {
+                string skipString = this.OwinContext.Request.Query.Get("skip");
+
+                int skip;
+                if (int.TryParse(skipString, out skip) == false)
+                    skip = 0;
+                
+                string takeString = this.OwinContext.Request.Query.Get("take");
+
+                int take;
+                if (int.TryParse(takeString, out take) == false)
+                    take = 50;
+
+                return new PagingInfo(skip, take);
+            }
         }
         #endregion
 

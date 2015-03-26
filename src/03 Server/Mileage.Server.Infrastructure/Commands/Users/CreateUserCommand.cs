@@ -100,7 +100,7 @@ namespace Mileage.Server.Infrastructure.Commands.Users
         /// <param name="emailAddress">The email address.</param>
         private Task<bool> IsEmailAddressInUse(string emailAddress)
         {
-            return this._documentSession.Query<User, UsersForQuery>()
+            return this._documentSession.Query<User, UsersForSearch>()
                 .Where(f => f.EmailAddress == emailAddress)
                 .AnyAsync();
         }

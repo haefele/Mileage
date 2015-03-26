@@ -133,7 +133,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
         /// <param name="scope">The command scope.</param>
         private async Task<Result<User>> GetUserWithEmailAddress(string emailAddress, ICommandScope scope)
         {
-            User userByGivenEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
+            User userByGivenEmailAddress = await this._documentSession.Query<User, UsersForSearch>()
                 .Where(f => f.EmailAddress == emailAddress)
                 .FirstOrDefaultAsync()
                 .WithCurrentCulture();
@@ -148,7 +148,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
 
             string appendedEmailAddress = emailAddress.AppendEmailSuffix(mileageSettingsCommand.Data.DefaultEmailSuffix);
 
-            User userByAppendedEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
+            User userByAppendedEmailAddress = await this._documentSession.Query<User, UsersForSearch>()
                 .Where(f => f.EmailAddress == appendedEmailAddress)
                 .FirstOrDefaultAsync()
                 .WithCurrentCulture();
@@ -158,7 +158,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
 
             string replacedEmailAddress = emailAddress.UpdateEmailSuffix(mileageSettingsCommand.Data.DefaultEmailSuffix);
 
-            User userByReplacedEmailAddress = await this._documentSession.Query<User, UsersForQuery>()
+            User userByReplacedEmailAddress = await this._documentSession.Query<User, UsersForSearch>()
                 .Where(f => f.EmailAddress == replacedEmailAddress)
                 .FirstOrDefaultAsync()
                 .WithCurrentCulture();

@@ -17,6 +17,7 @@ using Mileage.Shared.Results;
 
 namespace Mileage.Server.Infrastructure.Api.Controllers
 {
+    [RoutePrefix("Layout")]
     public class LayoutController : BaseController
     {
         #region Constructors
@@ -42,7 +43,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// 500 - InternalServerError: An error occured.
         /// </returns>
         [HttpPost]
-        [Route("Layout/{layoutName}")]
+        [Route("{layoutName}")]
         [MileageAuthentication]
         public async Task<HttpResponseMessage> SaveLayout(string layoutName, Dictionary<string, byte[]> layoutData)
         {
@@ -70,7 +71,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// 404 - NotFound: The layout was not found.
         /// </returns>
         [HttpGet]
-        [Route("Layout/{layoutName}")]
+        [Route("{layoutName}")]
         [MileageAuthentication]
         public async Task<HttpResponseMessage> GetLayout(string layoutName)
         {

@@ -61,7 +61,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </returns>
         [HttpPost]
         [Route("Indexes")]
-        [MileageAuthentication]
+        //[MileageAuthentication]
         public async Task<HttpResponseMessage> CreateIndexes()
         {
             Result<object> result = await this.CommandExecutor.Execute(new CreateIndexesCommand());
@@ -76,7 +76,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </returns>
         [HttpPost]
         [Route("Indexes/Reset")]
-        [MileageAuthentication]
+        //[MileageAuthentication]
         public async Task<HttpResponseMessage> ResetIndexes()
         {
             var result = await this.CommandExecutor.Execute(new ResetIndexesCommand());

@@ -35,7 +35,6 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
                         driver.EmailAddress,
                         driver.Comment,
                         driver.Address.City,
-                        driver.Address.Number,
                         driver.Address.PostalCode,
                         driver.Address.Street
                     },
@@ -48,7 +47,6 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
                         driver.EmailAddress,
                         driver.Comment,
                         driver.Address.City,
-                        driver.Address.Number,
                         driver.Address.PostalCode,
                         driver.Address.Street
                     }

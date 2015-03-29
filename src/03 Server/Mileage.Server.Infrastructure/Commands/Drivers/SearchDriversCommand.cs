@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using JetBrains.Annotations;
@@ -31,14 +33,22 @@ namespace Mileage.Server.Infrastructure.Commands.Drivers
 
     public class SearchDriversCommandHandler : CommandHandler<SearchDriversCommand, SearchDriversResult>
     {
+        #region Fields
         private readonly IAsyncDocumentSession _documentSession;
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchDriversCommandHandler"/> class.
+        /// </summary>
+        /// <param name="documentSession">The document session.</param>
         public SearchDriversCommandHandler(IAsyncDocumentSession documentSession)
         {
             Guard.AgainstNullArgument("documentSession", documentSession);
 
             this._documentSession = documentSession;
         }
+        #endregion
 
         public override async Task<Result<SearchDriversResult>> Execute(SearchDriversCommand command, ICommandScope scope)
         {

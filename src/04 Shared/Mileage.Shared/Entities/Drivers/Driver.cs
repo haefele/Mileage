@@ -36,12 +36,12 @@ namespace Mileage.Shared.Entities.Drivers
         /// Gets or sets the date of the last drivers license check.
         /// (Letzte Führerscheinüberprüfung)
         /// </summary>
-        public DateTimeOffset LastDriversLicenseCheck { get; set; }
+        public DateTimeOffset? LastDriversLicenseCheck { get; set; }
         /// <summary>
         /// Gets or sets the date of the last fitness to drive check.
         /// (Letzte Fahrtauglichkeitsüberprüfung)
         /// </summary>
-        public DateTimeOffset LastFitnessToDriveCheck { get; set; }
+        public DateTimeOffset? LastFitnessToDriveCheck { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether this driver has the license to carry persons.
         /// (Beförderungslizenz)

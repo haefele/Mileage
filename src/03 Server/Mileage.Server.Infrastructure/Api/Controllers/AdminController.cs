@@ -8,6 +8,7 @@ using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Commands.Mileage;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities.Users;
+using Mileage.Shared.Extensions;
 using Mileage.Shared.Models;
 using Mileage.Shared.Results;
 
@@ -45,10 +46,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
             if (data == null || data.EmailAddress == null || data.PasswordMD5Hash == null || data.Language == null)
                 return this.Request.GetMessageWithError(HttpStatusCode.BadRequest, ControllerMessages.RequiredDataAreMissing);
             
-            Result<User> result = await this.CommandExecutor.Execute(new CreateAdminUserCommand(
-                data.EmailAddress, 
-                data.PasswordMD5Hash,
-                data.Language));
+            Result<User> result = await this.CommandExecutor
+                .Execute(new CreateAdminUserCommand(
+                    data.EmailAddress, 
+                    data.PasswordMD5Hash,
+                    data.Language))
+                .WithCurrentCulture();
 
             return this.Request.GetMessageWithResult(HttpStatusCode.Created, HttpStatusCode.InternalServerError, result);
         }
@@ -61,10 +64,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </returns>
         [HttpPost]
         [Route("Indexes")]
-        //[MileageAuthentication]
+        [MileageAuthentication]
         public async Task<HttpResponseMessage> CreateIndexes()
         {
-            Result<object> result = await this.CommandExecutor.Execute(new CreateIndexesCommand());
+            Result<object> result = await this.CommandExecutor
+                .Execute(new CreateIndexesCommand())
+                .WithCurrentCulture();
             return this.Request.GetMessageWithResult(HttpStatusCode.Created, HttpStatusCode.InternalServerError, result, ignoreData:true);
         }
         /// <summary>
@@ -76,10 +81,12 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </returns>
         [HttpPost]
         [Route("Indexes/Reset")]
-        //[MileageAuthentication]
+        [MileageAuthentication]
         public async Task<HttpResponseMessage> ResetIndexes()
         {
-            var result = await this.CommandExecutor.Execute(new ResetIndexesCommand());
+            var result = await this.CommandExecutor
+                .Execute(new ResetIndexesCommand())
+                .WithCurrentCulture();
             return this.Request.GetMessageWithResult(HttpStatusCode.OK, HttpStatusCode.InternalServerError, result, ignoreData: true);
         }
         #endregion

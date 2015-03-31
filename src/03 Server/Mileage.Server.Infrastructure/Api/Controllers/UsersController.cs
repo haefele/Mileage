@@ -42,7 +42,9 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         [MileageAuthentication]
         public async Task<HttpResponseMessage> GetMe()
         {
-            Result<User> result = await this.CommandExecutor.Execute(new GetCurrentUserCommand());
+            Result<User> result = await this.CommandExecutor
+                .Execute(new GetCurrentUserCommand())
+                .WithCurrentCulture();
             return this.Request.GetMessageWithResult(HttpStatusCode.Found, HttpStatusCode.InternalServerError, result);
         }
         #endregion

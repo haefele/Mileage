@@ -52,12 +52,20 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
             return await this.CommandExecutor.Batch(async scope =>
             {
-                Result<User> currentUserResult = await scope.Execute(new GetCurrentUserCommand()).WithCurrentCulture();
+                Result<User> currentUserResult = await scope
+                    .Execute(new GetCurrentUserCommand())
+                    .WithCurrentCulture();
 
                 if (currentUserResult.IsError)
                     return this.Request.GetMessageWithError(HttpStatusCode.InternalServerError, currentUserResult.Message);
 
-                Result<object> saveLayoutResult = await scope.Execute(new SaveLayoutCommand(layoutName, currentUserResult.Data.Id, layoutData));
+                Result<object> saveLayoutResult = await scope
+                    .Execute(new SaveLayoutCommand(
+                        layoutName, 
+                        currentUserResult.Data.Id, 
+                        layoutData))
+                    .WithCurrentCulture();
+
                 return this.Request.GetMessageWithResult(HttpStatusCode.Created, HttpStatusCode.InternalServerError, saveLayoutResult, ignoreData: true);
             }).WithCurrentCulture();
         }
@@ -80,12 +88,19 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
             return await this.CommandExecutor.Batch(async scope =>
             {
-                Result<User> currentUserResult = await scope.Execute(new GetCurrentUserCommand()).WithCurrentCulture();
+                Result<User> currentUserResult = await scope
+                    .Execute(new GetCurrentUserCommand())
+                    .WithCurrentCulture();
 
                 if (currentUserResult.IsError)
                     return this.Request.GetMessageWithResult(HttpStatusCode.Found, HttpStatusCode.InternalServerError, currentUserResult, ignoreData: true);
 
-                Result<Dictionary<string, byte[]>> layoutResult = await scope.Execute(new GetLayoutCommand(currentUserResult.Data.Id, layoutName)).WithCurrentCulture();
+                Result<Dictionary<string, byte[]>> layoutResult = await scope
+                    .Execute(new GetLayoutCommand(
+                        currentUserResult.Data.Id, 
+                        layoutName))
+                    .WithCurrentCulture();
+
                 return this.Request.GetMessageWithResult(HttpStatusCode.Found, HttpStatusCode.NotFound, layoutResult);
             }).WithCurrentCulture();
         }

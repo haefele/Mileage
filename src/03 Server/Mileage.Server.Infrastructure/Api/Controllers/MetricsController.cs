@@ -9,6 +9,7 @@ using Metrics.MetricData;
 using Metrics.Utils;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Extensions;
+using Mileage.Shared.Extensions;
 using Newtonsoft.Json;
 using Raven.Client;
 using Raven.Client.FileSystem;
@@ -48,7 +49,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         public async Task<HttpResponseMessage> GetMetricsAsync()
         {
             string json = JsonBuilderV2.BuildJson(_dataProvider.CurrentMetricsData);
-            var obj = await Task.Run(() => JsonConvert.DeserializeObject(json));
+            var obj = await Task.Run(() => JsonConvert.DeserializeObject(json)).WithCurrentCulture();
 
             return this.Request.GetMessageWithObject(HttpStatusCode.Found, obj);
         }

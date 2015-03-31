@@ -6,10 +6,14 @@ using System.Windows.Input;
 using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Server.Infrastructure.Raven.Indexes;
 using Mileage.Shared.Entities.Drivers;
+using Mileage.Shared.Extensions;
 using Mileage.Shared.Results;
+using Raven.Abstractions.Data;
 using Raven.Client;
+using Raven.Client.Linq;
 
 namespace Mileage.Server.Infrastructure.Commands.Drivers
 {
@@ -50,18 +54,44 @@ namespace Mileage.Server.Infrastructure.Commands.Drivers
         }
         #endregion
 
+        #region Methods
+        /// <summary>
+        /// Executes the specified command.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="scope">The scope.</param>
         public override async Task<Result<SearchDriversResult>> Execute(SearchDriversCommand command, ICommandScope scope)
         {
-            IAsyncDocumentQuery<DriversForSearch.Result> query = this._documentSession.Advanced.AsyncDocumentQuery<DriversForSearch.Result, DriversForSearch>();
-
+            IAsyncDocumentQuery<Driver> query = this._documentSession.Advanced.AsyncDocumentQuery<Driver, DriversForSearch>();
+            
             if (command.SearchText != null)
-                query.Search(f => f.SearchText, command.SearchText);
+                query.Search((DriversForSearch.Result f) => f.SearchText, command.SearchText);
 
             if (command.DriversLicense != null)
-                query.WhereEquals(f => f.DriversLicenses, command.DriversLicense);
+                query.WhereEquals((DriversForSearch.Result f) => f.DriversLicenses, command.DriversLicense);
 
-            IList<DriversForSearch.Result> result = await query.ToListAsync();
-            return Result.AsError("asdf");
+            if (command.PersonCarriageLicense != null)
+                query.WhereEquals((DriversForSearch.Result f) => f.PersonCarriageLicense, command.PersonCarriageLicense.Value);
+
+            IList<Driver> result = await query
+                .Skip(command.Skip)
+                .Take(command.Take)
+                .ToListAsync()
+                .WithCurrentCulture();
+
+            if (result.Any())
+                return Result.AsSuccess(SearchDriversResult.WithDrivers(result));
+
+            SuggestionQueryResult suggestions = await this._documentSession.Query<DriversForSearch.Result, DriversForSearch>()
+                .Search(f => f.SearchTextForSuggestions, command.SearchText)
+                .SuggestAsync()
+                .WithCurrentCulture();
+            
+            if (suggestions.Suggestions.Any())
+                return Result.AsSuccess(SearchDriversResult.WithSuggestions(suggestions.Suggestions));
+
+            return Result.AsSuccess(SearchDriversResult.WithNoResults());
         }
+        #endregion
     }
 }

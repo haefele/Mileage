@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Mileage.Server.Infrastructure.Raven.Analyzers;
 using Mileage.Shared.Entities.Drivers;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
@@ -11,7 +12,7 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
         public class Result
         {
             public string SearchText { get; set; }
-            public string SearchTextSuggestions { get; set; }
+            public string SearchTextForSuggestions { get; set; }
             public string DriversLicenses { get; set; }
             public bool PersonCarriageLicense { get; set; }
             public DateTimeOffset DateOfEntry { get; set; }
@@ -38,7 +39,7 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
                         driver.Address.PostalCode,
                         driver.Address.Street
                     },
-                    SearchTextSuggestions = new[]
+                    SearchTextForSuggestions = new[]
                     {
                         driver.FirstName,
                         driver.LastName,
@@ -54,6 +55,10 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
 
             this.Index(f => f.SearchText, FieldIndexing.Analyzed);
             this.Index(f => f.DriversLicenses, FieldIndexing.Analyzed);
+
+            this.Analyze(f => f.SearchText, typeof(NGramAnalyzer).AssemblyQualifiedName);
+
+            this.Suggestion(f => f.SearchTextForSuggestions);
         }
 
         public override string IndexName

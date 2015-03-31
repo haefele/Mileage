@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Threading.Tasks;
 using Castle.MicroKernel.Registration;
@@ -81,7 +82,7 @@ namespace Mileage.Server.Infrastructure.Windsor
         /// Customizes the raven database.
         /// </summary>
         /// <param name="documentStore">The document store.</param>
-        private void CustomizeRavenDocumentStore(IDocumentStore documentStore)
+        private void CustomizeRavenDocumentStore(DocumentStore documentStore)
         {
             documentStore.Conventions.RegisterAsyncIdConvention<AuthenticationData>((databaseName, commands, entity) =>
             {

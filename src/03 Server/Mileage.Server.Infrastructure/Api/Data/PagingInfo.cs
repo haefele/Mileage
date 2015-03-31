@@ -1,4 +1,4 @@
-﻿namespace Mileage.Server.Infrastructure.Data
+﻿namespace Mileage.Server.Infrastructure.Api.Data
 {
     public class PagingInfo
     {

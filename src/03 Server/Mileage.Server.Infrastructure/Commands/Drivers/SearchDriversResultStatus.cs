@@ -3,6 +3,7 @@
     public enum SearchDriversResultStatus
     {
         Found,
-        Suggestions
+        Suggestions,
+        None
     }
 }

@@ -13,6 +13,7 @@ using Mileage.Server.Infrastructure.Commands.Layout;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities;
 using Mileage.Shared.Entities.Layout;
+using Mileage.Shared.Extensions;
 using Mileage.Shared.Results;
 using Raven.Client;
 using Raven.Client.FileSystem;
@@ -30,8 +31,15 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         [Route("Tests")]
         public async Task<HttpResponseMessage> GetTests()
         {
-            var result = await this.CommandExecutor.Execute(new SearchDriversCommand(null, null, null, 0, 10));
-            return this.Request.GetMessageWithResult(HttpStatusCode.OK, HttpStatusCode.InternalServerError, result);
+            Result<SearchDriversResult> result = await this.CommandExecutor.Execute(new SearchDriversCommand(null, null, null, this.Paging.Skip, this.Paging.Take)).WithCurrentCulture();
+
+            if (result.IsError)
+                return this.Request.GetMessageWithError(HttpStatusCode.InternalServerError, result.Message);
+
+            if (result.Data.Status == SearchDriversResultStatus.Found)
+                return this.Request.GetMessageWithObject(HttpStatusCode.Found, result.Data.FoundDrivers);
+            else
+                return this.Request.GetMessageWithObject(HttpStatusCode.SeeOther, result.Data.Suggestions);
         }
     }
 }

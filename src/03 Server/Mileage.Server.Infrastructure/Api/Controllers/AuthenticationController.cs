@@ -8,6 +8,7 @@ using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Commands.Authentication;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities.Authentication;
+using Mileage.Shared.Extensions;
 using Mileage.Shared.Models;
 using Mileage.Shared.Results;
 
@@ -46,12 +47,14 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
             var userAgent = this.Request.Headers.UserAgent.Select(f => f.Product).First();
             
-            Result<AuthenticationToken> result = await this.CommandExecutor.Execute(new ValidateLoginAndCreateTokenCommand(
-                loginDataData.EmailAddress,
-                loginDataData.PasswordMD5Hash,
-                userAgent.Name,
-                userAgent.Version,
-                this.OwinContext.Request.RemoteIpAddress));
+            Result<AuthenticationToken> result = await this.CommandExecutor
+                .Execute(new ValidateLoginAndCreateTokenCommand(
+                    loginDataData.EmailAddress,
+                    loginDataData.PasswordMD5Hash,
+                    userAgent.Name,
+                    userAgent.Version,
+                    this.OwinContext.Request.RemoteIpAddress))
+                .WithCurrentCulture();
 
             return this.Request.GetMessageWithResult(HttpStatusCode.OK, HttpStatusCode.InternalServerError, result);
         }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Mileage.Localization.Server.Controllers;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Authentication;
 using Mileage.Server.Infrastructure.Commands.Authentication;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities.Authentication;

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Mileage.Localization.Server.Controllers;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Mileage;
 using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Commands.Mileage;
 using Mileage.Server.Infrastructure.Extensions;

@@ -3,6 +3,8 @@ using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Mileage;
+using Mileage.Server.Contracts.Commands.Users;
 using Mileage.Server.Infrastructure.Commands.Users;
 using Mileage.Shared.Entities.Mileage;
 using Mileage.Shared.Entities.Users;
@@ -10,24 +12,6 @@ using Mileage.Shared.Results;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class CreateAdminUserCommand : ICommand<User>
-    {
-        public CreateAdminUserCommand([NotNull]string emailAddress, [NotNull]byte[] passwordMD5Hash, [NotNull]string language)
-        {
-            Guard.AgainstNullArgument("emailAddress", emailAddress);
-            Guard.AgainstNullArgument("passwordMD5Hash", passwordMD5Hash);
-            Guard.AgainstNullArgument("language", language);
-
-            this.EmailAddress = emailAddress;
-            this.PasswordMD5Hash = passwordMD5Hash;
-            this.Language = language;
-        }
-
-        public string EmailAddress { get; private set; }
-        public byte[] PasswordMD5Hash { get; private set; }
-        public string Language { get; private set; }
-    }
-
     public class CreateAdminUserCommandHandler : CommandHandler<CreateAdminUserCommand, User>
     {
         #region Methods

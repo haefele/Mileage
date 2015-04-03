@@ -3,17 +3,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Mileage;
 using Mileage.Shared.Results;
 using Raven.Client;
 using Raven.Client.Indexes;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class CreateIndexesCommand : ICommand<object>
-    {
-         
-    }
-
     public class CreateIndexesCommandHandler : CommandHandler<CreateIndexesCommand, object>
     {
         #region Fields

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Users;
 using Mileage.Shared.Entities;
 using Mileage.Shared.Entities.Users;
 using Mileage.Shared.Extensions;
@@ -10,11 +11,6 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Users
 {
-    public class GetCurrentUserCommand : ICommand<User>
-    {
-         
-    }
-
     public class GetCurrentUserCommandHandler : CommandHandler<GetCurrentUserCommand, User>
     {
         private readonly IAsyncDocumentSession _documentSession;

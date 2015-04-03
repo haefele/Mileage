@@ -2,17 +2,13 @@
 using System.Threading.Tasks;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Mileage;
 using Mileage.Shared.Results;
 using Raven.Client;
 using Raven.Client.Indexes;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class ResetIndexesCommand : ICommand<object>
-    {
-         
-    }
-
     public class ResetIndexesCommandHandler : CommandHandler<ResetIndexesCommand, object>
     {
         #region Fields

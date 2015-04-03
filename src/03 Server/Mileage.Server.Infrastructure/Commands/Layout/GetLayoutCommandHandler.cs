@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Layout;
 using Mileage.Shared.Entities.Layout;
 using Mileage.Shared.Entities.Users;
 using Mileage.Shared.Extensions;
@@ -12,21 +13,6 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Layout
 {
-    public class GetLayoutCommand : ICommand<Dictionary<string, byte[]>>
-    {
-        public GetLayoutCommand([NotNull]string userId, [NotNull]string layoutName)
-        {
-            Guard.AgainstNullArgument("userId", userId);
-            Guard.AgainstNullArgument("layoutName", layoutName);
-
-            this.UserId = userId;
-            this.LayoutName = layoutName;
-        }
-
-        public string UserId { get; private set; }
-        public string LayoutName { get; private set; }
-    }
-
     public class GetLayoutCommandHandler : CommandHandler<GetLayoutCommand, Dictionary<string, byte[]>>
     {
         private readonly IAsyncDocumentSession _documentSession;

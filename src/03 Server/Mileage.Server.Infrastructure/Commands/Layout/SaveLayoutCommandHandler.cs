@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Layout;
 using Mileage.Shared.Entities.Layout;
 using Mileage.Shared.Extensions;
 using Mileage.Shared.Results;
@@ -10,24 +11,6 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Layout
 {
-    public class SaveLayoutCommand : ICommand<object>
-    {
-        public SaveLayoutCommand([NotNull]string layoutName, [NotNull]string userId, [NotNull]Dictionary<string, byte[]> layoutData)
-        {
-            Guard.AgainstNullArgument("layoutName", layoutName);
-            Guard.AgainstNullArgument("userId", userId);
-            Guard.AgainstNullArgument("layoutData", layoutData);
-
-            this.LayoutName = layoutName;
-            this.UserId = userId;
-            this.LayoutData = layoutData;
-        }
-
-        public string LayoutName { get; private set; }
-        public string UserId { get; private set; }      
-        public Dictionary<string, byte[]> LayoutData { get; private set; }
-    }
-
     public class SaveLayoutCommandHandler : CommandHandler<SaveLayoutCommand, object>
     {
         private readonly IAsyncDocumentSession _documentSession;

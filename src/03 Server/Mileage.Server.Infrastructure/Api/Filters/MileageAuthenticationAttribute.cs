@@ -10,6 +10,7 @@ using System.Web.Http.Filters;
 using LiteGuard;
 using Microsoft.Owin;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Authentication;
 using Mileage.Server.Infrastructure.Commands.Authentication;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Results;

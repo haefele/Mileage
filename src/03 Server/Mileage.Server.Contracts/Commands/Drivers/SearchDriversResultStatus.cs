@@ -1,4 +1,4 @@
-﻿namespace Mileage.Server.Infrastructure.Commands.Drivers
+﻿namespace Mileage.Server.Contracts.Commands.Drivers
 {
     public enum SearchDriversResultStatus
     {

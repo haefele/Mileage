@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Mileage.Shared.Entities.Drivers;
-using Raven.Abstractions.Data;
 
-namespace Mileage.Server.Infrastructure.Commands.Drivers
+namespace Mileage.Server.Contracts.Commands.Drivers
 {
     public class SearchDriversResult
     {

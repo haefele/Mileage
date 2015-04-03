@@ -7,6 +7,7 @@ using LiteGuard;
 using Microsoft.Owin;
 using Mileage.Localization.Server.Commands;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Authentication;
 using Mileage.Shared.Entities.Authentication;
 using Mileage.Shared.Extensions;
 using Mileage.Shared.Results;
@@ -14,18 +15,6 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Authentication
 {
-    public class AuthenticateCommand : ICommand<string>
-    {
-        public IOwinContext OwinContext { get; private set; }
-
-        public AuthenticateCommand([NotNull]IOwinContext owinContext)
-        {
-            Guard.AgainstNullArgument("owinContext", owinContext);
-
-            this.OwinContext = owinContext;
-        }
-    }
-
     public class AuthenticateCommandHandler : CommandHandler<AuthenticateCommand, string>
     {
         #region Constants

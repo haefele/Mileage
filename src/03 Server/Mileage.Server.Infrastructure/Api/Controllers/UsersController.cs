@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Users;
 using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Commands.Users;
 using Mileage.Server.Infrastructure.Extensions;

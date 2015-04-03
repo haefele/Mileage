@@ -7,6 +7,10 @@ namespace Mileage.Server.Infrastructure.Encryption
 {
     public class SaltCombiner : ISaltCombiner
     {
+        #region Constants
+        public const int IterationCount = 10000;
+        #endregion
+
         #region Implementation of ISaltCombiner
         /// <summary>
         /// Combines the specified <paramref name="salt"/> with the specified <paramref name="password"/>.
@@ -18,7 +22,7 @@ namespace Mileage.Server.Infrastructure.Encryption
             Guard.AgainstNullArgument("salt", salt);
             Guard.AgainstNullArgument("password", password);
 
-            using (var hasher = new Rfc2898DeriveBytes(password, salt))
+            using (var hasher = new Rfc2898DeriveBytes(password, salt, IterationCount))
             {
                 return hasher.GetBytes(128);
             }

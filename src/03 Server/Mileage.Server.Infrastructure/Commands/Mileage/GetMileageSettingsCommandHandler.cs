@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using LiteGuard;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Contracts.Commands.Mileage;
 using Mileage.Shared.Entities.Mileage;
 using Mileage.Shared.Extensions;
 using Mileage.Shared.Results;
@@ -8,12 +9,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class GetMileageInternalSettingsCommand : ICommand<MileageInternalSettings>
-    {
-         
-    }
-
-    public class GetMileageInternalSettingsCommandHandler : CommandHandler<GetMileageInternalSettingsCommand, MileageInternalSettings>
+    public class GetMileageSettingsCommandHandler : CommandHandler<GetMileageSettingsCommand, MileageSettings>
     {
         #region Fields
         private readonly IAsyncDocumentSession _documentSession;
@@ -21,10 +17,10 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetMileageInternalSettingsCommandHandler"/> class.
+        /// Initializes a new instance of the <see cref="GetMileageSettingsCommandHandler"/> class.
         /// </summary>
         /// <param name="documentSession">The document session.</param>
-        public GetMileageInternalSettingsCommandHandler(IAsyncDocumentSession documentSession)
+        public GetMileageSettingsCommandHandler(IAsyncDocumentSession documentSession)
         {
             Guard.AgainstNullArgument("documentSession", documentSession);
 
@@ -38,18 +34,18 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<MileageInternalSettings>> Execute(GetMileageInternalSettingsCommand command, ICommandScope scope)
+        public override async Task<Result<MileageSettings>> Execute(GetMileageSettingsCommand command, ICommandScope scope)
         {
             Guard.AgainstNullArgument("command", command);
             Guard.AgainstNullArgument("scope", scope);
 
             using(this._documentSession.Advanced.DocumentStore.AggressivelyCache())
             { 
-                MileageInternalSettings settings = await this._documentSession.LoadAsync<MileageInternalSettings>(MileageInternalSettings.CreateId()).WithCurrentCulture();
+                MileageSettings settings = await this._documentSession.LoadAsync<MileageSettings>(MileageSettings.CreateId()).WithCurrentCulture();
 
                 if (settings == null)
                 {
-                    settings = new MileageInternalSettings();
+                    settings = new MileageSettings();
                     await this._documentSession.StoreAsync(settings).WithCurrentCulture();
                 }
 

@@ -77,6 +77,9 @@
     <Compile Include="Commands\Mileage\GetMileageInternalSettingsCommand.cs" />
     <Compile Include="Commands\Mileage\GetMileageSettingsCommand.cs" />
     <Compile Include="Commands\Mileage\ResetIndexesCommand.cs" />
+    <Compile Include="Commands\Search\SearchCommand.cs" />
+    <Compile Include="Commands\Search\SearchResult.cs" />
+    <Compile Include="Commands\Search\SearchResultStatus.cs" />
     <Compile Include="Commands\Users\CreateUserCommand.cs" />
     <Compile Include="Commands\Users\GetCurrentUserCommand.cs" />
     <Compile Include="Encryption\ISaltCombiner.cs" />

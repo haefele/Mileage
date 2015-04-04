@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mileage.Shared.Entities.Search;
 
 namespace Mileage.Shared.Entities.Drivers
 {
-    public class Driver : AggregateRoot
+    public class Driver : AggregateRoot, ITaggable
     {
         #region Constructors
         /// <summary>
@@ -72,6 +73,11 @@ namespace Mileage.Shared.Entities.Drivers
         /// Gets or sets the address.
         /// </summary>
         public Address Address { get; set; }
+        /// <summary>
+        /// Gets or sets the tags.
+        /// </summary>
+        public List<string> Tags { get; set; }
         #endregion
+
     }
 }

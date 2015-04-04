@@ -1,6 +1,9 @@
-﻿namespace Mileage.Shared.Entities.Users
+﻿using System.Collections.Generic;
+using Mileage.Shared.Entities.Search;
+
+namespace Mileage.Shared.Entities.Users
 {
-    public class User : AggregateRoot
+    public class User : AggregateRoot, ITaggable
     {
         /// <summary>
         /// Gets or sets the email address.
@@ -16,5 +19,10 @@
         /// Gets or sets a whether this user is deactivated.
         /// </summary>
         public bool IsDeactivated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tags.
+        /// </summary>
+        public List<string> Tags { get; set; }
     }
 }

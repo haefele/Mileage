@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Contracts.Commands.Drivers;
+using Mileage.Server.Contracts.Commands.Search;
 using Mileage.Server.Infrastructure.Commands.Drivers;
 using Mileage.Server.Infrastructure.Commands.Layout;
 using Mileage.Server.Infrastructure.Extensions;
@@ -30,15 +31,15 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
         [HttpGet]
         [Route("Tests")]
-        public async Task<HttpResponseMessage> GetTests()
+        public async Task<HttpResponseMessage> GetTests(string searchText = null)
         {
-            Result<SearchDriversResult> result = await this.CommandExecutor.Execute(new SearchDriversCommand(null, null, null, this.Paging.Skip, this.Paging.Take)).WithCurrentCulture();
+            Result<SearchResult> result = await this.CommandExecutor.Execute(new SearchCommand(searchText, this.Paging.Skip, this.Paging.Take)).WithCurrentCulture();
 
             if (result.IsError)
                 return this.Request.GetMessageWithError(HttpStatusCode.InternalServerError, result.Message);
 
-            if (result.Data.Status == SearchDriversResultStatus.Found)
-                return this.Request.GetMessageWithObject(HttpStatusCode.Found, result.Data.FoundDrivers);
+            if (result.Data.Status == SearchResultStatus.Found)
+                return this.Request.GetMessageWithObject(HttpStatusCode.Found, result.Data.Items);
             else
                 return this.Request.GetMessageWithObject(HttpStatusCode.SeeOther, result.Data.Suggestions);
         }

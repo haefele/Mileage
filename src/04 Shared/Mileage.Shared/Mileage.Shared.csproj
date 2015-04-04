@@ -71,6 +71,8 @@
     <Compile Include="Entities\Layout\StoredLayout.cs" />
     <Compile Include="Entities\Mileage\MileageInternalSettings.cs" />
     <Compile Include="Entities\Mileage\MileageSettings.cs" />
+    <Compile Include="Entities\Search\ITaggable.cs" />
+    <Compile Include="Entities\Search\SearchableItem.cs" />
     <Compile Include="Entities\Users\User.cs" />
     <Compile Include="Entities\Vehicles\Vehicle.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Models\LoginData.cs" />
     <Compile Include="Models\CreateAdminUserData.cs" />
+    <Compile Include="Models\SearchItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\Result.cs" />
     <Compile Include="Results\ResultExtensions.cs" />

@@ -19,6 +19,15 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 {
     public abstract class BaseController : ApiController
     {
+        #region Constants
+        public const int DefaultSkip = 0;
+        public const int DefaultTake = 50;
+        #endregion
+
+        #region Fields
+        private PagingInfo _paging;
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets the command executor.
@@ -42,19 +51,22 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         {
             get
             {
+                if (this._paging != null)
+                    return this._paging;
+
                 string skipString = this.OwinContext.Request.Query.Get("skip");
 
                 int skip;
                 if (int.TryParse(skipString, out skip) == false)
-                    skip = 0;
+                    skip = DefaultSkip;
                 
                 string takeString = this.OwinContext.Request.Query.Get("take");
 
                 int take;
                 if (int.TryParse(takeString, out take) == false)
-                    take = 50;
+                    take = DefaultTake;
 
-                return new PagingInfo(skip, take);
+                return this._paging = new PagingInfo(skip, take);
             }
         }
         #endregion

@@ -31,7 +31,7 @@ namespace Mileage.Server.Infrastructure.Api.MessageHandlers
             if (clientVersion < serverVersion)
             {
                 logger.WarnFormat("Blocked incoming request. Client has outdated version '{0}'. Client IP: {1}", clientVersionString, request.GetOwinContext().Request.RemoteIpAddress);
-                return request.GetMessageWithError(HttpStatusCode.Forbidden, ServerMessages.OutdatedVersion);
+                return request.GetMessageWithError(HttpStatusCode.UpgradeRequired, ServerMessages.OutdatedVersion);
             }
 
             return await base.SendAsync(request, cancellationToken);

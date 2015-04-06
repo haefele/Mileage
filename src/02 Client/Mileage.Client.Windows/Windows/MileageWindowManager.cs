@@ -72,6 +72,7 @@ namespace Mileage.Client.Windows.Windows
         protected virtual void ConfigureWindow(Window window)
         {
             window.UseLayoutRounding = true;
+            ScrollBarExtensions.SetScrollBarMode(window, ScrollBarMode.TouchOverlap);
         }
         #endregion
     }

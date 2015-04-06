@@ -106,6 +106,22 @@ namespace Mileage.Client.Windows.Views
         {
             return CommonMessages.Mileage;
         }
+        /// <summary>
+        /// Returns the parent with the specified type <typeparamref name="T"/>.
+        /// This works recursively.
+        /// </summary>
+        /// <typeparam name="T">The type of the parent ViewModel.</typeparam>
+        protected T GetParent<T>()
+            where T : class
+        {
+            var parent = this.Parent as MileageScreen;
+            while (parent != null && parent is T == false)
+            {
+                parent = parent.Parent as MileageScreen;
+            }
+
+            return parent as T;
+        }
         #endregion
     }
 }

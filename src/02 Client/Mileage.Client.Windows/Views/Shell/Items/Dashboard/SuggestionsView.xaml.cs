@@ -20,9 +20,22 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
     /// </summary>
     public partial class SuggestionsView : UserControl
     {
+        public SuggestionsViewModel ViewModel
+        {
+            get { return this.DataContext as SuggestionsViewModel; }
+        }
+
         public SuggestionsView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+        }
+
+        private async void TextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var textBlock = (ContentControl)sender;
+
+            this.ViewModel.SelectedSuggestion = (string)textBlock.DataContext;
+            await this.ViewModel.SelectSuggestion.ExecuteAsyncTask();
         }
     }
 }

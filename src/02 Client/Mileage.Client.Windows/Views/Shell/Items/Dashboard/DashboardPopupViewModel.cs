@@ -49,6 +49,8 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 
         private void CreateCommands()
         {
+            var can = this.WhenAnyValue(f => f.SearchText, f => string.IsNullOrWhiteSpace(f) == false);
+
             this.Search = ReactiveCommand.CreateAsyncTask(_ => this.SearchImpl());
             this.Search.ThrownExceptions.Subscribe(this.ExceptionHandler.Handle);
             this.Search.IsExecuting
@@ -75,10 +77,13 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 case HttpStatusCode.Found:
                 {
                     var viewModel = this.CreateViewModel<FoundResultsViewModel>();
-                    var foundItems = await result.Content.ReadAsAsync<IEnumerable<SearchItem>>();
+                    var foundItems = await result.Content.ReadAsAsync<IList<SearchItem>>();
 
                     viewModel.Items = new ReactiveObservableCollection<SearchItem>();
-                    viewModel.Items.AddRange(foundItems);
+                    for(int i = 0; i < 20; i++)
+                    { 
+                        viewModel.Items.AddRange(foundItems);
+                    }
 
                     this.ActivateItem(viewModel);
 
@@ -87,7 +92,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 case HttpStatusCode.SeeOther:
                 {
                     var viewModel = this.CreateViewModel<SuggestionsViewModel>();
-                    var suggestions = await result.Content.ReadAsAsync<IEnumerable<string>>();
+                    var suggestions = await result.Content.ReadAsAsync<IList<string>>();
 
                     viewModel.Suggestions = new ReactiveObservableCollection<string>();
                     viewModel.Suggestions.AddRange(suggestions);

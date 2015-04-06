@@ -2,23 +2,34 @@
              
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:models="clr-namespace:Mileage.Shared.Models;assembly=Mileage.Shared"
              mc:Ignorable="d" 
              
              d:DesignWidth="300"
              d:DesignHeight="300" 
              
-             Background="Orange"
+             x:Name="Self"
              >
-    <Grid>
-        <ItemsControl ItemsSource="{Binding Suggestions}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
+    <dxlc:LayoutControl Orientation="Vertical" Padding="0">
+        <dxlc:LayoutItem VerticalAlignment="Stretch" Label="Meinten Sie vielleicht" LabelPosition="Top" AddColonToLabel="True">
+            <dxe:ListBoxEdit ItemsSource="{Binding Suggestions}"
+                             ShowBorder="False"
+                             Padding="0"
+                             >
+                <dxe:ListBoxEdit.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:SearchItem}">
+                        <ContentControl MouseDoubleClick="TextBlock_OnMouseLeftButtonUp">
+                            <TextBlock Text="{Binding}" />
+                        </ContentControl>
+                    </DataTemplate>
+                </dxe:ListBoxEdit.ItemTemplate>
+            </dxe:ListBoxEdit>
+        </dxlc:LayoutItem>
+    </dxlc:LayoutControl>
 </UserControl>

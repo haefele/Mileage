@@ -50,7 +50,8 @@ namespace Mileage.Server.Infrastructure.Commands.Search
                     .ExecuteActualQueryAsync(suggestions.Suggestions.First(), command.Skip, command.Take)
                     .WithCurrentCulture();
 
-                return Result.AsSuccess(SearchResult.WithItems(result.Select(f => new SearchItem(f.Id, f.DisplayName, f.Item))));
+                if (result.Any())
+                    return Result.AsSuccess(SearchResult.WithItems(result.Select(f => new SearchItem(f.Id, f.DisplayName, f.Item))));
             }
 
             //Return the suggestions if any
@@ -65,7 +66,7 @@ namespace Mileage.Server.Infrastructure.Commands.Search
             var query = this._documentSession.Advanced.AsyncDocumentQuery<object, DocumentsForSearch>();
 
             if (searchText != null)
-                query.Search((DocumentsForSearch.Result f) => f.SearchText, searchText);
+                query.Search((DocumentsForSearch.Result f) => f.SearchText, searchText, EscapeQueryOptions.EscapeAll);
 
             var result = await query
                 .SelectFields<DocumentsForSearch.Result>()

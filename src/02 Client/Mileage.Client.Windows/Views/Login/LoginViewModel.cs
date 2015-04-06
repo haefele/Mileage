@@ -101,7 +101,7 @@ namespace Mileage.Client.Windows.Views.Login
             var token = await response.Content.ReadAsAsync<AuthenticationToken>();
             this.Session.Token = token;
 
-            HttpResponseMessage currentUserResponse = await this.WebService.Users.GetMe();
+            HttpResponseMessage currentUserResponse = await this.WebService.Users.GetMeAsync();
             if (currentUserResponse.StatusCode != HttpStatusCode.Found)
             {
                 this.Session.Clear();

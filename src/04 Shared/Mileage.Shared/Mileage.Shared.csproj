@@ -60,6 +60,7 @@
     <Compile Include="Configuration\BoolSetting.cs" />
     <Compile Include="Configuration\IntSetting.cs" />
     <Compile Include="Configuration\StringSetting.cs" />
+    <Compile Include="Configuration\TimeSpanSetting.cs" />
     <Compile Include="Configuration\UriListSetting.cs" />
     <Compile Include="Entities\Drivers\Address.cs" />
     <Compile Include="Entities\AggregateRoot.cs" />

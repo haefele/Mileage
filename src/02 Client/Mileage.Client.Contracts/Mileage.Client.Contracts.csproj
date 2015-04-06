@@ -73,6 +73,7 @@
     <Compile Include="Versioning\IVersionService.cs" />
     <Compile Include="WebServices\IAuthenticationClient.cs" />
     <Compile Include="WebServices\ILayoutClient.cs" />
+    <Compile Include="WebServices\ISearchClient.cs" />
     <Compile Include="WebServices\IUsersClient.cs" />
     <Compile Include="WebServices\IWebServiceClient.cs" />
   </ItemGroup>

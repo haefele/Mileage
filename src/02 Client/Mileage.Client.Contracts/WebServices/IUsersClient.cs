@@ -5,6 +5,6 @@ namespace Mileage.Client.Contracts.WebServices
 {
     public interface IUsersClient
     {
-        Task<HttpResponseMessage> GetMe();
+        Task<HttpResponseMessage> GetMeAsync();
     }
 }

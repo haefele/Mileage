@@ -16,7 +16,7 @@ namespace Mileage.Client.Windows.WebServices
             this._client = client;
         }
 
-        public Task<HttpResponseMessage> GetMe()
+        public Task<HttpResponseMessage> GetMeAsync()
         {
             var request = this._client.CreateRequest("Users/Me", HttpMethod.Get);
             return this._client.SendRequestAsync(request);

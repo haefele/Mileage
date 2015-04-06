@@ -27,6 +27,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
 
         [HttpGet]
         [MileageAuthentication]
+        [Route]
         public async Task<HttpResponseMessage> Search(string searchText = null)
         {
             Result<SearchResult> result = await this.CommandExecutor

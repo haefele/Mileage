@@ -9,12 +9,19 @@ namespace Mileage.Client.Windows.WebServices
         public IAuthenticationClient Authentication { get; private set; }
         public IUsersClient Users { get; private set; }
         public ILayoutClient LayoutClient { get; private set; }
+        public ISearchClient SearchClient { get; private set; }
 
-        public WebServiceClient(IAuthenticationClient authenticationClient, IUsersClient users, ILayoutClient layoutClient)
+        public WebServiceClient(IAuthenticationClient authenticationClient, IUsersClient usersClient, ILayoutClient layoutClient, ISearchClient searchClient)
         {
+            Guard.AgainstNullArgument("authenticationClient", authenticationClient);
+            Guard.AgainstNullArgument("usersClient", usersClient);
+            Guard.AgainstNullArgument("layoutClient", layoutClient);
+            Guard.AgainstNullArgument("searchClient", searchClient);
+
             this.Authentication = authenticationClient;
-            this.Users = users;
+            this.Users = usersClient;
             this.LayoutClient = layoutClient;
+            this.SearchClient = searchClient;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 {
     /// <summary>
-    /// Interaction logic for DashboardPopupView.xaml
+    /// Interaction logic for NoResultsView.xaml
     /// </summary>
-    public partial class DashboardPopupView : UserControl
+    public partial class NoResultsView : UserControl
     {
-        public DashboardPopupView()
+        public NoResultsView()
         {
             InitializeComponent();
         }

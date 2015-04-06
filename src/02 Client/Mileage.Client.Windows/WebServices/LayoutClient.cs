@@ -18,13 +18,13 @@ namespace Mileage.Client.Windows.WebServices
             this._mileageClient = mileageClient;
         }
 
-        public Task<HttpResponseMessage> SaveLayout(string layoutName, Dictionary<string, byte[]> layoutData)
+        public Task<HttpResponseMessage> SaveLayoutAsync(string layoutName, Dictionary<string, byte[]> layoutData)
         {
             var request = this._mileageClient.CreateRequest(string.Format("Layout/{0}", layoutName), HttpMethod.Post, layoutData);
             return this._mileageClient.SendRequestAsync(request);
         }
 
-        public Task<HttpResponseMessage> GetLayout(string layoutName)
+        public Task<HttpResponseMessage> GetLayoutAsync(string layoutName)
         {
             var request = this._mileageClient.CreateRequest(string.Format("Layout/{0}", layoutName), HttpMethod.Get);
             return this._mileageClient.SendRequestAsync(request);

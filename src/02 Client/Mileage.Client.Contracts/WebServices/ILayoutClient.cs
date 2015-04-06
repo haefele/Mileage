@@ -7,8 +7,8 @@ namespace Mileage.Client.Contracts.WebServices
 {
     public interface ILayoutClient
     {
-        Task<HttpResponseMessage> SaveLayout(string layoutName, Dictionary<string, byte[]> layoutData);
+        Task<HttpResponseMessage> SaveLayoutAsync(string layoutName, Dictionary<string, byte[]> layoutData);
 
-        Task<HttpResponseMessage> GetLayout(string layoutName);
+        Task<HttpResponseMessage> GetLayoutAsync(string layoutName);
     }
 }

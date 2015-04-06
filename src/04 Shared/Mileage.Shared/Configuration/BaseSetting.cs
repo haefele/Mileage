@@ -53,5 +53,16 @@ namespace Mileage.Shared.Configuration
         /// <param name="value">The value.</param>
         protected abstract bool TryParse(string stringValue, out T value);
         #endregion
+
+        #region Operators
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="BaseSetting{T}"/> to <see cref="T"/>.
+        /// </summary>
+        /// <param name="setting">The setting.</param>
+        public static implicit operator T(BaseSetting<T> setting)
+        {
+            return setting.GetValue();
+        }
+        #endregion
     }
 }

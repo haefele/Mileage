@@ -82,7 +82,7 @@ namespace Mileage.Client.Windows.Layout
                 return;
             
             //Save the data in the background
-            var saveResponse = await this._webServiceClient.LayoutClient.SaveLayout(layoutName, layoutData).ConfigureAwait(false);
+            var saveResponse = await this._webServiceClient.LayoutClient.SaveLayoutAsync(layoutName, layoutData).ConfigureAwait(false);
             if (saveResponse.StatusCode != HttpStatusCode.Created)
             {
                 HttpError error = await saveResponse.Content.ReadAsAsync<HttpError>();
@@ -164,7 +164,7 @@ namespace Mileage.Client.Windows.Layout
         
         private async Task<Dictionary<string, byte[]>> GetLayoutFromWebService(string layoutName)
         {
-            var getLayoutResponse = await this._webServiceClient.LayoutClient.GetLayout(layoutName);
+            var getLayoutResponse = await this._webServiceClient.LayoutClient.GetLayoutAsync(layoutName);
             if (getLayoutResponse.StatusCode != HttpStatusCode.Found)
             {
                 HttpError error = await getLayoutResponse.Content.ReadAsAsync<HttpError>();

@@ -15,6 +15,7 @@ namespace Mileage.Client.Windows.Windsor
                 Component.For<IAuthenticationClient>().ImplementedBy<AuthenticationClient>().LifestyleSingleton(),
                 Component.For<IUsersClient>().ImplementedBy<UsersClient>().LifestyleSingleton(),
                 Component.For<ILayoutClient>().ImplementedBy<LayoutClient>().LifestyleSingleton(),
+                Component.For<ISearchClient>().ImplementedBy<SearchClient>().LifestyleSingleton(),
                 Component.For<MileageClient>().LifestyleSingleton().DependsOn(Dependency.OnValue("baseAddress", Config.WebServiceAddress.GetValue())),
                 Component.For<Session>().LifestyleSingleton());
         }

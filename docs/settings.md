@@ -8,6 +8,10 @@ Default value: *.\Database.db*
 Where the HTTP api is located.  
 Example value: *http://web.mydomain.com/*
 
+**Mileage/KeyDownDelay**  
+The delay that should be used for key-down searches.  
+Default value: 00:00:00.300 (300 Milliseconds)
+
 #Server settings
 
 **Mileage/Addresses**  

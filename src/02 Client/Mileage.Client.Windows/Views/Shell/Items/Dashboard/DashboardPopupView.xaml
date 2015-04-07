@@ -33,7 +33,7 @@
         </dxlc:LayoutItem>
         <dxlc:LayoutItem VerticalAlignment="Stretch" LabelPosition="Top" Label="{Binding ActiveItem.DisplayName}">
             <Grid>
-                <ContentControl x:Name="ActiveItem" />
+                <ContentControl cal:View.Model="{Binding ActiveItem}" />
                 <dx:WaitIndicator Content="Suche..." DeferedVisibility="{Binding IsSearching}" />
             </Grid>
         </dxlc:LayoutItem>

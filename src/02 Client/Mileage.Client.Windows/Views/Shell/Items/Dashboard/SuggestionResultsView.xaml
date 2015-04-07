@@ -26,7 +26,11 @@
                              >
                 <dxe:ListBoxEdit.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:SearchItem}">
-                        <ContentControl MouseDoubleClick="ContentControl_OnMouseDoubleClick">
+                        <ContentControl>
+                            <dxmvvm:Interaction.Behaviors>
+                                <dxmvvm:EventToCommand EventName="MouseDoubleClick"
+                                                       Command="{Binding DataContext.SearchSuggestion, ElementName=Self}" />
+                            </dxmvvm:Interaction.Behaviors>
                             <TextBlock Text="{Binding}" />
                         </ContentControl>
                     </DataTemplate>

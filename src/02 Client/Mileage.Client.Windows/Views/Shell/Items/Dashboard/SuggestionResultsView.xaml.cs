@@ -20,19 +20,9 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
     /// </summary>
     public partial class SuggestionResultsView : UserControl
     {
-        public SuggestionResultsViewModel ResultViewModel
-        {
-            get { return this.DataContext as SuggestionResultsViewModel; }
-        }
-
         public SuggestionResultsView()
         {
             this.InitializeComponent();
-        }
-
-        private async void ContentControl_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            await this.ResultViewModel.SelectSuggestion.ExecuteAsyncTask();
         }
     }
 }

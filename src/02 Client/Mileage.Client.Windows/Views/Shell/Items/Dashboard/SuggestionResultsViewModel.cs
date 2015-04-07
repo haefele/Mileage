@@ -34,7 +34,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         #endregion
 
         #region Commands
-        public ReactiveCommand<object> SelectSuggestion { get; private set; }
+        public ReactiveCommand<object> SearchSuggestion { get; private set; }
         #endregion
 
         #region Constructors
@@ -46,9 +46,10 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 
         private void CreateCommands()
         {
-            var canSelectSuggestion = this.WhenAnyValue(f => f.SelectedSuggestion, f => string.IsNullOrWhiteSpace(f) == false);
-            this.SelectSuggestion = ReactiveCommand.Create(canSelectSuggestion);
-            this.SelectSuggestion.Subscribe(async _ =>
+            var canSearchSuggestion = this.WhenAnyValue(f => f.SelectedSuggestion, f => string.IsNullOrWhiteSpace(f) == false);
+
+            this.SearchSuggestion = ReactiveCommand.Create(canSearchSuggestion);
+            this.SearchSuggestion.Subscribe(async _ =>
             {
                 var parent = this.GetParent<DashboardPopupViewModel>();
 

@@ -18,7 +18,7 @@ using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 {
-    public class DashboardPopupViewModel : MileageConductor<MileageScreen>
+    public class DashboardPopupViewModel : MileageConductor<SearchResultViewModel>
     {
         #region Fields
         private string _searchText;
@@ -91,7 +91,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 }
                 case HttpStatusCode.SeeOther:
                 {
-                    var viewModel = this.CreateViewModel<SuggestionsViewModel>();
+                    var viewModel = this.CreateViewModel<SuggestionResultsViewModel>();
                     var suggestions = await result.Content.ReadAsAsync<IList<string>>();
 
                     viewModel.Suggestions = new ReactiveObservableCollection<string>();

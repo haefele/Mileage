@@ -1,11 +1,13 @@
-﻿using Caliburn.Micro.ReactiveUI;
+﻿using System.Windows.Media;
+using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
+using Mileage.Client.Windows.Resources;
 using Mileage.Shared.Models;
 using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 {
-    public class FoundResultsViewModel : MileageScreen
+    public class FoundResultsViewModel : SearchResultViewModel
     {
         private ReactiveObservableCollection<SearchItem> _items;
 
@@ -18,6 +20,16 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         public FoundResultsViewModel(IWindsorContainer container)
             : base(container)
         {
+        }
+
+        public override ImageSource Image
+        {
+            get { return Resource.Icon.DocumentInspector; }
+        }
+
+        protected override string GetDisplayName()
+        {
+            return "Ergebnisse";
         }
     }
 }

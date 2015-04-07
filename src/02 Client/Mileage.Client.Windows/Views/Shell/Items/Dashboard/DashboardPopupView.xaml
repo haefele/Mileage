@@ -27,11 +27,14 @@
                 </dxe:ButtonEdit.InputBindings>
             </dxe:ButtonEdit>
         </dxlc:LayoutItem>
-        <dxlc:LayoutItem VerticalAlignment="Stretch">
+        <dxlc:LayoutItem VerticalAlignment="Stretch" LabelPosition="Top" Label="{Binding ActiveItem.DisplayName}">
             <Grid>
                 <ContentControl x:Name="ActiveItem" />
                 <dx:WaitIndicator Content="Suche..." DeferedVisibility="{Binding IsSearching}" />
             </Grid>
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem>
+            <Image Source="{Binding ActiveItem.Image}" Stretch="None" />
         </dxlc:LayoutItem>
     </dxlc:LayoutControl>
 </UserControl>

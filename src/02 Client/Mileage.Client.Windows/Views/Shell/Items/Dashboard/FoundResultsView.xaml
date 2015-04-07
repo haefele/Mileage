@@ -14,7 +14,7 @@
              d:DesignHeight="300" 
              >
     <dxlc:LayoutControl Orientation="Vertical" Padding="0">
-        <dxlc:LayoutItem VerticalAlignment="Stretch" Label="Ergebnisse" LabelPosition="Top" AddColonToLabel="True">
+        <dxlc:LayoutItem VerticalAlignment="Stretch">
             <dxe:ListBoxEdit ItemsSource="{Binding Items}" 
                              ShowBorder="False" 
                              Padding="0"

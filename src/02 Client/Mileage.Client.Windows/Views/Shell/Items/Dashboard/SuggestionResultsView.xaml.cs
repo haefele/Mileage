@@ -16,16 +16,16 @@ using System.Windows.Shapes;
 namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 {
     /// <summary>
-    /// Interaction logic for SuggestionsView.xaml
+    /// Interaction logic for SuggestionResultsView.xaml
     /// </summary>
-    public partial class SuggestionsView : UserControl
+    public partial class SuggestionResultsView : UserControl
     {
-        public SuggestionsViewModel ViewModel
+        public SuggestionResultsViewModel ResultViewModel
         {
-            get { return this.DataContext as SuggestionsViewModel; }
+            get { return this.DataContext as SuggestionResultsViewModel; }
         }
 
-        public SuggestionsView()
+        public SuggestionResultsView()
         {
             this.InitializeComponent();
         }
@@ -34,8 +34,8 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         {
             var textBlock = (ContentControl)sender;
 
-            this.ViewModel.SelectedSuggestion = (string)textBlock.DataContext;
-            await this.ViewModel.SelectSuggestion.ExecuteAsyncTask();
+            this.ResultViewModel.SelectedSuggestion = (string)textBlock.DataContext;
+            await this.ResultViewModel.SelectSuggestion.ExecuteAsyncTask();
         }
     }
 }

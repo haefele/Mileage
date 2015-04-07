@@ -211,6 +211,7 @@
     <Compile Include="Messages\MessageDialogViewModel.cs" />
     <Compile Include="Messages\MessageService.cs" />
     <Compile Include="Messages\MessageServiceExtensions.cs" />
+    <Compile Include="Resources\Resource.cs" />
     <Compile Include="Storage\LiteDatabaseStorage.cs" />
     <Compile Include="Versioning\VersionService.cs" />
     <Compile Include="Views\MileageConductorWithCollectionAllActive.cs" />
@@ -227,14 +228,15 @@
       <DependentUpon>FoundResultsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell\Items\Dashboard\FoundResultsViewModel.cs" />
+    <Compile Include="Views\Shell\Items\Dashboard\SearchResultViewModel.cs" />
     <Compile Include="Views\Shell\Items\Dashboard\NoResultsView.xaml.cs">
       <DependentUpon>NoResultsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell\Items\Dashboard\NoResultsViewModel.cs" />
-    <Compile Include="Views\Shell\Items\Dashboard\SuggestionsView.xaml.cs">
-      <DependentUpon>SuggestionsView.xaml</DependentUpon>
+    <Compile Include="Views\Shell\Items\Dashboard\SuggestionResultsView.xaml.cs">
+      <DependentUpon>SuggestionResultsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\Dashboard\SuggestionsViewModel.cs" />
+    <Compile Include="Views\Shell\Items\Dashboard\SuggestionResultsViewModel.cs" />
     <Compile Include="Views\Shell\Items\IHaveRibbonToMerge.cs" />
     <Compile Include="Views\Shell\Items\Dashboard\DashboardPopupView.xaml.cs">
       <DependentUpon>DashboardPopupView.xaml</DependentUpon>
@@ -313,7 +315,11 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Icons\document_empty.png" />
+    <Resource Include="Resources\Icons\document_info.png" />
+    <Resource Include="Resources\Icons\document_inspector.png" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Messages\MessageDialogView.xaml">
       <SubType>Designer</SubType>
@@ -339,7 +345,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\Dashboard\SuggestionsView.xaml">
+    <Page Include="Views\Shell\Items\Dashboard\SuggestionResultsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

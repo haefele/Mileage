@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Windows.Media;
 using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
 using DevExpress.Mvvm.POCO;
 using DevExpress.Xpf.Core.HandleDecorator;
+using Mileage.Client.Windows.Resources;
 using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 {
-    public class SuggestionsViewModel : MileageScreen
+    public class SuggestionResultsViewModel : SearchResultViewModel
     {
         #region Fields
         private ReactiveObservableCollection<string> _suggestions;
@@ -25,6 +27,10 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
             get { return this._selectedSuggestion; }
             set { this.RaiseAndSetIfChanged(ref this._selectedSuggestion, value); }
         }
+        public override ImageSource Image
+        {
+            get { return Resource.Icon.DocumentInfo; }
+        }
         #endregion
 
         #region Commands
@@ -32,7 +38,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         #endregion
 
         #region Constructors
-        public SuggestionsViewModel(IWindsorContainer container)
+        public SuggestionResultsViewModel(IWindsorContainer container)
             : base(container)
         {
             this.CreateCommands();
@@ -52,6 +58,11 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 parent.SearchText = this.SelectedSuggestion;
                 await parent.Search.ExecuteAsyncTask();
             });
+        }
+
+        protected override string GetDisplayName()
+        {
+            return "Meinten Sie vielleicht";
         }
 
         #endregion

@@ -11,6 +11,5 @@
              d:DesignHeight="300" 
              >
     <Grid>
-        <Label Content="Leider konnten keine Ergebnisse gefunden werden." />
     </Grid>
 </UserControl>

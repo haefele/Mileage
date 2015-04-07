@@ -18,6 +18,7 @@
             <dxe:ListBoxEdit ItemsSource="{Binding Items}" 
                              ShowBorder="False" 
                              Padding="0"
+                             ScrollViewer.CanContentScroll="False"
                              >
                 <dxe:ListBoxEdit.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:SearchItem}">

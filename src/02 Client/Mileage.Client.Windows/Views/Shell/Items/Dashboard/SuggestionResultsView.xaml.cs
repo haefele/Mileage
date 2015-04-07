@@ -30,11 +30,8 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
             this.InitializeComponent();
         }
 
-        private async void TextBlock_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private async void ContentControl_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var textBlock = (ContentControl)sender;
-
-            this.ResultViewModel.SelectedSuggestion = (string)textBlock.DataContext;
             await this.ResultViewModel.SelectSuggestion.ExecuteAsyncTask();
         }
     }

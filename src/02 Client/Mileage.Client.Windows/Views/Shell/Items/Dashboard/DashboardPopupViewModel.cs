@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reactive;
@@ -77,6 +78,10 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 case HttpStatusCode.Found:
                 {
                     var viewModel = this.CreateViewModel<FoundResultsViewModel>();
+                    viewModel.FoundThroughSuggestion = result.Headers.Contains("Through-Suggestion")
+                        ? result.Headers.GetValues("Through-Suggestion").First()
+                        : string.Empty; ;
+
                     var foundItems = await result.Content.ReadAsAsync<IList<SearchItem>>();
 
                     viewModel.Items = new ReactiveObservableCollection<SearchItem>();
@@ -88,6 +93,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                     this.ActivateItem(viewModel);
 
                     break;
+
                 }
                 case HttpStatusCode.SeeOther:
                 {

@@ -7,6 +7,16 @@ namespace Mileage.Server.Contracts.Commands.Search
 {
     public class SearchResult
     {
+        public static SearchResult WithItemsThroughSuggestion(string suggestion, IEnumerable<SearchItem> items)
+        {
+            return new SearchResult
+            {
+                Status = SearchResultStatus.FoundThroughSuggestion,
+                Suggestions = new[] {suggestion},
+                Items = items.ToList()
+            };
+        }
+
         public static SearchResult WithItems(IEnumerable<SearchItem> items)
         {
             return new SearchResult

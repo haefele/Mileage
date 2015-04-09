@@ -51,7 +51,7 @@ namespace Mileage.Server.Infrastructure.Commands.Search
                     .WithCurrentCulture();
 
                 if (result.Any())
-                    return Result.AsSuccess(SearchResult.WithItems(result.Select(f => new SearchItem(f.Id, f.DisplayName, f.Item))));
+                    return Result.AsSuccess(SearchResult.WithItemsThroughSuggestion(suggestions.Suggestions.First(), result.Select(f => new SearchItem(f.Id, f.DisplayName, f.Item))));
             }
 
             //Return the suggestions if any

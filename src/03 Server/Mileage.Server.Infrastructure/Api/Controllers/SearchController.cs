@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -46,9 +47,15 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                     return this.Request.GetMessageWithObject(HttpStatusCode.Found, result.Data.Items);
                 case SearchResultStatus.Suggestions:
                     return this.Request.GetMessageWithObject(HttpStatusCode.SeeOther, result.Data.Suggestions);
+                case SearchResultStatus.FoundThroughSuggestion:
+                    var response = this.Request.GetMessageWithObject(HttpStatusCode.Found, result.Data.Items);
+                    response.Headers.Add("Through-Suggestion", result.Data.Suggestions.First());
+                    return response;
                 default:
                     return this.Request.GetMessage(HttpStatusCode.NotFound);
             }
+
+
         }
     }
 }

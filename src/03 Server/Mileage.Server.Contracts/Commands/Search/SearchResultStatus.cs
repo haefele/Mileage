@@ -4,6 +4,7 @@
     {
         Found,
         Suggestions,
+        FoundThroughSuggestion,
         None
     }
 }

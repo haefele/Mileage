@@ -95,7 +95,7 @@ namespace Mileage.Client.Windows.Views
         /// <summary>
         /// Updates the display name.
         /// </summary>
-        private void UpdateDisplayName()
+        protected void UpdateDisplayName()
         {
             this.DisplayName = this.GetDisplayName();
         }

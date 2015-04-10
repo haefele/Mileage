@@ -1,4 +1,7 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Reactive.Linq;
+using System.Runtime.Remoting.Messaging;
+using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using Castle.Core.Logging;
 using Castle.Windsor;
@@ -9,13 +12,16 @@ using Mileage.Client.Contracts.Messages;
 using Mileage.Client.Contracts.Storage;
 using Mileage.Client.Windows.WebServices;
 using Mileage.Localization.Common;
+using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views
 {
-    public abstract class MileageScreen : ReactiveScreen
+    public abstract class MileageScreen : ReactiveScreen, IDisposable
     {
         #region Fields
         private readonly IWindsorContainer _container;
+
+        private ObservableAsPropertyHelper<string> _displayNameHelper;
         #endregion
 
         #region Logger
@@ -54,6 +60,21 @@ namespace Mileage.Client.Windows.Views
         /// Gets or sets the current session.
         /// </summary>
         protected Session Session { get; set; }
+
+        /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        public override string DisplayName
+        {
+            get
+            {
+                if (this._displayNameHelper == null)
+                    return string.Empty;
+
+                return this._displayNameHelper.Value;
+            }
+            set { throw new NotSupportedException(); }
+        }
         #endregion
 
         #region Constructors
@@ -76,13 +97,14 @@ namespace Mileage.Client.Windows.Views
             this.DataStorage = container.Resolve<IDataStorage>();
             this.WebService = container.Resolve<WebServiceClient>();
             this.Session = container.Resolve<Session>();
-
-            this.LocalizationManager.AddLanguageDependentAction(this.UpdateDisplayName);
-
-            this.EventAggregator.Subscribe(this);
+            
+            IObservable<string> observable = this.GetDisplayNameObservable();
+            observable.ToProperty(this, f => f.DisplayName, out this._displayNameHelper);
         }
         #endregion
         
+
+
         #region Private Methods
         /// <summary>
         /// Creates the specified <typeparamref name="TViewModel"/>.
@@ -93,14 +115,19 @@ namespace Mileage.Client.Windows.Views
             return this._container.Resolve<TViewModel>();
         }
         /// <summary>
-        /// Updates the display name.
+        /// Gets the display name observable.
+        /// Override this member if the <see cref="DisplayName"/> depends on more properties than just the current language.
+        /// For example: If we add a user input to it, you override this methods and combine the base observable and your new one.
         /// </summary>
-        protected void UpdateDisplayName()
+        protected virtual IObservable<string> GetDisplayNameObservable()
         {
-            this.DisplayName = this.GetDisplayName();
+            return this.LocalizationManager.CurrentLanguageObservable
+                .Select(_ => this.GetDisplayName());
         }
         /// <summary>
-        /// Returns the display name.
+        /// Gets the display name.
+        /// Override this member if the <see cref="DisplayName"/> only depends on the current language.
+        /// Otherwise override the <see cref="GetDisplayNameObservable"/> method.
         /// </summary>
         protected virtual string GetDisplayName()
         {
@@ -121,6 +148,17 @@ namespace Mileage.Client.Windows.Views
             }
 
             return parent as T;
+        }
+        #endregion
+
+        #region Implementation of IDisposable
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public virtual void Dispose()
+        {
+            if (this._displayNameHelper != null)
+                this._displayNameHelper.Dispose();
         }
         #endregion
     }

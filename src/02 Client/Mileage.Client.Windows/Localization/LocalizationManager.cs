@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.Threading;
 using Caliburn.Micro;
 using Castle.Core.Logging;
@@ -28,6 +29,8 @@ namespace Mileage.Client.Windows.Localization
         private readonly IDataStorage _dataStorage;
         private readonly IEventAggregator _eventAggregator;
 
+        private readonly ReplaySubject<CultureInfo> _currentLanguageObservable;
+
         private readonly ConcurrentDictionary<Guid, WeakAction> _languageDependentActions;
         #endregion
 
@@ -36,6 +39,17 @@ namespace Mileage.Client.Windows.Localization
         /// Gets or sets the logger.
         /// </summary>
         public ILogger Logger { get; set; }
+        /// <summary>
+        /// Gets the current language.
+        /// </summary>
+        public CultureInfo CurrentLanguage { get; private set; }
+        /// <summary>
+        /// Gets the current language changes.
+        /// </summary>
+        public IObservable<CultureInfo> CurrentLanguageObservable
+        {
+            get { return this._currentLanguageObservable; }
+        }
         #endregion
 
         #region Constructors
@@ -54,17 +68,15 @@ namespace Mileage.Client.Windows.Localization
             this._dataStorage = dataStorage;
             this._eventAggregator = eventAggregator;
 
+            this._currentLanguageObservable = new ReplaySubject<CultureInfo>(1);
+
             this._languageDependentActions = new ConcurrentDictionary<Guid, WeakAction>();
 
             this.LoadCurrentLanguage();
         }
         #endregion
 
-        #region Implementation of ILocalizationManager
-        /// <summary>
-        /// Gets the current language.
-        /// </summary>
-        public CultureInfo CurrentLanguage { get; private set; }
+        #region Methods
         /// <summary>
         /// Changes the application language to the specified <paramref name="culture" />.
         /// </summary>
@@ -90,6 +102,7 @@ namespace Mileage.Client.Windows.Localization
             CultureInfo.DefaultThreadCurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentUICulture = culture;
 
+            this._currentLanguageObservable.OnNext(culture);
             this._eventAggregator.PublishOnUIThreadAsync(new LanguageChangedEvent(this.CurrentLanguage));
 
             this.ExecuteLanguageDependentActions();

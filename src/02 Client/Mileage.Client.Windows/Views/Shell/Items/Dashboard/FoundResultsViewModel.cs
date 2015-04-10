@@ -15,8 +15,6 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         #region Fields
         private ReactiveObservableCollection<SearchItem> _items;
         private string _foundThroughSuggestion;
-
-        private string _actualDisplayName;
         #endregion
 
         public ReactiveObservableCollection<SearchItem> Items
@@ -39,25 +37,17 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         public FoundResultsViewModel(IWindsorContainer container)
             : base(container)
         {
-            this.CreateRules();
         }
 
-        protected override string GetDisplayName()
+        protected override IObservable<string> GetDisplayNameObservable()
         {
-            return this._actualDisplayName;
-        }
-        
-        private void CreateRules()
-        {
-            this.WhenAnyValue(f => f.FoundThroughSuggestion)
-                .Subscribe(suggestion =>
-                {
-                    this._actualDisplayName = string.IsNullOrWhiteSpace(suggestion)
-                        ? "Ergebnisse"
-                        : string.Format("Ergebnisse für {0}", suggestion);
+            var baseObservable = base.GetDisplayNameObservable();
+            var suggestionObservable = this.WhenAnyValue(f => f.FoundThroughSuggestion);
 
-                    this.UpdateDisplayName();
-                });
+            return baseObservable.CombineLatest(suggestionObservable,
+                (_, suggestion) => string.IsNullOrWhiteSpace(suggestion)
+                    ? "Ergebnisse"
+                    : string.Format("Ergebnisse für {0}", suggestion));
         }
     }
 }

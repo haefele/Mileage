@@ -11,6 +11,10 @@ namespace Mileage.Client.Contracts.Localization
         /// Gets the current language.
         /// </summary>
         CultureInfo CurrentLanguage { get; }
+        /// <summary>
+        /// Gets the current language changes.
+        /// </summary>
+        IObservable<CultureInfo> CurrentLanguageObservable { get; } 
 
         /// <summary>
         /// Changes the application language to the specified <paramref name="culture"/>.

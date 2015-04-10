@@ -65,7 +65,7 @@ namespace Mileage.Client.Windows.Layout
         {
             if (this._cache.ContainsKey(layoutName))
             {
-                this.Logger.DebugFormat("Returning the layout {0} from the cache.");
+                this.Logger.DebugFormat("Returning the layout {0} from the cache.", layoutName);
 
                 return this._cache[layoutName];
             }

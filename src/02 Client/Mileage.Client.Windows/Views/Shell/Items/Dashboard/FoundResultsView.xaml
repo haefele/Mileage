@@ -14,56 +14,65 @@
              
              d:DesignWidth="300"
              d:DesignHeight="300" 
+             
+             x:Name="Self"
              >
     <dxlc:LayoutControl Orientation="Vertical" Padding="0">
         <dxlc:LayoutItem VerticalAlignment="Stretch">
-            <dxe:ListBoxEdit ItemsSource="{Binding Items}" 
+            <dxe:ListBoxEdit ItemsSource="{Binding Items}"
+                             SelectedItem="{Binding SelectedItem}"
                              ShowBorder="False" 
                              Padding="0"
                              ScrollViewer.CanContentScroll="False"
                              >
                 <dxe:ListBoxEdit.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:SearchItem}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                        <ContentControl>
+                            <dxmvvm:Interaction.Behaviors>
+                                <dxmvvm:EventToCommand EventName="MouseDoubleClick"
+                                                       Command="{Binding DataContext.ShowSelectedItem, ElementName=Self}" />
+                            </dxmvvm:Interaction.Behaviors>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0"
-                                   Width="32"
-                                   Height="32"
-                                   Stretch="Uniform"
-                                   >
-                                <Image.Resources>
-                                    <dxmvvm:ObjectToObjectConverter x:Key="itemToIconConverter">
-                                        <dxmvvm:MapItem Source="{x:Static search:SearchableItem.User}">
-                                            <dxmvvm:MapItem.Target>
-                                                <BitmapImage UriSource="../../../../Resources/Icons/user_gray.png" />
-                                            </dxmvvm:MapItem.Target>
-                                        </dxmvvm:MapItem>
-                                        <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Driver}">
-                                            <dxmvvm:MapItem.Target>
-                                                <BitmapImage UriSource="../../../../Resources/Icons/steering_wheel_common.png" />
-                                            </dxmvvm:MapItem.Target>
-                                        </dxmvvm:MapItem>
-                                        <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Vehicle}">
-                                            <dxmvvm:MapItem.Target>
-                                                <BitmapImage UriSource="../../../../Resources/Icons/car.png" />
-                                            </dxmvvm:MapItem.Target>
-                                        </dxmvvm:MapItem>
-                                    </dxmvvm:ObjectToObjectConverter>
-                                </Image.Resources>
-                                <Image.Source>
-                                    <Binding Path="Item" Converter="{StaticResource itemToIconConverter}" />
-                                </Image.Source>
-                            </Image>
+                                <Image Grid.Column="0"
+                                       Width="32"
+                                       Height="32"
+                                       Stretch="Uniform"
+                                       >
+                                    <Image.Resources>
+                                        <dxmvvm:ObjectToObjectConverter x:Key="itemToIconConverter">
+                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.User}">
+                                                <dxmvvm:MapItem.Target>
+                                                    <BitmapImage UriSource="../../../../Resources/Icons/user_gray.png" />
+                                                </dxmvvm:MapItem.Target>
+                                            </dxmvvm:MapItem>
+                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Driver}">
+                                                <dxmvvm:MapItem.Target>
+                                                    <BitmapImage UriSource="../../../../Resources/Icons/steering_wheel_common.png" />
+                                                </dxmvvm:MapItem.Target>
+                                            </dxmvvm:MapItem>
+                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Vehicle}">
+                                                <dxmvvm:MapItem.Target>
+                                                    <BitmapImage UriSource="../../../../Resources/Icons/car.png" />
+                                                </dxmvvm:MapItem.Target>
+                                            </dxmvvm:MapItem>
+                                        </dxmvvm:ObjectToObjectConverter>
+                                    </Image.Resources>
+                                    <Image.Source>
+                                        <Binding Path="Item" Converter="{StaticResource itemToIconConverter}" />
+                                    </Image.Source>
+                                </Image>
 
-                            <TextBlock Grid.Column="1" 
-                                       Text="{Binding DisplayName}"
-                                       VerticalAlignment="Center"
-                                       />
-                        </Grid>
+                                <TextBlock Grid.Column="1" 
+                                           Text="{Binding DisplayName}"
+                                           VerticalAlignment="Center"
+                                           />
+                            </Grid>
+                        </ContentControl>
                     </DataTemplate>
                 </dxe:ListBoxEdit.ItemTemplate>
             </dxe:ListBoxEdit>

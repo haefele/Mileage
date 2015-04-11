@@ -47,7 +47,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
             return baseObservable.CombineLatest(suggestionObservable,
                 (_, suggestion) => string.IsNullOrWhiteSpace(suggestion)
                     ? "Ergebnisse"
-                    : string.Format("Ergebnisse für {0}", suggestion));
+                    : string.Format("Ergebnisse für \"{0}\"", suggestion));
         }
     }
 }

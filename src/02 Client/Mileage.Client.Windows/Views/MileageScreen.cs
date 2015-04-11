@@ -20,8 +20,7 @@ namespace Mileage.Client.Windows.Views
     {
         #region Fields
         private readonly IWindsorContainer _container;
-
-        private ObservableAsPropertyHelper<string> _displayNameHelper;
+        private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
         #endregion
 
         #region Logger
@@ -103,8 +102,6 @@ namespace Mileage.Client.Windows.Views
         }
         #endregion
         
-
-
         #region Private Methods
         /// <summary>
         /// Creates the specified <typeparamref name="TViewModel"/>.

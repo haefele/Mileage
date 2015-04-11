@@ -77,12 +77,12 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
             {
                 case HttpStatusCode.Found:
                 {
+                    var foundItems = await result.Content.ReadAsAsync<IList<SearchItem>>();
+
                     var viewModel = this.CreateViewModel<FoundResultsViewModel>();
                     viewModel.FoundThroughSuggestion = result.Headers.Contains("Through-Suggestion")
                         ? result.Headers.GetValues("Through-Suggestion").First()
-                        : string.Empty; ;
-
-                    var foundItems = await result.Content.ReadAsAsync<IList<SearchItem>>();
+                        : string.Empty;
 
                     viewModel.Items = new ReactiveObservableCollection<SearchItem>();
                     for(int i = 0; i < 20; i++)
@@ -97,9 +97,9 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 }
                 case HttpStatusCode.SeeOther:
                 {
-                    var viewModel = this.CreateViewModel<SuggestionResultsViewModel>();
                     var suggestions = await result.Content.ReadAsAsync<IList<string>>();
 
+                    var viewModel = this.CreateViewModel<SuggestionResultsViewModel>();
                     viewModel.Suggestions = new ReactiveObservableCollection<string>();
                     viewModel.Suggestions.AddRange(suggestions);
 
@@ -110,6 +110,8 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 case HttpStatusCode.NotFound:
                 {
                     var viewModel = this.CreateViewModel<NoResultsViewModel>();
+                    viewModel.SearchText = this.SearchText;
+
                     this.ActivateItem(viewModel);
 
                     break;

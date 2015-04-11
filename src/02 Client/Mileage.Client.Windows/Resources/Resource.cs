@@ -11,6 +11,11 @@ namespace Mileage.Client.Windows.Resources
     {
         public static class Icon
         {
+            public static ImageSource Car
+            {
+                get { return GetImage("car.png"); }
+            }
+
             public static ImageSource DocumentEmpty
             {
                 get { return GetImage("document_empty.png"); }
@@ -24,6 +29,16 @@ namespace Mileage.Client.Windows.Resources
             public static ImageSource DocumentInspector
             {
                 get { return GetImage("document_inspector.png"); }
+            }
+
+            public static ImageSource SteeringWheelCommon
+            {
+                get { return GetImage("steering_wheel_common.png"); }
+            }
+
+            public static ImageSource UserGray
+            {
+                get { return GetImage("user_gray.png"); }
             }
 
             #region Internal            

@@ -45,7 +45,7 @@
                 <dxr:RibbonDefaultPageCategory>
                     <dxr:RibbonPage Caption="Page 1">
                         <dxr:RibbonPageGroup Caption="Group 1">
-                            <dxb:BarButtonItem Content="asdf" Command="{Binding ChangeContent}" />    
+                            <dxb:BarButtonItem Content="asdf" />
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
                 </dxr:RibbonDefaultPageCategory>

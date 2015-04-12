@@ -70,8 +70,8 @@
                             <dxmvvm:ObjectToObjectConverter.DefaultTarget>
                                 <DataTemplate>
                                     <dxwui:Flyout ShowIndicator="True">
-                                        <Grid Height="400"
-                                              Width="250">
+                                        <Grid Height="500"
+                                              Width="320">
                                             <ContentControl caliburn:View.Model="{Binding PopupViewModel}" />
                                         </Grid>
                                     </dxwui:Flyout>

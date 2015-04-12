@@ -77,18 +77,13 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
             {
                 case HttpStatusCode.Found:
                 {
-                    var foundItems = await result.Content.ReadAsAsync<IList<SearchItem>>();
 
                     var viewModel = this.CreateViewModel<FoundResultsViewModel>();
                     viewModel.FoundThroughSuggestion = result.Headers.Contains("Through-Suggestion")
                         ? result.Headers.GetValues("Through-Suggestion").First()
                         : string.Empty;
 
-                    viewModel.Items = new ReactiveObservableCollection<SearchItem>();
-                    for(int i = 0; i < 20; i++)
-                    { 
-                        viewModel.Items.AddRange(foundItems);
-                    }
+                    viewModel.Items = await result.Content.ReadAsAsync<ReactiveObservableCollection<SearchItem>>();
 
                     this.ActivateItem(viewModel);
 
@@ -97,11 +92,8 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
                 }
                 case HttpStatusCode.SeeOther:
                 {
-                    var suggestions = await result.Content.ReadAsAsync<IList<string>>();
-
                     var viewModel = this.CreateViewModel<SuggestionResultsViewModel>();
-                    viewModel.Suggestions = new ReactiveObservableCollection<string>();
-                    viewModel.Suggestions.AddRange(suggestions);
+                    viewModel.Suggestions = await result.Content.ReadAsAsync<ReactiveObservableCollection<string>>();
 
                     this.ActivateItem(viewModel);
 

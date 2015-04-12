@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="Common\ClientIds.cs" />
     <Compile Include="Common\CultureAwaiter.cs" />
+    <Compile Include="Common\Highlightings.cs" />
     <Compile Include="Configuration\BaseSetting.cs" />
     <Compile Include="Configuration\BoolSetting.cs" />
     <Compile Include="Configuration\IntSetting.cs" />

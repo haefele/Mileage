@@ -191,6 +191,7 @@
     </Compile>
     <Compile Include="AttachedProperties\Runtime.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Converter\StringWithHighlightsToTextBlockConverter.cs" />
     <Compile Include="Events\UserLoggedInEvent.cs" />
     <Compile Include="Events\UserLoggedOutEvent.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />

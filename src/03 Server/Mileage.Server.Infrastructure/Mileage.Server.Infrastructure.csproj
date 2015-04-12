@@ -208,8 +208,6 @@
     <Compile Include="Licensing\LicenseIsInvalidForCurrentVersionValidationFailure.cs" />
     <Compile Include="Licensing\LicensingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Raven\Analyzers\NGramAnalyzer.cs" />
-    <Compile Include="Raven\Analyzers\NGramTokenFilter.cs" />
     <Compile Include="Raven\Indexes\DocumentsForSearch.cs" />
     <Compile Include="Raven\Indexes\UsersByEmailAddress.cs" />
     <Compile Include="Startup.cs" />

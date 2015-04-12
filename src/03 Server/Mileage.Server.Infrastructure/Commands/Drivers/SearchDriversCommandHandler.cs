@@ -54,7 +54,7 @@ namespace Mileage.Server.Infrastructure.Commands.Drivers
                 return Result.AsSuccess(SearchDriversResult.WithDrivers(result));
 
             SuggestionQueryResult suggestions = await this._documentSession.Query<DocumentsForSearch.Result, DocumentsForSearch>()
-                .Search(f => f.SearchTextForSuggestions, command.SearchText)
+                .Search(f => f.SearchText, command.SearchText)
                 .SuggestAsync()
                 .WithCurrentCulture();
 

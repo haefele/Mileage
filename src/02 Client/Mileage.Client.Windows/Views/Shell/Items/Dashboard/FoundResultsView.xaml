@@ -7,6 +7,7 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:models="clr-namespace:Mileage.Shared.Models;assembly=Mileage.Shared"
              xmlns:search="clr-namespace:Mileage.Shared.Entities.Search;assembly=Mileage.Shared"
+             xmlns:converter="clr-namespace:Mileage.Client.Windows.Converter"
              
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -24,6 +25,7 @@
                              ShowBorder="False" 
                              Padding="0"
                              ScrollViewer.CanContentScroll="False"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              >
                 <dxe:ListBoxEdit.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:SearchItem}">
@@ -32,46 +34,70 @@
                                 <dxmvvm:EventToCommand EventName="MouseDoubleClick"
                                                        Command="{Binding DataContext.ShowSelectedItem, ElementName=Self}" />
                             </dxmvvm:Interaction.Behaviors>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0"
-                                       Width="32"
-                                       Height="32"
-                                       Stretch="Uniform"
-                                       >
-                                    <Image.Resources>
-                                        <dxmvvm:ObjectToObjectConverter x:Key="itemToIconConverter">
-                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.User}">
-                                                <dxmvvm:MapItem.Target>
-                                                    <BitmapImage UriSource="../../../../Resources/Icons/user_gray.png" />
-                                                </dxmvvm:MapItem.Target>
-                                            </dxmvvm:MapItem>
-                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Driver}">
-                                                <dxmvvm:MapItem.Target>
-                                                    <BitmapImage UriSource="../../../../Resources/Icons/steering_wheel_common.png" />
-                                                </dxmvvm:MapItem.Target>
-                                            </dxmvvm:MapItem>
-                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Vehicle}">
-                                                <dxmvvm:MapItem.Target>
-                                                    <BitmapImage UriSource="../../../../Resources/Icons/car.png" />
-                                                </dxmvvm:MapItem.Target>
-                                            </dxmvvm:MapItem>
-                                        </dxmvvm:ObjectToObjectConverter>
-                                    </Image.Resources>
-                                    <Image.Source>
-                                        <Binding Path="Item" Converter="{StaticResource itemToIconConverter}" />
-                                    </Image.Source>
-                                </Image>
+                            <dxlc:LayoutControl Orientation="Vertical"
+                                                Padding="0">
+                                <dxlc:LayoutGroup View="GroupBox"
+                                                  Header="{Binding}"
+                                                  Orientation="Vertical"
+                                                  Background="White"
+                                                  >
+                                    <!-- The Header -->
+                                    <dxlc:LayoutGroup.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="1" 
-                                           Text="{Binding DisplayName}"
-                                           VerticalAlignment="Center"
-                                           />
-                            </Grid>
+                                                <Image Width="16"
+                                                       Height="16"
+                                                       Stretch="Uniform"
+                                                       Grid.Column="0">
+                                                    <Image.Resources>
+                                                        <dxmvvm:ObjectToObjectConverter x:Key="itemToIconConverter">
+                                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.User}">
+                                                                <dxmvvm:MapItem.Target>
+                                                                    <BitmapImage UriSource="../../../../Resources/Icons/user_gray.png" />
+                                                                </dxmvvm:MapItem.Target>
+                                                            </dxmvvm:MapItem>
+                                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Driver}">
+                                                                <dxmvvm:MapItem.Target>
+                                                                    <BitmapImage UriSource="../../../../Resources/Icons/steering_wheel_common.png" />
+                                                                </dxmvvm:MapItem.Target>
+                                                            </dxmvvm:MapItem>
+                                                            <dxmvvm:MapItem Source="{x:Static search:SearchableItem.Vehicle}">
+                                                                <dxmvvm:MapItem.Target>
+                                                                    <BitmapImage UriSource="../../../../Resources/Icons/car.png" />
+                                                                </dxmvvm:MapItem.Target>
+                                                            </dxmvvm:MapItem>
+                                                        </dxmvvm:ObjectToObjectConverter>
+                                                    </Image.Resources>
+                                                    <Image.Source>
+                                                        <Binding Path="Item"
+                                                                 Converter="{StaticResource itemToIconConverter}" />
+                                                    </Image.Source>
+                                                </Image>
+
+                                                <ContentPresenter Grid.Column="1" 
+                                                                  Margin="5, 0, 0, 0"
+                                                                  Content="{Binding DisplayName}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </dxlc:LayoutGroup.HeaderTemplate>
+                                
+                                    <!-- The Highlighting -->
+                                    <dxlc:LayoutItem>
+                                        <dxlc:LayoutItem.Resources>
+                                            <converter:StringWithHighlightsToTextBlockConverter x:Key="StringWithHighlightsToTextBlockConverter" />
+                                        </dxlc:LayoutItem.Resources>
+                                        
+                                        <ContentControl Content="{Binding Highlighting, Converter={StaticResource StringWithHighlightsToTextBlockConverter}}" />
+                                    </dxlc:LayoutItem>
+                                    
+                                </dxlc:LayoutGroup>
+                            </dxlc:LayoutControl>
                         </ContentControl>
                     </DataTemplate>
                 </dxe:ListBoxEdit.ItemTemplate>

@@ -7,6 +7,7 @@ using Mileage.Server.Contracts.Commands.Drivers;
 using Mileage.Server.Contracts.Commands.Search;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Server.Infrastructure.Raven.Indexes;
+using Mileage.Shared.Common;
 using Mileage.Shared.Extensions;
 using Mileage.Shared.Models;
 using Mileage.Shared.Results;
@@ -38,7 +39,7 @@ namespace Mileage.Server.Infrastructure.Commands.Search
             
             //If we find no results, we can suggest spelling corrections to the user
             SuggestionQueryResult suggestions = await this._documentSession.Query<DocumentsForSearch.Result, DocumentsForSearch>()
-                .Search(f => f.SearchTextForSuggestions, command.SearchText)
+                .Search(f => f.SearchText, command.SearchText)
                 .SuggestAsync()
                 .WithCurrentCulture();
 
@@ -51,7 +52,7 @@ namespace Mileage.Server.Infrastructure.Commands.Search
                     .WithCurrentCulture();
 
                 if (result.Any())
-                    return Result.AsSuccess(SearchResult.WithItemsThroughSuggestion(suggestions.Suggestions.First(), result.Select(f => new SearchItem(f.Id, f.DisplayName, f.Item))));
+                    return Result.AsSuccess(SearchResult.WithItemsThroughSuggestion(suggestions.Suggestions.First(), result));
             }
 
             //Return the suggestions if any
@@ -68,7 +69,11 @@ namespace Mileage.Server.Infrastructure.Commands.Search
             if (searchText != null)
                 query.Search((DocumentsForSearch.Result f) => f.SearchText, searchText, EscapeQueryOptions.EscapeAll);
 
+            FieldHighlightings highlightings;
+
             var result = await query
+                .Highlight((DocumentsForSearch.Result f) => f.SearchText, 128, 1, out highlightings)
+                .SetHighlighterTags(Highlightings.StartTag, Highlightings.EndTag)
                 .SelectFields<DocumentsForSearch.Result>()
                 .Skip(skip)
                 .Take(take)
@@ -76,7 +81,7 @@ namespace Mileage.Server.Infrastructure.Commands.Search
                 .WithCurrentCulture();
 
             return result
-                .Select(f => new SearchItem(f.Id, f.DisplayName, f.Item))
+                .Select(f => new SearchItem(f.Id, f.DisplayName, f.Item, highlightings.GetFragments(f.Id).FirstOrDefault()))
                 .ToList();
         }
     }

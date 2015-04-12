@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Mileage.Server.Infrastructure.Raven.Analyzers;
 using Mileage.Shared.Entities.Drivers;
 using Mileage.Shared.Entities.Search;
 using Mileage.Shared.Entities.Users;
@@ -17,7 +16,6 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
             public string DisplayName { get; set; }
             public SearchableItem Item { get; set; }
             public string[] SearchText { get; set; }
-            public string[] SearchTextForSuggestions { get; set; }
         }
 
         public DocumentsForSearch()
@@ -43,22 +41,7 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
                                 driver.Address.PostalCode,
                                 driver.Address.Street
                             })
-                        .ToArray(),
-                    SearchTextForSuggestions = driver.Tags
-                        .Concat(driver.DriversLicenses.Select(f => f.Class))
-                        .Concat(new[]
-                            {
-                                driver.FirstName,
-                                driver.LastName,
-                                driver.MobileNumber,
-                                driver.PhoneNumber,
-                                driver.EmailAddress,
-                                driver.Comment,
-                                driver.Address.City,
-                                driver.Address.PostalCode,
-                                driver.Address.Street
-                            })
-                        .ToArray(),
+                        .ToArray()
                 });
 
             this.AddMap<User>(users => 
@@ -73,13 +56,7 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
                             {
                                 user.EmailAddress,
                             })
-                        .ToArray(),
-                    SearchTextForSuggestions = user.Tags
-                        .Concat(new[]
-                            {
-                                user.EmailAddress,
-                            })
-                        .ToArray(),
+                        .ToArray()
                 });
 
             this.AddMap<Vehicle>(vehicles => 
@@ -95,22 +72,12 @@ namespace Mileage.Server.Infrastructure.Raven.Indexes
                                 vehicle.Model,
                                 vehicle.Make
                             })
-                        .ToArray(),
-                    SearchTextForSuggestions = vehicle.Tags
-                        .Concat(new[]
-                            {
-                                vehicle.Model,
-                                vehicle.Make
-                            })
-                        .ToArray(),
+                        .ToArray()
                 });
 
             this.Index(f => f.SearchText, FieldIndexing.Analyzed);
-            this.Index(f => f.SearchTextForSuggestions, FieldIndexing.Analyzed);
-
-            this.Analyze(f => f.SearchText, typeof(NGramAnalyzer).AssemblyQualifiedName);
-
-            this.Suggestion(f => f.SearchTextForSuggestions);
+            this.Suggestion(f => f.SearchText);
+            this.TermVector(f => f.SearchText, FieldTermVector.WithPositionsAndOffsets);
 
             this.StoreAllFields(FieldStorage.Yes);
         }

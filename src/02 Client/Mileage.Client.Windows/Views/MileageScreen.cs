@@ -5,6 +5,7 @@ using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
 using Castle.Core.Logging;
 using Castle.Windsor;
+using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Client.Contracts.Exceptions;
 using Mileage.Client.Contracts.Localization;
@@ -81,7 +82,7 @@ namespace Mileage.Client.Windows.Views
         /// Initializes a new instance of the <see cref="MileageScreen"/> class.
         /// </summary>
         /// <param name="container">The container.</param>
-        protected MileageScreen(IWindsorContainer container)
+        protected MileageScreen([NotNull]IWindsorContainer container)
         {
             Guard.AgainstNullArgument("container", container);
 
@@ -107,6 +108,7 @@ namespace Mileage.Client.Windows.Views
         /// Creates the specified <typeparamref name="TViewModel"/>.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the viewmodel.</typeparam>
+        [CanBeNull]
         protected virtual TViewModel CreateViewModel<TViewModel>() where TViewModel : ReactivePropertyChangedBase
         {
             return this._container.Resolve<TViewModel>();
@@ -116,6 +118,7 @@ namespace Mileage.Client.Windows.Views
         /// Override this member if the <see cref="DisplayName"/> depends on more properties than just the current language.
         /// For example: If we add a user input to it, you override this methods and combine the base observable and your new one.
         /// </summary>
+        [NotNull]
         protected virtual IObservable<string> GetDisplayNameObservable()
         {
             return this.LocalizationManager.CurrentLanguageObservable
@@ -135,6 +138,7 @@ namespace Mileage.Client.Windows.Views
         /// This works recursively.
         /// </summary>
         /// <typeparam name="T">The type of the parent ViewModel.</typeparam>
+        [CanBeNull]
         protected T GetParent<T>()
             where T : class
         {

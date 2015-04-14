@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using JetBrains.Annotations;
 
 namespace Mileage.Client.Contracts.Localization
 {
@@ -10,26 +11,23 @@ namespace Mileage.Client.Contracts.Localization
         /// <summary>
         /// Gets the current language.
         /// </summary>
+        [NotNull]
         CultureInfo CurrentLanguage { get; }
         /// <summary>
         /// Gets the current language changes.
         /// </summary>
+        [NotNull]
         IObservable<CultureInfo> CurrentLanguageObservable { get; } 
 
         /// <summary>
         /// Changes the application language to the specified <paramref name="culture"/>.
         /// </summary>
         /// <param name="culture">The culture.</param>
-        void ChangeLanguage(CultureInfo culture);
+        void ChangeLanguage([NotNull]CultureInfo culture);
         /// <summary>
         /// Returns all supported languages.
         /// </summary>
+        [NotNull]
         IEnumerable<CultureInfo> GetSupportedLanguages();
-
-        /// <summary>
-        /// Adds an action that will be executed once the language has changed.
-        /// </summary>
-        /// <param name="action">The action.</param>
-        void AddLanguageDependentAction(Action action);
     }
 }

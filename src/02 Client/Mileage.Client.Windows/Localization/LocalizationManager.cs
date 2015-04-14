@@ -30,8 +30,6 @@ namespace Mileage.Client.Windows.Localization
         private readonly IEventAggregator _eventAggregator;
 
         private readonly ReplaySubject<CultureInfo> _currentLanguageObservable;
-
-        private readonly ConcurrentDictionary<Guid, WeakAction> _languageDependentActions;
         #endregion
 
         #region Properties
@@ -70,8 +68,6 @@ namespace Mileage.Client.Windows.Localization
 
             this._currentLanguageObservable = new ReplaySubject<CultureInfo>(1);
 
-            this._languageDependentActions = new ConcurrentDictionary<Guid, WeakAction>();
-
             this.LoadCurrentLanguage();
         }
         #endregion
@@ -85,15 +81,33 @@ namespace Mileage.Client.Windows.Localization
         {
             Guard.AgainstNullArgument("culture", culture);
 
-            if (this.CurrentLanguage != null && this.CurrentLanguage.Equals(culture))
+            if (this.CurrentLanguage.Equals(culture))
                 return;
 
+            this.ChangeLanguageInternal(culture);
+        }
+        /// <summary>
+        /// Returns all supported languages.
+        /// </summary>
+        public IEnumerable<CultureInfo> GetSupportedLanguages()
+        {
+            return Languages.GetSupportedLanguages();
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// Internal implementation used to change the current language.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        private void ChangeLanguageInternal(CultureInfo culture)
+        {
             this.Logger.DebugFormat("Changing application language to '{0}'.", culture.Name);
 
             this.CurrentLanguage = culture;
 
             LocalizeDictionary.Instance.Culture = culture;
-            Execute.OnUIThread(() => 
+            Execute.OnUIThread(() =>
             {
                 Thread.CurrentThread.CurrentCulture = culture;
                 Thread.CurrentThread.CurrentUICulture = culture;
@@ -104,41 +118,19 @@ namespace Mileage.Client.Windows.Localization
 
             this._currentLanguageObservable.OnNext(culture);
             this._eventAggregator.PublishOnUIThreadAsync(new LanguageChangedEvent(this.CurrentLanguage));
-
-            this.ExecuteLanguageDependentActions();
-            this.RemoveDeadLanguageDependentActions();
         }
-        /// <summary>
-        /// Returns all supported languages.
-        /// </summary>
-        public IEnumerable<CultureInfo> GetSupportedLanguages()
-        {
-            return Languages.GetSupportedLanguages();
-        }
-        /// <summary>
-        /// Adds the language dependent action.
-        /// </summary>
-        /// <param name="action">The action.</param>
-        public void AddLanguageDependentAction(System.Action action)
-        {
-            action();
-
-            this._languageDependentActions.GetOrAdd(Guid.NewGuid(), f => new WeakAction(action));
-        }
-        #endregion
-
-        #region Private Methods
         /// <summary>
         /// Loads the current language.
         /// </summary>
         private void LoadCurrentLanguage()
         {
             var languageData = this._dataStorage.Get<LanguageData>(CurrentLanguageId);
+
             CultureInfo language = languageData != null ?
                 new CultureInfo(languageData.Language) :
                 Languages.GetDefaultLanguage();
 
-            this.ChangeLanguage(language);
+            this.ChangeLanguageInternal(language);
         }
         /// <summary>
         /// Saves the language.
@@ -146,30 +138,6 @@ namespace Mileage.Client.Windows.Localization
         private void SaveLanguage()
         {
             this._dataStorage.Store(CurrentLanguageId, new LanguageData { Language = this.CurrentLanguage.Name });
-        }
-        /// <summary>
-        /// Removes the dead language dependent actions.
-        /// </summary>
-        private void RemoveDeadLanguageDependentActions()
-        {
-            foreach (var action in this._languageDependentActions)
-            {
-                if (action.Value.IsAlive == false)
-                {
-                    WeakAction weakAction;
-                    this._languageDependentActions.TryRemove(action.Key, out weakAction);
-                }
-            }
-        }
-        /// <summary>
-        /// Executes the language dependent actions.
-        /// </summary>
-        private void ExecuteLanguageDependentActions()
-        {
-            foreach (var action in this._languageDependentActions)
-            {
-                action.Value.Invoke();
-            }
         }
         #endregion
 

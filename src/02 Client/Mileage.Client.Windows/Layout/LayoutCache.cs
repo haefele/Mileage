@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Anotar.NLog;
 using Caliburn.Micro;
-using Castle.Core.Logging;
 using Mileage.Client.Windows.Events;
 
 namespace Mileage.Client.Windows.Layout
@@ -11,14 +11,7 @@ namespace Mileage.Client.Windows.Layout
         #region Fields
         private readonly Dictionary<string, Dictionary<string, byte[]>> _cache;
         #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        public ILogger Logger { get; set; }
-        #endregion
-
+        
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="LayoutCache"/> class.
@@ -39,13 +32,13 @@ namespace Mileage.Client.Windows.Layout
         {
             if (this._cache.ContainsKey(layoutName) == false)
             {
-                this.Logger.DebugFormat("The layout {0} has changed, we dont have it in our cache.", layoutName);
+                LogTo.Debug("The layout {0} has changed, we dont have it in our cache.", layoutName);
 
                 this._cache.Add(layoutName, layoutData);
                 return true;
             }
 
-            this.Logger.DebugFormat("The layout {0} is in the cache, lets check if it has changed.", layoutName);
+            LogTo.Debug("The layout {0} is in the cache, lets check if it has changed.", layoutName);
 
             Dictionary<string, byte[]> oldValue = this._cache[layoutName];
             this._cache[layoutName] = layoutData;
@@ -53,7 +46,7 @@ namespace Mileage.Client.Windows.Layout
             var comparer = new LayoutComparer();
             var hasChanged = comparer.Equals(oldValue, layoutData) == false;
 
-            this.Logger.DebugFormat("The layout {0} has changed {1}.", layoutName, hasChanged);
+            LogTo.Debug("The layout {0} has changed {1}.", layoutName, hasChanged);
 
             return hasChanged;
         }
@@ -65,7 +58,7 @@ namespace Mileage.Client.Windows.Layout
         {
             if (this._cache.ContainsKey(layoutName))
             {
-                this.Logger.DebugFormat("Returning the layout {0} from the cache.", layoutName);
+                LogTo.Debug("Returning the layout {0} from the cache.", layoutName);
 
                 return this._cache[layoutName];
             }
@@ -81,7 +74,7 @@ namespace Mileage.Client.Windows.Layout
         /// <param name="message">The message.</param>
         void IHandle<UserLoggedOutEvent>.Handle(UserLoggedOutEvent message)
         {
-            this.Logger.DebugFormat("Cleaning the cache because the user logged out.");
+            LogTo.Debug("Cleaning the cache because the user logged out.");
             this._cache.Clear();
         }
         #endregion

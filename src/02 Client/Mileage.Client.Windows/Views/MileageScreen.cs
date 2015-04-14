@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
-using System.Runtime.Remoting.Messaging;
 using Caliburn.Micro;
 using Caliburn.Micro.ReactiveUI;
-using Castle.Core.Logging;
 using Castle.Windsor;
 using JetBrains.Annotations;
 using LiteGuard;
@@ -23,14 +21,7 @@ namespace Mileage.Client.Windows.Views
         private readonly IWindsorContainer _container;
         private readonly ObservableAsPropertyHelper<string> _displayNameHelper;
         #endregion
-
-        #region Logger
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        public ILogger Logger { get; set; }
-        #endregion
-
+        
         #region Properties
         /// <summary>
         /// Gets or sets the message service.
@@ -87,8 +78,6 @@ namespace Mileage.Client.Windows.Views
             Guard.AgainstNullArgument("container", container);
 
             this._container = container;
-
-            this.Logger = NullLogger.Instance;
 
             this.MessageService = container.Resolve<IMessageService>();
             this.ExceptionHandler = container.Resolve<IExceptionHandler>();

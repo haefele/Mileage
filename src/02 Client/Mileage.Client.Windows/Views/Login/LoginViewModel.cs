@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Anotar.NLog;
 using Caliburn.Micro;
 using Castle.Windsor;
 using Mileage.Client.Windows.Events;
@@ -83,12 +84,12 @@ namespace Mileage.Client.Windows.Views.Login
                 PasswordMD5Hash = this.GetPasswordMD5Hash()
             };
 
-            this.Logger.DebugFormat("Login try with email address '{0}' and password MD5 hash '{1}'.", data.EmailAddress, string.Join("-", data.PasswordMD5Hash));
+            LogTo.Debug("Login try with email address '{0}' and password MD5 hash '{1}'.", data.EmailAddress, string.Join("-", data.PasswordMD5Hash));
 
             HttpResponseMessage response = await this.WebService.Authentication.LoginAsync(data);
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                this.Logger.DebugFormat("Login failed.");
+                LogTo.Debug("Login failed.");
 
                 var error = await response.Content.ReadAsAsync<HttpError>();
                 this.ExceptionHandler.Handle(error);
@@ -96,7 +97,7 @@ namespace Mileage.Client.Windows.Views.Login
                 return;
             }
 
-            this.Logger.DebugFormat("Login was successfull.");
+            LogTo.Debug("Login was successfull.");
 
             var token = await response.Content.ReadAsAsync<AuthenticationToken>();
             this.Session.Token = token;

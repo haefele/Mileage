@@ -1,19 +1,14 @@
-﻿using System.Net;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using Castle.Core.Logging;
+using Anotar.NLog;
 using LiteGuard;
 using Microsoft.Owin;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Infrastructure.Api.Data;
-using Mileage.Server.Infrastructure.Api.Filters;
-using Mileage.Shared.Results;
-using Raven.Client;
-using Raven.Client.FileSystem;
-using Raven.Database.FileSystem.Storage.Voron.Impl;
+using NLog.Fluent;
 
 namespace Mileage.Server.Infrastructure.Api.Controllers
 {
@@ -34,10 +29,6 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </summary>
         public ICommandExecutor CommandExecutor { get; private set; }
         /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        public ILogger Logger { get; set; }
-        /// <summary>
         /// Gets the owin context.
         /// </summary>
         public IOwinContext OwinContext
@@ -54,17 +45,31 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 if (this._paging != null)
                     return this._paging;
 
+                LogTo.Debug("Trying to get the paging information.");
+
                 string skipString = this.OwinContext.Request.Query.Get("skip");
+
+                LogTo.Debug("Query value 'skip' is {0}.", skipString);
 
                 int skip;
                 if (int.TryParse(skipString, out skip) == false)
+                {
+                    LogTo.Debug("Could not parse 'skip' query value. Using default value of {0}.", DefaultSkip);
                     skip = DefaultSkip;
+                }
                 
                 string takeString = this.OwinContext.Request.Query.Get("take");
 
+                LogTo.Debug("Query value 'take' is {0}.", takeString);
+
                 int take;
                 if (int.TryParse(takeString, out take) == false)
+                {
+                    LogTo.Debug("Could not parse 'take' query value. Using default value of {0}.", DefaultTake);
                     take = DefaultTake;
+                }
+
+                LogTo.Debug("Parsed paging information. Skip: {0} Take: {1}", skip, take);
 
                 return this._paging = new PagingInfo(skip, take);
             }
@@ -81,22 +86,6 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
             Guard.AgainstNullArgument("commandExecutor", commandExecutor);
 
             this.CommandExecutor = commandExecutor;
-
-            this.Logger = NullLogger.Instance;
-        }
-        #endregion
-
-        #region Overrides of ApiController
-        /// <summary>
-        /// Executes asynchronously a single HTTP operation.
-        /// </summary>
-        /// <param name="controllerContext">The controller context for a single HTTP operation.</param>
-        /// <param name="cancellationToken">The cancellation token assigned for the HTTP operation.</param>
-        public override async Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
-        {
-            HttpResponseMessage response = await base.ExecuteAsync(controllerContext, cancellationToken);
-
-            return response;
         }
         #endregion
     }

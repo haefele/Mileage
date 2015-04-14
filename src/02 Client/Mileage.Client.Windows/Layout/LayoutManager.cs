@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,18 +7,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Windows;
-using Caliburn.Micro;
-using Castle.Core.Logging;
+using Anotar.NLog;
 using DevExpress.Xpf.Core.Native;
-using DevExpress.XtraPrinting.Native.LayoutAdjustment;
 using LiteGuard;
 using Mileage.Client.Contracts.Layout;
 using Mileage.Client.Windows.Layout.Serializer;
 using Mileage.Client.Windows.WebServices;
-using Mileage.Shared.Entities.Layout;
 using Mileage.Shared.Entities.Users;
-using Newtonsoft.Json.Linq;
-using ReactiveUI;
 
 namespace Mileage.Client.Windows.Layout
 {
@@ -31,13 +24,6 @@ namespace Mileage.Client.Windows.Layout
         private readonly WebServiceClient _webServiceClient;
 
         private readonly LayoutCache _layoutCache;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        public ILogger Logger { get; set; }
         #endregion
 
         #region Constructors
@@ -52,9 +38,7 @@ namespace Mileage.Client.Windows.Layout
             Guard.AgainstNullArgument("layoutSerializers", layoutSerializers);
             Guard.AgainstNullArgument("webServiceClient", webServiceClient);
             Guard.AgainstNullArgument("layoutCache", layoutCache);
-
-            this.Logger = NullLogger.Instance;
-
+            
             this._layoutSerializers = layoutSerializers;
             this._webServiceClient = webServiceClient;
             this._layoutCache = layoutCache;
@@ -86,7 +70,7 @@ namespace Mileage.Client.Windows.Layout
             if (saveResponse.StatusCode != HttpStatusCode.Created)
             {
                 HttpError error = await saveResponse.Content.ReadAsAsync<HttpError>();
-                this.Logger.DebugFormat(error.Message);
+                LogTo.Debug(error.Message);
             }
         }
         public async Task RestoreLayoutAsync(User user, string layoutName, DependencyObject control)
@@ -129,7 +113,7 @@ namespace Mileage.Client.Windows.Layout
                 //See if we should ignore this control
                 if (LayoutSettings.GetIgnoreChildControls(currentElement))
                 {
-                    this.Logger.DebugFormat("Ignoring all children of this control {0} (Name: {1}).", currentElement.GetType(), currentElementName);
+                    LogTo.Debug("Ignoring all children of this control {0} (Name: {1}).", currentElement.GetType(), currentElementName);
 
                     ignoredParentElements.Add(currentElement);
                     continue;
@@ -144,7 +128,7 @@ namespace Mileage.Client.Windows.Layout
                 //See if any of our parents was ignored
                 if (enumerator.GetVisualParents().Any(ignoredParentElements.Contains))
                 {
-                    this.Logger.DebugFormat("Ignoring this control {0} (Name: {1}) because a parent was ignored.", currentElement.GetType(), currentElementName);
+                    LogTo.Debug("Ignoring this control {0} (Name: {1}) because a parent was ignored.", currentElement.GetType(), currentElementName);
                     continue;
                 }
 
@@ -153,7 +137,7 @@ namespace Mileage.Client.Windows.Layout
 
                 if (string.IsNullOrWhiteSpace(controlName))
                 {
-                    this.Logger.DebugFormat("Wanted to work with layout of {0} (Name: {1}) but it has no name.", currentElement.GetType(), currentElementName);
+                    LogTo.Debug("Wanted to work with layout of {0} (Name: {1}) but it has no name.", currentElement.GetType(), currentElementName);
                     continue;
                 }
                 
@@ -168,7 +152,7 @@ namespace Mileage.Client.Windows.Layout
             if (getLayoutResponse.StatusCode != HttpStatusCode.Found)
             {
                 HttpError error = await getLayoutResponse.Content.ReadAsAsync<HttpError>();
-                this.Logger.DebugFormat(error.Message);
+                LogTo.Debug(error.Message);
 
                 return null;
             }

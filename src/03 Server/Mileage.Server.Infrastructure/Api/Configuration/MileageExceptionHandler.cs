@@ -4,8 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
-using System.Web.Http.Results;
-using Castle.Core.Logging;
 using LiteGuard;
 using Mileage.Localization.Server;
 using Mileage.Server.Infrastructure.Api.Filters;

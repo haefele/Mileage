@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Http;
-using System.Windows;
-using Castle.Core.Logging;
+using Anotar.NLog;
 using LiteGuard;
 using Mileage.Client.Contracts.Exceptions;
 using Mileage.Client.Contracts.Messages;
@@ -15,14 +14,7 @@ namespace Mileage.Client.Windows.Exceptions
         #region Fields
         private readonly IMessageService _messageService;
         #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        public ILogger Logger { get; set; }
-        #endregion
-
+        
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionHandler"/> class.
@@ -33,8 +25,6 @@ namespace Mileage.Client.Windows.Exceptions
             Guard.AgainstNullArgument("messageService", messageService);
 
             this._messageService = messageService;
-
-            this.Logger = NullLogger.Instance;
         }
         #endregion
 
@@ -54,11 +44,11 @@ namespace Mileage.Client.Windows.Exceptions
         /// <param name="exception">The exception.</param>
         public void Handle(Exception exception)
         {
-            this.Logger.Error("Exception occured.", exception);
+            LogTo.ErrorException("Exception occured.", exception);
 
             if (exception is KnownException)
             {
-                this.Logger.Debug("The exception is a KnownException, just showing the message to the user.");
+                LogTo.Debug("The exception is a KnownException, just showing the message to the user.");
 
                 this._messageService.ShowConfirmationDialog(exception.Message, CommonMessages.Error, MessageImage.Information);
             }

@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Anotar.NLog;
 using Caliburn.Micro;
-using Castle.Core.Logging;
-using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using DevExpress.Xpf.Core;
@@ -128,10 +125,7 @@ namespace Mileage.Client.Windows
         /// <param name="e">The event args.</param>
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            var loggerFactory = this._container.Resolve<ILoggerFactory>();
-
-            ILogger logger = loggerFactory.Create("Mileage.GlobalExceptionHandler");
-            logger.Error("An unhandled error occured.", e.Exception);
+            LogTo.ErrorException("An unhandled error occured.", e.Exception);
         }
         #endregion
 

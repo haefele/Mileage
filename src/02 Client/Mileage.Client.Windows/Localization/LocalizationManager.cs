@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
+using Anotar.NLog;
 using Caliburn.Micro;
-using Castle.Core.Logging;
 using LiteGuard;
 using Mileage.Client.Contracts.Localization;
 using Mileage.Client.Contracts.Storage;
 using Mileage.Localization;
-using Weakly;
 using WPFLocalizeExtension.Engine;
 
 namespace Mileage.Client.Windows.Localization
@@ -33,10 +30,6 @@ namespace Mileage.Client.Windows.Localization
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        public ILogger Logger { get; set; }
         /// <summary>
         /// Gets the current language.
         /// </summary>
@@ -60,9 +53,7 @@ namespace Mileage.Client.Windows.Localization
         {
             Guard.AgainstNullArgument("dataStorage", dataStorage);
             Guard.AgainstNullArgument("eventAggregator", eventAggregator);
-
-            this.Logger = NullLogger.Instance;
-
+            
             this._dataStorage = dataStorage;
             this._eventAggregator = eventAggregator;
 
@@ -102,7 +93,7 @@ namespace Mileage.Client.Windows.Localization
         /// <param name="culture">The culture.</param>
         private void ChangeLanguageInternal(CultureInfo culture)
         {
-            this.Logger.DebugFormat("Changing application language to '{0}'.", culture.Name);
+            LogTo.Debug("Changing application language to '{0}'.", culture.Name);
 
             this.CurrentLanguage = culture;
 

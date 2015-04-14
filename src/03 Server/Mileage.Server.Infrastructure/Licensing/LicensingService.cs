@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
-using System.Text;
-using Castle.Core.Logging;
+using Anotar.NLog;
 using JetBrains.Annotations;
 using LiteGuard;
 using Mileage.Localization.Server.Licensing;
@@ -33,13 +32,6 @@ namespace Mileage.Server.Infrastructure.Licensing
         private License _license;
         #endregion
 
-        #region Properties
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        public ILogger Logger { get; set; }
-        #endregion
-
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="LicensingService"/> class.
@@ -53,8 +45,6 @@ namespace Mileage.Server.Infrastructure.Licensing
 
             this._versionService = versionService;
             this._fileSystem = fileSystem;
-
-            this.Logger = NullLogger.Instance;
         }
         #endregion
 
@@ -69,13 +59,13 @@ namespace Mileage.Server.Infrastructure.Licensing
 
             if (string.IsNullOrWhiteSpace(licensePath))
             {
-                this.Logger.WarnFormat("License path is empty.");
+                LogTo.Warn("License path is empty.");
                 return Result.AsError(LicensingMessages.LicenseNotFound);
             }
 
             if (this._fileSystem.FileInfo.FromFileName(licensePath).Exists == false)
             {
-                this.Logger.WarnFormat("License not found. Path is: {0}", licensePath);
+                LogTo.Warn("License not found. Path is: {0}", licensePath);
                 return Result.AsError(LicensingMessages.LicenseNotFound);
             }
 
@@ -97,7 +87,7 @@ namespace Mileage.Server.Infrastructure.Licensing
             Guard.AgainstNullArgument("clientId", clientId);
 
 #if DEBUG
-            this.Logger.Debug("Running in DEBUG mode, not validating the license.");
+            LogTo.Debug("Running in DEBUG mode, not validating the license.");
             return Result.AsSuccess();
 #else
 
@@ -119,7 +109,7 @@ namespace Mileage.Server.Infrastructure.Licensing
             {
                 string licenseErrorMessages = this.GetLicenseErrorMessagesForClient(errors);
 
-                this.Logger.ErrorFormat("The license is invalid. {0}", licenseErrorMessages);
+                LogTo.Error("The license is invalid. {0}", licenseErrorMessages);
                 return Result.AsError(string.Format(LicensingMessages.LicenseIsInvalid, licenseErrorMessages));
             }
 
@@ -184,7 +174,7 @@ namespace Mileage.Server.Infrastructure.Licensing
                         if (f is LicenseExpiredValidationFailure)
                             return LicensingMessages.LicenseExpired;
 
-                        this.Logger.DebugFormat("Creating license error message for the client. Could not identify this validation failure: {0}", f.GetType());
+                        LogTo.Debug("Creating license error message for the client. Could not identify this validation failure: {0}", f.GetType());
 
                         return string.Empty;
                     })

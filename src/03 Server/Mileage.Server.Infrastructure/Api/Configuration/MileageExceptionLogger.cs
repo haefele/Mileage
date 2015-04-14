@@ -1,6 +1,5 @@
 ﻿using System.Web.Http.ExceptionHandling;
-using Castle.Core.Logging;
-using Mileage.Server.Infrastructure.Extensions;
+using Anotar.NLog;
 
 namespace Mileage.Server.Infrastructure.Api.Configuration
 {
@@ -12,10 +11,7 @@ namespace Mileage.Server.Infrastructure.Api.Configuration
         /// <param name="context">The exception logger context.</param>
         public override void Log(ExceptionLoggerContext context)
         {
-            var loggerFactory = context.RequestContext.Configuration.DependencyResolver.GetService<ILoggerFactory>();
-            var logger = loggerFactory.Create("Mileage.GlobalExceptionHandler");
-
-            logger.Error(string.Format("Unhandled exception. Returning 501 Internal Server Error. Catch block: {0}", context.CatchBlock), context.Exception);
+            LogTo.ErrorException(string.Format("Unhandled exception. Returning 501 Internal Server Error. Catch block: {0}", context.CatchBlock), context.Exception);
         }
     }
 }

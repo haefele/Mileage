@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Anotar.NLog;
 using Caliburn.Micro;
-using Castle.Core.Logging;
 
 namespace Mileage.Client.Windows.Resources
 {
@@ -67,10 +67,7 @@ namespace Mileage.Client.Windows.Resources
                     }
                     catch (Exception exception)
                     {
-                        var loggerFactory = IoC.Get<ILoggerFactory>();
-                        var logger = loggerFactory.Create(typeof (Icon));
-
-                        logger.Error(string.Format("Exception while creating image {0}.", fileName), exception);
+                        LogTo.ErrorException(string.Format("Exception while creating image {0}.", fileName), exception);
                         throw;
                     }
                 }

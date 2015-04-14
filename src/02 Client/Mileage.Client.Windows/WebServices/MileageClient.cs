@@ -4,16 +4,14 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Castle.Core.Logging;
+using Anotar.NLog;
 using LiteGuard;
 using Mileage.Client.Contracts.Localization;
 using Mileage.Client.Contracts.Versioning;
 using Mileage.Localization.Client;
 using Mileage.Shared.Common;
-using Mileage.Shared.Entities;
 using Newtonsoft.Json;
 
 namespace Mileage.Client.Windows.WebServices
@@ -26,13 +24,8 @@ namespace Mileage.Client.Windows.WebServices
         private readonly Session _session;
         private readonly HttpClient _client;
         #endregion
-
-        #region Properties
-        public ILogger Logger { get; set; }
-        #endregion
-
+        
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MileageClient"/> class.
         /// </summary>
@@ -51,8 +44,6 @@ namespace Mileage.Client.Windows.WebServices
             this._versionService = versionService;
             this._session = session;
             this._client = this.CreateHttpClient(baseAddress);
-
-            this.Logger = NullLogger.Instance;
         }
         #endregion
 
@@ -94,7 +85,7 @@ namespace Mileage.Client.Windows.WebServices
             }
             catch (Exception exception)
             {
-                this.Logger.ErrorFormat("Exception while executing request.", exception);
+                LogTo.ErrorException("Exception while executing request.", exception);
                 return this.CreateNotReachableResponse();
             }
         }

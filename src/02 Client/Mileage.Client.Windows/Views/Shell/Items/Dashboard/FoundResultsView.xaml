@@ -21,9 +21,10 @@
     <dxlc:LayoutControl Orientation="Vertical" Padding="0">
         <dxlc:LayoutItem VerticalAlignment="Stretch">
             <dxe:ListBoxEdit ItemsSource="{Binding Items}"
-                             SelectedItem="{Binding SelectedItem}"
+                             EditValue="{Binding SelectedItem}"
                              ShowBorder="False" 
                              Padding="0"
+                             HorizontalContentAlignment="Stretch"
                              ScrollViewer.CanContentScroll="False"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              >

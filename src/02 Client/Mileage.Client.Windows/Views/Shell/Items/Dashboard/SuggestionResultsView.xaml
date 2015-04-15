@@ -22,7 +22,9 @@
                              EditValue="{Binding SelectedSuggestion}"
                              ShowBorder="False"
                              Padding="0"
+                             HorizontalContentAlignment="Stretch"
                              ScrollViewer.CanContentScroll="False"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              >
                 <dxe:ListBoxEdit.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:SearchItem}">

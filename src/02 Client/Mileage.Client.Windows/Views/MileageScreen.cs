@@ -64,7 +64,7 @@ namespace Mileage.Client.Windows.Views
 
                 return this._displayNameHelper.Value;
             }
-            set { throw new NotSupportedException(); }
+            set { /* Do nothing, we dont allow setting the display name */ }
         }
         #endregion
 

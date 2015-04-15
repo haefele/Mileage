@@ -1,23 +1,49 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using Caliburn.Micro;
 using Castle.Windsor;
 using Mileage.Client.Windows.Extensions;
 using Mileage.Localization.Client.Shell;
+using ReactiveUI;
 
 namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 {
-    public class DashboardViewModel : MileageConductor<MileageScreen>.Collection.AllActive, IShellItem
+    public class DashboardViewModel : MileageConductor<DashboardItemViewModel>.Collection.AllActive, IShellItem
     {
+        #region Commands
+        public ReactiveCommand<object> ManageDashboardItems { get; private set; }
+        #endregion
+
         public DashboardViewModel(IWindsorContainer container)
             : base(container)
         {
+            this.CreateCommands();
+        }
+
+        private void CreateCommands()
+        {
+            this.ManageDashboardItems = ReactiveCommand.Create();
+            this.ManageDashboardItems.Subscribe(_ =>
+            {
+                this.Items.Remove(this.Items.LastOrDefault());
+            });
         }
 
         protected override void OnInitialize()
         {
             this.PopupViewModel = this.CreateViewModel<DashboardPopupViewModel>();
             this.PopupViewModel.TryActivate();
+
+            this.Items.Add(this.CreateViewModel<DashboardItemViewModel>());
+            this.Items[0].ActivateItem(this.CreateViewModel<DashboardPopupViewModel>());
+            this.Items[0].DashboardItemName = "Erstes Panel";
+            this.Items.Add(this.CreateViewModel<DashboardItemViewModel>());
+            this.Items[1].ActivateItem(this.CreateViewModel<DashboardPopupViewModel>());
+            this.Items[1].DashboardItemName = "Noch ein drittes Panel, omg!";
+            this.Items.Add(this.CreateViewModel<DashboardItemViewModel>());
+            this.Items[2].ActivateItem(this.CreateViewModel<DashboardPopupViewModel>());
+            this.Items[2].DashboardItemName = "Zweites Panel!";
         }
 
         protected override void OnDeactivate(bool close)

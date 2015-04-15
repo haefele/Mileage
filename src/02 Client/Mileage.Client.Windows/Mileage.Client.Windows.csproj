@@ -195,9 +195,11 @@
     <Compile Include="Events\UserLoggedOutEvent.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
+    <Compile Include="Extensibility\DockLayoutManagerLayoutAdapter.cs" />
     <Compile Include="Extensions\MileageScreenExtensions.cs" />
     <Compile Include="Layout\LayoutCache.cs" />
     <Compile Include="Layout\SaveAndRestoreLayout.cs" />
+    <Compile Include="Layout\Serializer\DockLayoutManagerLayoutSerializer.cs" />
     <Compile Include="Layout\Serializer\GridControlLayoutSerializer.cs" />
     <Compile Include="Layout\Serializer\LayoutSerializerBase.cs" />
     <Compile Include="Layout\Serializer\ILayoutSerializer.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="Views\MileageConductorBaseWithActiveItem.cs" />
     <Compile Include="Views\MileageScreen.cs" />
     <Compile Include="Views\MileageConductorWithCollectionOneActive.cs" />
+    <Compile Include="Views\Shell\Items\Dashboard\DashboardItemViewModel.cs" />
     <Compile Include="Views\Shell\Items\Dashboard\FoundResultsView.xaml.cs">
       <DependentUpon>FoundResultsView.xaml</DependentUpon>
     </Compile>

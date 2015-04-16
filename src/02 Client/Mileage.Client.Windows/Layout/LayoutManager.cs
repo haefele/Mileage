@@ -46,11 +46,8 @@ namespace Mileage.Client.Windows.Layout
         #endregion
 
         #region Methods
-        public async Task SaveLayoutAsync(User user, string layoutName, DependencyObject control)
+        public async Task SaveLayoutForCurrentUserAsync(string layoutName, DependencyObject control)
         {
-            if (user == null)
-                return;
-            
             var layoutData = new Dictionary<string, byte[]>();
 
             this.ExecuteForFoundElements(control, (serializer, element, controlName) =>
@@ -73,11 +70,8 @@ namespace Mileage.Client.Windows.Layout
                 LogTo.Debug(error.Message);
             }
         }
-        public async Task RestoreLayoutAsync(User user, string layoutName, DependencyObject control)
+        public async Task RestoreLayoutForCurrentUserAsync(string layoutName, DependencyObject control)
         {
-            if (user == null)
-                return;
-
             Dictionary<string, byte[]> cachedLayout = this._layoutCache.Get(layoutName) ?? await this.GetLayoutFromWebService(layoutName);
 
             if (cachedLayout == null)
@@ -145,7 +139,6 @@ namespace Mileage.Client.Windows.Layout
                 action(serializer, currentElement, controlName);
             }
         }
-        
         private async Task<Dictionary<string, byte[]>> GetLayoutFromWebService(string layoutName)
         {
             var getLayoutResponse = await this._webServiceClient.LayoutClient.GetLayoutAsync(layoutName);

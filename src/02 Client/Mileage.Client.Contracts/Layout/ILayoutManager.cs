@@ -6,8 +6,8 @@ namespace Mileage.Client.Contracts.Layout
 {
     public interface ILayoutManager
     {
-        Task SaveLayoutAsync(User user, string layoutName, DependencyObject control);
+        Task SaveLayoutForCurrentUserAsync(string layoutName, DependencyObject control);
 
-        Task RestoreLayoutAsync(User user, string layoutName, DependencyObject control);
+        Task RestoreLayoutForCurrentUserAsync(string layoutName, DependencyObject control);
     }
 }

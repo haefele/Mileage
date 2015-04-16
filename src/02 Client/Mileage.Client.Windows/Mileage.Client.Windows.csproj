@@ -193,6 +193,7 @@
     <Compile Include="Converter\StringWithHighlightsToTextBlockConverter.cs" />
     <Compile Include="Events\UserLoggedInEvent.cs" />
     <Compile Include="Events\UserLoggedOutEvent.cs" />
+    <Compile Include="Events\UserLoggingOutEvent.cs" />
     <Compile Include="Exceptions\ExceptionHandler.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
     <Compile Include="Extensibility\DockLayoutManagerLayoutAdapter.cs" />

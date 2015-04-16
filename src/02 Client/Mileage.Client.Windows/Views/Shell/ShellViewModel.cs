@@ -48,6 +48,7 @@ namespace Mileage.Client.Windows.Views.Shell
         private void LogoutImpl()
         {
             User user = this.Session.CurrentUser;
+            this.EventAggregator.PublishOnCurrentThread(new UserLoggingOutEvent(user));
             this.Session.Clear();
             this.EventAggregator.PublishOnCurrentThread(new UserLoggedOutEvent(user));
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Media;
 using Caliburn.Micro.ReactiveUI;
@@ -9,7 +8,7 @@ using Mileage.Client.Windows.Resources;
 using Mileage.Shared.Models;
 using ReactiveUI;
 
-namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
+namespace Mileage.Client.Windows.Views.SimpleSearch
 {
     public class FoundResultsViewModel : SearchResultViewModel
     {

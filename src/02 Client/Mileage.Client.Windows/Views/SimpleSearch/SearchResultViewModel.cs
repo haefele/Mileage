@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using Castle.Windsor;
 
-namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
+namespace Mileage.Client.Windows.Views.SimpleSearch
 {
     public abstract class SearchResultViewModel : MileageScreen
     {

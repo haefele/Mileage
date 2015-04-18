@@ -2,12 +2,10 @@
 using System.Windows.Media;
 using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
-using DevExpress.Mvvm.POCO;
-using DevExpress.Xpf.Core.HandleDecorator;
 using Mileage.Client.Windows.Resources;
 using ReactiveUI;
 
-namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
+namespace Mileage.Client.Windows.Views.SimpleSearch
 {
     public class SuggestionResultsViewModel : SearchResultViewModel
     {
@@ -51,7 +49,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
             this.SearchSuggestion = ReactiveCommand.Create(canSearchSuggestion);
             this.SearchSuggestion.Subscribe(async _ =>
             {
-                var parent = this.GetParent<DashboardPopupViewModel>();
+                var parent = this.GetParent<SimpleSearchViewModel>();
 
                 if (parent == null)
                     return;

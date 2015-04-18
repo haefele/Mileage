@@ -228,24 +228,24 @@
     <Compile Include="Views\MileageScreen.cs" />
     <Compile Include="Views\MileageConductorWithCollectionOneActive.cs" />
     <Compile Include="Views\Shell\Items\Dashboard\DashboardItemViewModel.cs" />
-    <Compile Include="Views\Shell\Items\Dashboard\FoundResultsView.xaml.cs">
+    <Compile Include="Views\SimpleSearch\FoundResultsView.xaml.cs">
       <DependentUpon>FoundResultsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\Dashboard\FoundResultsViewModel.cs" />
-    <Compile Include="Views\Shell\Items\Dashboard\SearchResultViewModel.cs" />
-    <Compile Include="Views\Shell\Items\Dashboard\NoResultsView.xaml.cs">
+    <Compile Include="Views\SimpleSearch\FoundResultsViewModel.cs" />
+    <Compile Include="Views\SimpleSearch\SearchResultViewModel.cs" />
+    <Compile Include="Views\SimpleSearch\NoResultsView.xaml.cs">
       <DependentUpon>NoResultsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\Dashboard\NoResultsViewModel.cs" />
-    <Compile Include="Views\Shell\Items\Dashboard\SuggestionResultsView.xaml.cs">
+    <Compile Include="Views\SimpleSearch\NoResultsViewModel.cs" />
+    <Compile Include="Views\SimpleSearch\SuggestionResultsView.xaml.cs">
       <DependentUpon>SuggestionResultsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\Dashboard\SuggestionResultsViewModel.cs" />
+    <Compile Include="Views\SimpleSearch\SuggestionResultsViewModel.cs" />
     <Compile Include="Views\Shell\Items\IHaveRibbonToMerge.cs" />
-    <Compile Include="Views\Shell\Items\Dashboard\DashboardPopupView.xaml.cs">
-      <DependentUpon>DashboardPopupView.xaml</DependentUpon>
+    <Compile Include="Views\SimpleSearch\SimpleSearchView.xaml.cs">
+      <DependentUpon>SimpleSearchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shell\Items\Dashboard\DashboardPopupViewModel.cs" />
+    <Compile Include="Views\SimpleSearch\SimpleSearchViewModel.cs" />
     <Compile Include="Views\Shell\Items\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -332,7 +332,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\Dashboard\DashboardPopupView.xaml">
+    <Page Include="Views\SimpleSearch\SimpleSearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -340,15 +340,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\Dashboard\FoundResultsView.xaml">
+    <Page Include="Views\SimpleSearch\FoundResultsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\Dashboard\NoResultsView.xaml">
+    <Page Include="Views\SimpleSearch\NoResultsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell\Items\Dashboard\SuggestionResultsView.xaml">
+    <Page Include="Views\SimpleSearch\SuggestionResultsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

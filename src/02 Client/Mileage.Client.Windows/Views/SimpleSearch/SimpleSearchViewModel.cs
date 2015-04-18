@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reactive;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Windows.Documents;
 using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
-using DevExpress.Utils.Crypt;
-using Mileage.Shared.Entities.Search;
 using Mileage.Shared.Models;
 using ReactiveUI;
 
-namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
+namespace Mileage.Client.Windows.Views.SimpleSearch
 {
-    public class DashboardPopupViewModel : MileageConductor<SearchResultViewModel>
+    public class SimpleSearchViewModel : MileageConductor<SearchResultViewModel>
     {
         #region Fields
         private string _searchText;
@@ -42,7 +36,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
         public ReactiveCommand<Unit> Search { get; private set; }
         #endregion
 
-        public DashboardPopupViewModel(IWindsorContainer container)
+        public SimpleSearchViewModel(IWindsorContainer container)
             : base(container)
         {
             this.CreateCommands();

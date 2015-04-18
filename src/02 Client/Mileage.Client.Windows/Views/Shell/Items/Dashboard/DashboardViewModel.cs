@@ -4,6 +4,7 @@ using System.Linq;
 using Caliburn.Micro;
 using Castle.Windsor;
 using Mileage.Client.Windows.Extensions;
+using Mileage.Client.Windows.Views.SimpleSearch;
 using Mileage.Localization.Client.Shell;
 using ReactiveUI;
 
@@ -32,17 +33,17 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
 
         protected override void OnInitialize()
         {
-            this.PopupViewModel = this.CreateViewModel<DashboardPopupViewModel>();
+            this.PopupViewModel = this.CreateViewModel<SimpleSearchViewModel>();
             this.PopupViewModel.TryActivate();
 
             this.Items.Add(this.CreateViewModel<DashboardItemViewModel>());
-            this.Items[0].ActivateItem(this.CreateViewModel<DashboardPopupViewModel>());
+            this.Items[0].ActivateItem(this.CreateViewModel<SimpleSearchViewModel>());
             this.Items[0].DashboardItemName = "Erstes Panel";
             this.Items.Add(this.CreateViewModel<DashboardItemViewModel>());
-            this.Items[1].ActivateItem(this.CreateViewModel<DashboardPopupViewModel>());
+            this.Items[1].ActivateItem(this.CreateViewModel<SimpleSearchViewModel>());
             this.Items[1].DashboardItemName = "Noch ein drittes Panel, omg!";
             this.Items.Add(this.CreateViewModel<DashboardItemViewModel>());
-            this.Items[2].ActivateItem(this.CreateViewModel<DashboardPopupViewModel>());
+            this.Items[2].ActivateItem(this.CreateViewModel<SimpleSearchViewModel>());
             this.Items[2].DashboardItemName = "Zweites Panel!";
         }
 

@@ -5,7 +5,7 @@ using Castle.Windsor;
 using Mileage.Client.Windows.Resources;
 using ReactiveUI;
 
-namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
+namespace Mileage.Client.Windows.Views.SimpleSearch
 {
     public class NoResultsViewModel : SearchResultViewModel
     {

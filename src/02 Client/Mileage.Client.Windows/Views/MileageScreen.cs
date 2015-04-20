@@ -104,7 +104,7 @@ namespace Mileage.Client.Windows.Views
         }
         /// <summary>
         /// Gets the display name observable.
-        /// Override this member if the <see cref="DisplayName"/> depends on more properties than just the current language.
+        /// Override this member if the <see cref="MileageScreen.DisplayName"/> depends on more properties than just the current language.
         /// For example: If we add a user input to it, you override this methods and combine the base observable and your new one.
         /// </summary>
         [NotNull]
@@ -115,8 +115,8 @@ namespace Mileage.Client.Windows.Views
         }
         /// <summary>
         /// Gets the display name.
-        /// Override this member if the <see cref="DisplayName"/> only depends on the current language.
-        /// Otherwise override the <see cref="GetDisplayNameObservable"/> method.
+        /// Override this member if the <see cref="MileageScreen.DisplayName"/> only depends on the current language.
+        /// Otherwise override the <see cref="MileageScreen.GetDisplayNameObservable"/> method.
         /// </summary>
         protected virtual string GetDisplayName()
         {

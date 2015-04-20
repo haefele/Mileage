@@ -4,21 +4,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:caliburn="http://www.caliburnproject.org"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:messages="clr-namespace:Mileage.Client.Contracts.Messages;assembly=Mileage.Client.Contracts"
              
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
+             
+             MinHeight="120"
+             MinWidth="260"
              >
     <dxlc:LayoutControl Orientation="Vertical">
-        <dxlc:LayoutGroup View="GroupBox" Header="{Binding DisplayName}">
+        <dxlc:LayoutGroup VerticalAlignment="Center" HorizontalAlignment="Center">
             <dxlc:LayoutItem>
-                <Image />
+                <Image Width="32"
+                       Height="32">
+                    <Image.Resources>
+                        <dxmvvm:ObjectToObjectConverter x:Key="enumToImageConverter">
+                            <dxmvvm:MapItem Source="{x:Static messages:MessageImage.Information}">
+                                <dxmvvm:MapItem.Target>
+                                    <BitmapImage UriSource="../../../../Resources/Icons/information.png" />
+                                </dxmvvm:MapItem.Target>
+                            </dxmvvm:MapItem>
+                            <dxmvvm:MapItem Source="{x:Static messages:MessageImage.Error}">
+                                <dxmvvm:MapItem.Target>
+                                    <BitmapImage UriSource="../../../../Resources/Icons/delete.png" />
+                                </dxmvvm:MapItem.Target>
+                            </dxmvvm:MapItem>
+                            <dxmvvm:MapItem Source="{x:Static messages:MessageImage.Warning}">
+                                <dxmvvm:MapItem.Target>
+                                    <BitmapImage UriSource="../../../../Resources/Icons/error.png" />
+                                </dxmvvm:MapItem.Target>
+                            </dxmvvm:MapItem>
+                        </dxmvvm:ObjectToObjectConverter>
+                    </Image.Resources>
+                    <Image.Source>
+                        <Binding Path="Image"
+                                 Converter="{StaticResource enumToImageConverter}" />
+                    </Image.Source>
+                </Image>
             </dxlc:LayoutItem>
-            <dxlc:LayoutItem HorizontalAlignment="Center">
+            <dxlc:LayoutItem HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="{Binding Message}" />
             </dxlc:LayoutItem>
         </dxlc:LayoutGroup>
-        <dxlc:LayoutItem>
+        <dxlc:LayoutItem VerticalAlignment="Bottom">
             <ItemsControl ItemsSource="{Binding Buttons}" HorizontalAlignment="Right">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

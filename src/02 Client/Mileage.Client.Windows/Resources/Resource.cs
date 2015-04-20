@@ -15,6 +15,11 @@ namespace Mileage.Client.Windows.Resources
             {
                 get { return GetImage("car.png"); }
             }
+            public static ImageSource Delete
+
+            {
+                get { return GetImage("delete.png"); }
+            }
 
             public static ImageSource DocumentEmpty
             {
@@ -29,6 +34,16 @@ namespace Mileage.Client.Windows.Resources
             public static ImageSource DocumentInspector
             {
                 get { return GetImage("document_inspector.png"); }
+            }
+
+            public static ImageSource Error
+            {
+                get { return GetImage("error.png"); }
+            }
+
+            public static ImageSource Information
+            {
+                get { return GetImage("information.png"); }
             }
 
             public static ImageSource SteeringWheelCommon

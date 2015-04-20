@@ -1,8 +1,5 @@
-﻿using System;
-using System.Windows;
-using DevExpress.Mvvm.UI.Interactivity;
+﻿using DevExpress.Mvvm.UI.Interactivity;
 using DevExpress.Xpf.Docking;
-using DevExpress.Xpf.Docking.Base;
 
 namespace Mileage.Client.Windows.Extensibility
 {
@@ -11,13 +8,6 @@ namespace Mileage.Client.Windows.Extensibility
         protected override void OnAttached()
         {
             MVVMHelper.SetLayoutAdapter(this.AssociatedObject, this);
-
-            this.AssociatedObject.Loaded += this.AssociatedObjectOnLoaded;
-        }
-
-        protected override void OnDetaching()
-        {
-            this.AssociatedObject.Loaded -= this.AssociatedObjectOnLoaded;
         }
 
         public string Resolve(DockLayoutManager owner, object item)
@@ -31,13 +21,6 @@ namespace Mileage.Client.Windows.Extensibility
             }
 
             return "PanelHost";
-        }
-
-
-        private void AssociatedObjectOnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-            //Name the children based on their index
-
         }
     }
 }

@@ -7,10 +7,15 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
              
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             
+             lex:LocalizeDictionary.DesignCulture="de-DE"
+             lex:ResxLocalizationProvider.DefaultAssembly="Mileage.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="SimpleSearchMessages"
              
              d:DesignHeight="300" 
              d:DesignWidth="300"
@@ -19,7 +24,7 @@
         <dxlc:LayoutItem>
             <dxe:ButtonEdit EditValue="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                             AllowDefaultButton="False"
-                            NullText="Suchen..."
+                            NullText="{lex:Loc Search}"
                             >
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:FocusBehavior />

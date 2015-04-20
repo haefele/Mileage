@@ -17,15 +17,21 @@ namespace Mileage.Client.Windows.Views.SimpleSearch
     {
         #region Fields
         private string _searchText;
-        private ObservableAsPropertyHelper<bool> _isSearchingHelper; 
+        private readonly ObservableAsPropertyHelper<bool> _isSearchingHelper; 
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets or sets the search text.
+        /// </summary>
         public string SearchText
         {
             get { return this._searchText; }
             set { this.RaiseAndSetIfChanged(ref this._searchText, value); }
         }
+        /// <summary>
+        /// Gets a value indicating we are currently searching.
+        /// </summary>
         public bool IsSearching
         {
             get { return this._isSearchingHelper.Value; }
@@ -33,19 +39,20 @@ namespace Mileage.Client.Windows.Views.SimpleSearch
         #endregion
 
         #region Commands
+        /// <summary>
+        /// Gets the search command.
+        /// </summary>
         public ReactiveCommand<Unit> Search { get; private set; }
         #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleSearchViewModel"/> class.
+        /// </summary>
+        /// <param name="container">The container.</param>
         public SimpleSearchViewModel(IWindsorContainer container)
             : base(container)
         {
-            this.CreateCommands();
-        }
-
-        private void CreateCommands()
-        {
-            var can = this.WhenAnyValue(f => f.SearchText, f => string.IsNullOrWhiteSpace(f) == false);
-
             this.Search = ReactiveCommand.CreateAsyncTask(_ => this.SearchImpl());
             this.Search.ThrownExceptions.Subscribe(this.ExceptionHandler.Handle);
             this.Search.IsExecuting
@@ -56,7 +63,12 @@ namespace Mileage.Client.Windows.Views.SimpleSearch
                 .DistinctUntilChanged()
                 .InvokeCommand(this, f => f.Search);
         }
+        #endregion
 
+        #region Private Methods
+        /// <summary>
+        /// The implementation of the <see cref="Search"/> command.
+        /// </summary>
         private async Task<Unit> SearchImpl()
         {
             if (string.IsNullOrWhiteSpace(this.SearchText))
@@ -113,5 +125,6 @@ namespace Mileage.Client.Windows.Views.SimpleSearch
 
             return Unit.Default;
         }
+        #endregion
     }
 }

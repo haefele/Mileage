@@ -61,6 +61,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShellMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Client\SimpleSearch\SimpleSearchMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleSearchMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Common\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,6 +115,11 @@
     <EmbeddedResource Include="Client\Shell\ShellMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ShellMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SimpleSearch\SimpleSearchMessages.de.resx" />
+    <EmbeddedResource Include="Client\SimpleSearch\SimpleSearchMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SimpleSearchMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\CommonMessages.de.resx" />
     <EmbeddedResource Include="Common\CommonMessages.resx">

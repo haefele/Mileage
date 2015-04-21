@@ -65,9 +65,9 @@ namespace Mileage.Server.Infrastructure.Commands.Search
         private async Task<List<SearchItem>> ExecuteActualQueryAsync(string searchText, int skip, int take)
         {
             var query = this._documentSession.Advanced.AsyncDocumentQuery<object, DocumentsForSearch>();
-
+            
             if (searchText != null)
-                query.Search((DocumentsForSearch.Result f) => f.SearchText, searchText, EscapeQueryOptions.EscapeAll);
+                query.Search((DocumentsForSearch.Result f) => f.SearchText, searchText + "*", EscapeQueryOptions.AllowPostfixWildcard);
 
             FieldHighlightings highlightings;
 

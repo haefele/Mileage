@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Castle.Windsor;
 using JetBrains.Annotations;
 using LiteGuard;
+using Metrics;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Results;
 
@@ -12,6 +13,8 @@ namespace Mileage.Server.Infrastructure.Commands
     public class CommandScope : ICommandScope
     {
         #region Fields
+        private readonly Counter _commandsCounter = Metric.Counter("Concurrent Commands", Unit.Calls);
+
         private readonly IWindsorContainer _container;
         #endregion
 
@@ -39,11 +42,17 @@ namespace Mileage.Server.Infrastructure.Commands
         {
             Guard.AgainstNullArgument("command", command);
 
+            this._commandsCounter.Increment();
+
             Type handlerType = typeof(CommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
             dynamic actualCommandHandler = this._container.Resolve(handlerType);
 
             var wrapper = new CommandHandlerWrapper<TResult>(this, actualCommandHandler);
-            return wrapper.Execute(command);
+            var result = wrapper.Execute(command);
+
+            this._commandsCounter.Decrement();
+
+            return result;
         }
         #endregion
 

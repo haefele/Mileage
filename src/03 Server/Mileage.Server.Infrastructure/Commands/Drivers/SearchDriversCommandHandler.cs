@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using LiteGuard;
+using Metrics;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Contracts.Commands.Drivers;
 using Mileage.Server.Infrastructure.Extensions;
@@ -22,6 +23,8 @@ namespace Mileage.Server.Infrastructure.Commands.Drivers
     public class SearchDriversCommandHandler : CommandHandler<SearchDriversCommand, SearchDriversResult>
     {
         #region Fields
+        private readonly Timer _searchTimer = Metric.Timer("Search Drivers", Unit.Calls);
+
         private readonly IAsyncDocumentSession _documentSession;
         #endregion
 
@@ -46,35 +49,44 @@ namespace Mileage.Server.Infrastructure.Commands.Drivers
         /// <param name="scope">The scope.</param>
         public override async Task<Result<SearchDriversResult>> Execute(SearchDriversCommand command, ICommandScope scope)
         {
-            IList<Driver> result = await this
-                .ExecuteActualQueryAsync(command.SearchText, command.Skip, command.Take)
-                .WithCurrentCulture();
-
-            if (result.Any())
-                return Result.AsSuccess(SearchDriversResult.WithDrivers(result));
-
-            SuggestionQueryResult suggestions = await this._documentSession.Query<DocumentsForSearch.Result, DocumentsForSearch>()
-                .Search(f => f.SearchText, command.SearchText)
-                .SuggestAsync()
-                .WithCurrentCulture();
-
-            if (suggestions.Suggestions.Count() == 1)
-            {
-                result = await this
-                    .ExecuteActualQueryAsync(suggestions.Suggestions.First(), command.Skip, command.Take)
+            using (this._searchTimer.NewContext(command.SearchText))
+            { 
+                IList<Driver> result = await this
+                    .ExecuteActualQueryAsync(command.SearchText, command.Skip, command.Take)
                     .WithCurrentCulture();
 
-                return Result.AsSuccess(SearchDriversResult.WithDrivers(result));
-            }
-            
-            if (suggestions.Suggestions.Any())
-                return Result.AsSuccess(SearchDriversResult.WithSuggestions(suggestions.Suggestions));
+                if (result.Any())
+                    return Result.AsSuccess(SearchDriversResult.WithDrivers(result));
 
-            return Result.AsSuccess(SearchDriversResult.WithNoResults());
+                SuggestionQueryResult suggestions = await this._documentSession.Query<DocumentsForSearch.Result, DocumentsForSearch>()
+                    .Search(f => f.SearchText, command.SearchText)
+                    .SuggestAsync()
+                    .WithCurrentCulture();
+
+                if (suggestions.Suggestions.Count() == 1)
+                {
+                    result = await this
+                        .ExecuteActualQueryAsync(suggestions.Suggestions.First(), command.Skip, command.Take)
+                        .WithCurrentCulture();
+
+                    return Result.AsSuccess(SearchDriversResult.WithDrivers(result));
+                }
+            
+                if (suggestions.Suggestions.Any())
+                    return Result.AsSuccess(SearchDriversResult.WithSuggestions(suggestions.Suggestions));
+
+                return Result.AsSuccess(SearchDriversResult.WithNoResults());
+            }
         }
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Executes the actual query asynchronously.
+        /// </summary>
+        /// <param name="searchText">The search text.</param>
+        /// <param name="skip">The skip.</param>
+        /// <param name="take">The take.</param>
         private Task<IList<Driver>> ExecuteActualQueryAsync(string searchText, int skip, int take)
         {
             var query = this._documentSession.Advanced.AsyncDocumentQuery<Driver, DocumentsForSearch>()

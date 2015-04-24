@@ -21,7 +21,7 @@ Example value: *http://localhost|http://web.mydomain.com*
 
 **Mileage/EnableDebugRequestResponseLogging**  
 Whether requests and responses will be logged.  
-This setting should only be set to *true* if we need to debug issues.
+This setting should only be set to *true* if we need to debug issues.  
 Default value: *false*
 
 **Mileage/EnableDefaultMetrics**  

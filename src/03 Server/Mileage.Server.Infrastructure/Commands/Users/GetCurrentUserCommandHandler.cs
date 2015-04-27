@@ -11,7 +11,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Users
 {
-    public class GetCurrentUserCommandHandler : CommandHandler<GetCurrentUserCommand, User>
+    public class GetCurrentUserCommandHandler : ICommandHandler<GetCurrentUserCommand, User>
     {
         private readonly IAsyncDocumentSession _documentSession;
 
@@ -22,7 +22,7 @@ namespace Mileage.Server.Infrastructure.Commands.Users
             this._documentSession = documentSession;
         }
 
-        public override async Task<Result<User>> Execute(GetCurrentUserCommand command, ICommandScope scope)
+        public async Task<Result<User>> Execute(GetCurrentUserCommand command, ICommandScope scope)
         {
             string currentUserId = Thread.CurrentPrincipal.Identity.Name;
             var currentUser = await this._documentSession.LoadAsync<User>(currentUserId).WithCurrentCulture();

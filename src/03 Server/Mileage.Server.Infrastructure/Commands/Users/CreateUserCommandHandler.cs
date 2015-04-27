@@ -16,7 +16,7 @@ using Raven.Client.Linq;
 
 namespace Mileage.Server.Infrastructure.Commands.Users
 {
-    public class CreateUserCommandHandler : CommandHandler<CreateUserCommand, User>
+    public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, User>
     {
         #region Fields
         private readonly IAsyncDocumentSession _documentSession;
@@ -49,7 +49,7 @@ namespace Mileage.Server.Infrastructure.Commands.Users
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<User>> Execute(CreateUserCommand command, ICommandScope scope)
+        public async Task<Result<User>> Execute(CreateUserCommand command, ICommandScope scope)
         {
             if (await this.IsEmailAddressInUse(command.EmailAddress).WithCurrentCulture())
                 return Result.AsError(CommandMessages.EmailIsNotAvailable);
@@ -65,6 +65,7 @@ namespace Mileage.Server.Infrastructure.Commands.Users
 
             var authenticationData = new AuthenticationData
             {
+                Id = AuthenticationData.CreateId(user.Id),
                 UserId = user.Id,
                 Salt = this._secretGenerator.Generate()
             };

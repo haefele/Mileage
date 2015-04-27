@@ -13,7 +13,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Layout
 {
-    public class GetLayoutCommandHandler : CommandHandler<GetLayoutCommand, Dictionary<string, byte[]>>
+    public class GetLayoutCommandHandler : ICommandHandler<GetLayoutCommand, Dictionary<string, byte[]>>
     {
         private readonly IAsyncDocumentSession _documentSession;
 
@@ -24,7 +24,7 @@ namespace Mileage.Server.Infrastructure.Commands.Layout
             this._documentSession = documentSession;
         }
 
-        public override async Task<Result<Dictionary<string, byte[]>>> Execute(GetLayoutCommand command, ICommandScope scope)
+        public async Task<Result<Dictionary<string, byte[]>>> Execute(GetLayoutCommand command, ICommandScope scope)
         {
             StoredLayout layout = await this._documentSession.LoadAsync<StoredLayout>(StoredLayout.CreateId(command.UserId, command.LayoutName)).WithCurrentCulture();
 

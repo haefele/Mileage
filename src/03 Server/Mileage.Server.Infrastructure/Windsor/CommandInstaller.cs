@@ -12,7 +12,7 @@ namespace Mileage.Server.Infrastructure.Windsor
         {
             container.Register(
                 Classes.FromThisAssembly()
-                    .BasedOn(typeof (CommandHandler<,>))
+                    .BasedOn(typeof (ICommandHandler<,>))
                     .WithServiceFromInterface()
                     .LifestyleTransient());
 

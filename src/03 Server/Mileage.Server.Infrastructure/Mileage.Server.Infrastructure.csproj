@@ -176,7 +176,7 @@
     <Compile Include="Commands\Authentication\AuthenticateCommandHandler.cs" />
     <Compile Include="Commands\Authentication\ValidateLoginAndCreateTokenCommandHandler.cs" />
     <Compile Include="Commands\CommandExecutor.cs" />
-    <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\CommandScope.cs" />
     <Compile Include="Commands\Drivers\SearchDriversCommandHandler.cs" />
     <Compile Include="Commands\Layout\GetLayoutCommandHandler.cs" />
@@ -186,6 +186,7 @@
     <Compile Include="Commands\Mileage\GetMileageInternalSettingsCommandHandler.cs" />
     <Compile Include="Commands\Mileage\GetMileageSettingsCommandHandler.cs" />
     <Compile Include="Commands\Mileage\ResetIndexesCommandHandler.cs" />
+    <Compile Include="Commands\Search\GetTopTagsWithCountsCommandHandler.cs" />
     <Compile Include="Commands\Search\SearchCommandHandler.cs" />
     <Compile Include="Commands\Users\CreateUserCommandHandler.cs" />
     <Compile Include="Commands\Users\GetCurrentUserCommandHandler.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Licensing\LicensingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Raven\Indexes\DocumentsForSearch.cs" />
+    <Compile Include="Raven\Indexes\DocumentsWithTags.cs" />
     <Compile Include="Raven\Indexes\UsersByEmailAddress.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Versioning\VersionService.cs" />

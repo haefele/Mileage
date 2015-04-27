@@ -9,7 +9,7 @@ using Raven.Client.Indexes;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class ResetIndexesCommandHandler : CommandHandler<ResetIndexesCommand, object>
+    public class ResetIndexesCommandHandler : ICommandHandler<ResetIndexesCommand, object>
     {
         #region Fields
         private readonly IDocumentStore _documentStore;
@@ -34,7 +34,7 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override Task<Result<object>> Execute(ResetIndexesCommand command, ICommandScope scope)
+        public Task<Result<object>> Execute(ResetIndexesCommand command, ICommandScope scope)
         {
             Guard.AgainstNullArgument("command", command);
             Guard.AgainstNullArgument("scope", scope);

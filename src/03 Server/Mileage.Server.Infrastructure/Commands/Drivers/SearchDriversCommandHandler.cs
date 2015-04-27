@@ -20,7 +20,7 @@ using Raven.Client.Linq;
 
 namespace Mileage.Server.Infrastructure.Commands.Drivers
 {
-    public class SearchDriversCommandHandler : CommandHandler<SearchDriversCommand, SearchDriversResult>
+    public class SearchDriversCommandHandler : ICommandHandler<SearchDriversCommand, SearchDriversResult>
     {
         #region Fields
         private readonly Timer _searchTimer = Metric.Timer("Search Drivers", Unit.Calls);
@@ -47,7 +47,7 @@ namespace Mileage.Server.Infrastructure.Commands.Drivers
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<SearchDriversResult>> Execute(SearchDriversCommand command, ICommandScope scope)
+        public async Task<Result<SearchDriversResult>> Execute(SearchDriversCommand command, ICommandScope scope)
         {
             using (this._searchTimer.NewContext(command.SearchText))
             { 

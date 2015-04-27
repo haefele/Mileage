@@ -10,7 +10,7 @@ using Raven.Client.Indexes;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class CreateIndexesCommandHandler : CommandHandler<CreateIndexesCommand, object>
+    public class CreateIndexesCommandHandler : ICommandHandler<CreateIndexesCommand, object>
     {
         #region Fields
         private readonly IDocumentStore _documentStore;
@@ -35,7 +35,7 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override Task<Result<object>> Execute(CreateIndexesCommand command, ICommandScope scope)
+        public Task<Result<object>> Execute(CreateIndexesCommand command, ICommandScope scope)
         {
             Guard.AgainstNullArgument("command", command);
             Guard.AgainstNullArgument("scope", scope);

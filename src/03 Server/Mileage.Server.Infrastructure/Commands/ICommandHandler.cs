@@ -2,12 +2,10 @@
 using JetBrains.Annotations;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Shared.Results;
-using Raven.Client;
-using Raven.Client.FileSystem;
 
 namespace Mileage.Server.Infrastructure.Commands
 {
-    public abstract class CommandHandler<TCommand, TResult> 
+    public interface ICommandHandler<in TCommand, TResult> 
         where TCommand : ICommand<TResult>
     {
         /// <summary>
@@ -16,6 +14,6 @@ namespace Mileage.Server.Infrastructure.Commands
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
         [NotNull]
-        public abstract Task<Result<TResult>> Execute([NotNull]TCommand command, [NotNull]ICommandScope scope);
+        Task<Result<TResult>> Execute([NotNull]TCommand command, [NotNull]ICommandScope scope);
     }
 }

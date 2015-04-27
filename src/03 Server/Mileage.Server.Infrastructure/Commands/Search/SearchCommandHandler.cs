@@ -18,7 +18,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Search
 {
-    public class SearchCommandHandler : CommandHandler<SearchCommand, SearchResult>
+    public class SearchCommandHandler : ICommandHandler<SearchCommand, SearchResult>
     {
         #region Fields
         private readonly Timer _searchTimer = Metric.Timer("Search", Unit.Calls);
@@ -45,7 +45,7 @@ namespace Mileage.Server.Infrastructure.Commands.Search
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<SearchResult>> Execute(SearchCommand command, ICommandScope scope)
+        public async Task<Result<SearchResult>> Execute(SearchCommand command, ICommandScope scope)
         {
             using(_searchTimer.NewContext(command.SearchText))
             {

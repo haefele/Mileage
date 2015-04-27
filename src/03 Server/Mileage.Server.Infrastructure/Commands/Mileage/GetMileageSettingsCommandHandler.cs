@@ -9,7 +9,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class GetMileageSettingsCommandHandler : CommandHandler<GetMileageSettingsCommand, MileageSettings>
+    public class GetMileageSettingsCommandHandler : ICommandHandler<GetMileageSettingsCommand, MileageSettings>
     {
         #region Fields
         private readonly IAsyncDocumentSession _documentSession;
@@ -34,7 +34,7 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<MileageSettings>> Execute(GetMileageSettingsCommand command, ICommandScope scope)
+        public async Task<Result<MileageSettings>> Execute(GetMileageSettingsCommand command, ICommandScope scope)
         {
             Guard.AgainstNullArgument("command", command);
             Guard.AgainstNullArgument("scope", scope);

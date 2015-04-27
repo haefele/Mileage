@@ -44,7 +44,7 @@ namespace Mileage.Server.Infrastructure.Commands
 
             this._commandsCounter.Increment();
 
-            Type handlerType = typeof(CommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
+            Type handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
             dynamic actualCommandHandler = this._container.Resolve(handlerType);
 
             var wrapper = new CommandHandlerWrapper<TResult>(this, actualCommandHandler);

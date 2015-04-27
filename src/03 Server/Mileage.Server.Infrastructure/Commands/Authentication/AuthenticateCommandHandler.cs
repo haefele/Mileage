@@ -15,7 +15,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Authentication
 {
-    public class AuthenticateCommandHandler : CommandHandler<AuthenticateCommand, string>
+    public class AuthenticateCommandHandler : ICommandHandler<AuthenticateCommand, string>
     {
         #region Constants
         public const string AuthenticationMechanism = "Mileage";
@@ -44,7 +44,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<string>> Execute(AuthenticateCommand command, ICommandScope scope)
+        public async Task<Result<string>> Execute(AuthenticateCommand command, ICommandScope scope)
         {
             Result<string> authenticationToken = this.GetToken(command.OwinContext);
 

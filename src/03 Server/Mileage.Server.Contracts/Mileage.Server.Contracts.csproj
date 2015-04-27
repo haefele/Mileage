@@ -87,6 +87,7 @@
     <Compile Include="Commands\Mileage\GetMileageInternalSettingsCommand.cs" />
     <Compile Include="Commands\Mileage\GetMileageSettingsCommand.cs" />
     <Compile Include="Commands\Mileage\ResetIndexesCommand.cs" />
+    <Compile Include="Commands\Search\GetTopTagsWithCountsCommand.cs" />
     <Compile Include="Commands\Search\SearchCommand.cs" />
     <Compile Include="Commands\Search\SearchResult.cs" />
     <Compile Include="Commands\Search\SearchResultStatus.cs" />

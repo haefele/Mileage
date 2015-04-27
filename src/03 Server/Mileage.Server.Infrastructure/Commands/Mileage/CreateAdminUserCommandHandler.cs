@@ -12,7 +12,7 @@ using Mileage.Shared.Results;
 
 namespace Mileage.Server.Infrastructure.Commands.Mileage
 {
-    public class CreateAdminUserCommandHandler : CommandHandler<CreateAdminUserCommand, User>
+    public class CreateAdminUserCommandHandler : ICommandHandler<CreateAdminUserCommand, User>
     {
         #region Methods
         /// <summary>
@@ -20,7 +20,7 @@ namespace Mileage.Server.Infrastructure.Commands.Mileage
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<User>> Execute(CreateAdminUserCommand command, ICommandScope scope)
+        public async Task<Result<User>> Execute(CreateAdminUserCommand command, ICommandScope scope)
         {
             Guard.AgainstNullArgument("command", command);
             Guard.AgainstNullArgument("scope", scope);

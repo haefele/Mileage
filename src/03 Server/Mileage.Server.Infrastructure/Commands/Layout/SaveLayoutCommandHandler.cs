@@ -11,7 +11,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Layout
 {
-    public class SaveLayoutCommandHandler : CommandHandler<SaveLayoutCommand, object>
+    public class SaveLayoutCommandHandler : ICommandHandler<SaveLayoutCommand, object>
     {
         private readonly IAsyncDocumentSession _documentSession;
 
@@ -22,7 +22,7 @@ namespace Mileage.Server.Infrastructure.Commands.Layout
             this._documentSession = documentSession;
         }
 
-        public override async Task<Result<object>> Execute(SaveLayoutCommand command, ICommandScope scope)
+        public async Task<Result<object>> Execute(SaveLayoutCommand command, ICommandScope scope)
         {
             var storedLayout = new StoredLayout
             {

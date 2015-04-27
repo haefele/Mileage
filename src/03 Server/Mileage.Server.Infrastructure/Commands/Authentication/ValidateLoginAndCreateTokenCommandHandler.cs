@@ -20,7 +20,7 @@ using Raven.Client;
 
 namespace Mileage.Server.Infrastructure.Commands.Authentication
 {
-    public class ValidateLoginAndCreateTokenCommandHandler : CommandHandler<ValidateLoginAndCreateTokenCommand, AuthenticationToken>
+    public class ValidateLoginAndCreateTokenCommandHandler : ICommandHandler<ValidateLoginAndCreateTokenCommand, AuthenticationToken>
     {
         #region Constants
         /// <summary>
@@ -60,7 +60,7 @@ namespace Mileage.Server.Infrastructure.Commands.Authentication
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="scope">The scope.</param>
-        public override async Task<Result<AuthenticationToken>> Execute(ValidateLoginAndCreateTokenCommand command, ICommandScope scope)
+        public async Task<Result<AuthenticationToken>> Execute(ValidateLoginAndCreateTokenCommand command, ICommandScope scope)
         {
             Result<User> userResult = await this.GetUserWithEmailAddress(command.EmailAddress, scope).WithCurrentCulture();
 

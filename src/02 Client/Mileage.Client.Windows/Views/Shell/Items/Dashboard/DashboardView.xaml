@@ -9,12 +9,12 @@
              xmlns:extensibility="clr-namespace:Mileage.Client.Windows.Extensibility"
              xmlns:dashboard="clr-namespace:Mileage.Client.Windows.Views.Shell.Items.Dashboard"
              xmlns:caliburn="http://www.caliburnproject.org"
-             
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
              xmlns:attachedProperties="clr-namespace:Mileage.Client.Windows.AttachedProperties"
+             
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              
              d:DesignHeight="300" 
@@ -24,9 +24,9 @@
         <layout:SaveAndRestoreLayout LayoutName="DashboardView" />
     </dxmvvm:Interaction.Behaviors>
 
-
     <dxb:BarManager>
         <DockPanel>
+            
             <dxr:RibbonControl DockPanel.Dock="Top"
                                x:Name="ActualRibbonControl"
                                RibbonStyle="Office2010"

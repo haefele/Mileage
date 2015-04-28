@@ -5,8 +5,6 @@ using System.Web.Http;
 using Mileage.Localization.Server.Controllers;
 using Mileage.Server.Contracts.Commands;
 using Mileage.Server.Contracts.Commands.Mileage;
-using Mileage.Server.Infrastructure.Api.Filters;
-using Mileage.Server.Infrastructure.Commands.Mileage;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Entities.Users;
 using Mileage.Shared.Extensions;
@@ -82,8 +80,8 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// 200 - OK: All indexes were reset.
         /// 500 - InternalServerError: An error occured.
         /// </returns>
-        [HttpPost]
-        [Route("Indexes/Reset")]
+        [HttpPatch]
+        [Route("Indexes")]
 #if !DEBUG
         [MileageAuthentication]
 #endif

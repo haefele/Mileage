@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Mileage.Server.Contracts.Commands.Search;
 using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Extensions;
+using Mileage.Shared.Models;
 using Mileage.Shared.Results;
 
 namespace Mileage.Server.Infrastructure.Api.Controllers
@@ -26,6 +28,7 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         }
         #endregion
 
+        #region Methods
         [HttpGet]
         [MileageAuthentication]
         [Route]
@@ -54,8 +57,18 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
                 default:
                     return this.Request.GetMessage(HttpStatusCode.NotFound);
             }
-
-
         }
+        [HttpGet]
+        [MileageAuthentication]
+        [Route("Tags")]
+        public async Task<HttpResponseMessage> GetTags()
+        {
+            Result<IList<TagWithCount>> result = await this.CommandExecutor
+                .Execute(new GetTopTagsWithCountsCommand(this.Paging.Take))
+                .WithCurrentCulture();
+
+            return this.Request.GetMessageWithResult(HttpStatusCode.Found, HttpStatusCode.InternalServerError, result);
+        }
+        #endregion
     }
 }

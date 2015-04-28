@@ -6,5 +6,7 @@ namespace Mileage.Client.Contracts.WebServices
     public interface ISearchClient
     {
         Task<HttpResponseMessage> SearchAsync(string searchText, int skip = 0, int take = 50);
+
+        Task<HttpResponseMessage> GetTags(int take = 50);
     }
 }

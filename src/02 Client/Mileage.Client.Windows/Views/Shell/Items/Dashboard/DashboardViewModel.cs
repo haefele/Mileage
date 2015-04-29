@@ -5,6 +5,7 @@ using Caliburn.Micro;
 using Castle.Windsor;
 using Mileage.Client.Windows.Extensions;
 using Mileage.Client.Windows.Views.SimpleSearch;
+using Mileage.Client.Windows.Views.TagCloud;
 using Mileage.Localization.Client.Shell;
 using ReactiveUI;
 
@@ -43,7 +44,7 @@ namespace Mileage.Client.Windows.Views.Shell.Items.Dashboard
             this.Items[1].ActivateItem(this.CreateViewModel<SimpleSearchViewModel>());
             this.Items[1].DashboardItemName = "Noch ein drittes Panel, omg!";
             this.Items.Add(this.CreateViewModel<DashboardItemViewModel>());
-            this.Items[2].ActivateItem(this.CreateViewModel<SimpleSearchViewModel>());
+            this.Items[2].ActivateItem(this.CreateViewModel<TagCloudViewModel>());
             this.Items[2].DashboardItemName = "Zweites Panel!";
         }
 

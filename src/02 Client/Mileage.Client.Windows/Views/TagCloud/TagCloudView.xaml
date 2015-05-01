@@ -5,6 +5,11 @@
              xmlns:models="clr-namespace:Mileage.Shared.Models;assembly=Mileage.Shared"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:converter="clr-namespace:Mileage.Client.Windows.Converter"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             
+             lex:LocalizeDictionary.DesignCulture="de-DE"
+             lex:ResxLocalizationProvider.DefaultAssembly="Mileage.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="TagCloudMessages"
              
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -40,16 +45,14 @@
                             </TextBlock.FontSize>
                             <TextBlock.ToolTip>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Das Tag '" 
-                                               FontSize="12" />
-                                    <TextBlock Text="{Binding Tag}"
-                                               FontSize="12" />
-                                    <TextBlock Text="' wird bereits "
-                                               FontSize="12" />
-                                    <TextBlock Text="{Binding Count}"
-                                               FontSize="12" />
-                                    <TextBlock Text=" mal verwendet."
-                                               FontSize="12" />
+                                    <TextBlock FontSize="12">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{lex:Loc Mileage.Localization:TagCloudMessages:TheTagIsAlreadyInUseNTimes}">
+                                                <Binding Path="Tag" />
+                                                <Binding Path="Count" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>    
+                                    </TextBlock>
                                 </StackPanel>
                             </TextBlock.ToolTip>
                         </TextBlock>

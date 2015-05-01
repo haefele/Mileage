@@ -66,6 +66,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SimpleSearchMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Client\TagCloud\TagCloudMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagCloudMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Common\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,6 +125,11 @@
     <EmbeddedResource Include="Client\SimpleSearch\SimpleSearchMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SimpleSearchMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\TagCloud\TagCloudMessages.de.resx" />
+    <EmbeddedResource Include="Client\TagCloud\TagCloudMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TagCloudMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\CommonMessages.de.resx" />
     <EmbeddedResource Include="Common\CommonMessages.resx">

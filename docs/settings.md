@@ -10,7 +10,8 @@ Example value: *http://web.mydomain.com/*
 
 **Mileage/KeyDownDelay**  
 The delay that should be used for key-down searches.  
-Default value: 00:00:00.300 (300 Milliseconds)
+The format is "hh:MM:ss.mmm", so the default value is 300 milliseconds.  
+Default value: 00:00:00.300
 
 #Server settings
 

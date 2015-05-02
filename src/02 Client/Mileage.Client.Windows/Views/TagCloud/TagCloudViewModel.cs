@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reactive.Linq;
+using System.Web.Http;
 using Caliburn.Micro.ReactiveUI;
 using Castle.Windsor;
 using JetBrains.Annotations;
@@ -43,12 +44,17 @@ namespace Mileage.Client.Windows.Views.TagCloud
         {
             this.LoadTags = ReactiveCommand.CreateAsyncTask(async _ =>
             {
-                HttpResponseMessage tagsResponse = await this.WebService.SearchClient.GetTags();
+                HttpResponseMessage tagsResponse = await this.WebService.SearchClient.GetTags(20);
 
                 if (tagsResponse.StatusCode == HttpStatusCode.Found)
                 {
                     var tags = await tagsResponse.Content.ReadAsAsync<ReactiveObservableCollection<TagWithCount>>();
                     return tags;
+                }
+                else
+                {
+                    var error = await tagsResponse.Content.ReadAsAsync<HttpError>();
+                    this.ExceptionHandler.Handle(error);
                 }
 
                 return null;

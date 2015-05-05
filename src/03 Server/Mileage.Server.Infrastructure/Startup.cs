@@ -78,6 +78,8 @@ namespace Mileage.Server.Infrastructure
         /// <param name="config">The configuration.</param>
         private void ConfigureFilters(HttpConfiguration config)
         {
+            config.Filters.Add(new VersionValidationFilter());
+            config.Filters.Add(new LicenseValidationFilter());
         }
         /// <summary>
         /// Configures the message handlers.
@@ -99,9 +101,6 @@ namespace Mileage.Server.Infrastructure
             {
                 config.MessageHandlers.Add(new LoggingMessageHandler());
             }
-
-            config.MessageHandlers.Add(new VersionValidationMessageHandler());
-            config.MessageHandlers.Add(new LicenseValidationMessageHandler());
         }
         /// <summary>
         /// Configures the WebAPI services.

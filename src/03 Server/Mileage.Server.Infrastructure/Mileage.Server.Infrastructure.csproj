@@ -164,13 +164,15 @@
     <Compile Include="Api\Controllers\SearchController.cs" />
     <Compile Include="Api\Controllers\TestsController.cs" />
     <Compile Include="Api\Controllers\UsersController.cs" />
+    <Compile Include="Api\Filters\IgnoreLicenseValidationAttribute.cs" />
+    <Compile Include="Api\Filters\IgnoreVersionValidationAttribute.cs" />
+    <Compile Include="Api\Filters\LicenseValidationFilter.cs" />
     <Compile Include="Api\Filters\MileageAuthenticationAttribute.cs" />
+    <Compile Include="Api\Filters\VersionValidationFilter.cs" />
     <Compile Include="Api\MessageHandlers\ConcurrentRequestCountMessageHandler.cs" />
-    <Compile Include="Api\MessageHandlers\LicenseValidationMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\LocalizationMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\LoggingMessageHandler.cs" />
     <Compile Include="Api\MessageHandlers\RequestExecutionTimeMessageHandler.cs" />
-    <Compile Include="Api\MessageHandlers\VersionValidationMessageHandler.cs" />
     <Compile Include="Bootstrapper\LoadLicenseStartable.cs" />
     <Compile Include="Bootstrapper\MetricsStartable.cs" />
     <Compile Include="Commands\Authentication\AuthenticateCommandHandler.cs" />

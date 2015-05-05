@@ -8,6 +8,7 @@ using Metrics.Json;
 using Metrics.MetricData;
 using Metrics.Utils;
 using Mileage.Server.Contracts.Commands;
+using Mileage.Server.Infrastructure.Api.Filters;
 using Mileage.Server.Infrastructure.Extensions;
 using Mileage.Shared.Extensions;
 using Newtonsoft.Json;
@@ -46,6 +47,8 @@ namespace Mileage.Server.Infrastructure.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("Metrics")]
+        [IgnoreLicenseValidation]
+        [IgnoreVersionValidation]
         public async Task<HttpResponseMessage> GetMetricsAsync()
         {
             string json = JsonBuilderV2.BuildJson(_dataProvider.CurrentMetricsData);

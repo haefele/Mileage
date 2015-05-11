@@ -10,6 +10,7 @@ using Mileage.Localization.Server.Licensing;
 using Mileage.Server.Contracts.Licensing;
 using Mileage.Server.Contracts.Versioning;
 using Mileage.Shared.Common;
+using Mileage.Shared.Licensing;
 using Mileage.Shared.Results;
 using Portable.Licensing;
 using Portable.Licensing.Validation;
@@ -50,6 +51,29 @@ namespace Mileage.Server.Infrastructure.Licensing
 
         #region Methods
         /// <summary>
+        /// Gets the license information.
+        /// </summary>
+        public Result<LicenseInfo> GetLicenseInfo()
+        {
+            if (this._license == null)
+                return Result.AsError(LicensingMessages.LicenseNotFound);
+
+            var licenseInfo = new LicenseInfo
+            {
+                Id = this._license.Id,
+                Customer = new CustomerInfo
+                {
+                    Name = this._license.Customer.Name,
+                    EmailAddress = this._license.Customer.Email,
+                },
+                ExpirationDate = this._license.Expiration,
+                SupportedProducts = this._license.AdditionalAttributes.Get("Products").Split(';'),
+                SupportedVersion = new Version(this._license.AdditionalAttributes.Get("Version"))
+            };
+
+            return Result.AsSuccess(licenseInfo);
+        }
+        /// <summary>
         /// Loads the license from the specified <paramref name="licensePath" />.
         /// </summary>
         /// <param name="licensePath">The license path.</param>
@@ -70,7 +94,7 @@ namespace Mileage.Server.Infrastructure.Licensing
             }
 
             Result<License> licenseResult = this.LoadLicenseFromFile(licensePath);
-
+            
             if (licenseResult.IsError)
                 return licenseResult;
 

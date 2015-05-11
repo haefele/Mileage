@@ -1,10 +1,16 @@
 ﻿using JetBrains.Annotations;
+using Mileage.Shared.Licensing;
 using Mileage.Shared.Results;
 
 namespace Mileage.Server.Contracts.Licensing
 {
     public interface ILicensingService : IService
     {
+        /// <summary>
+        /// Gets the license information.
+        /// </summary>
+        Result<LicenseInfo> GetLicenseInfo();
+
         /// <summary>
         /// Loads the license from the specified <paramref name="licensePath"/>.
         /// </summary>

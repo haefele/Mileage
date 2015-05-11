@@ -160,6 +160,7 @@
     <Compile Include="Api\Controllers\AuthenticationController.cs" />
     <Compile Include="Api\Controllers\DriversController.cs" />
     <Compile Include="Api\Controllers\LayoutController.cs" />
+    <Compile Include="Api\Controllers\LicenseController.cs" />
     <Compile Include="Api\Controllers\MetricsController.cs" />
     <Compile Include="Api\Controllers\SearchController.cs" />
     <Compile Include="Api\Controllers\TestsController.cs" />

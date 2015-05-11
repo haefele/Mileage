@@ -45,7 +45,7 @@ namespace Mileage.Server.Infrastructure.Api.Filters
             Version serverVersion = actionContext.Request.GetDependencyScope().GetService<IVersionService>().GetCurrentVersion();
             if (clientVersion < serverVersion)
             {
-                LogTo.Warn("Blocked incoming request. Client has outdated version '{0}'. Client IP: {1}", clientVersionString, request.GetOwinContext().Request.RemoteIpAddress);
+                LogTo.Warn("Blocked incoming request. Client has outdated version '{0}'. Client IP: {1}", clientVersionString, actionContext.Request.GetOwinContext().Request.RemoteIpAddress);
                 return actionContext.Request.GetMessageWithError(HttpStatusCode.UpgradeRequired, ServerMessages.OutdatedVersion);
             }
 
